@@ -1,0 +1,39 @@
+---
+// Status — matches live saboteur.dev pattern.
+//
+// Status rows: small dot (red for live, dim for pre-production) + condensed
+// bold name + outlined mono badge on the right. Hairline rules between rows.
+
+const items = [
+  { name: "OffBeat-FM", badge: "Live",            state: "live" },
+  { name: "GetWrite",   badge: "In development",  state: "live" },
+  { name: "SAB/labs",   badge: "Pre-production",  state: "pre"  },
+];
+---
+<section class="border-b border-brand-rule px-6 py-14">
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-[140px_1fr] md:gap-10 items-start">
+
+    <div class="font-mono text-[10px] tracking-[0.2em] text-brand-mid uppercase md:pt-1 pb-2 md:pb-0 border-b md:border-b-0 border-brand-rule">
+      Status
+    </div>
+
+    <div class="max-w-2xl">
+      <p class="font-sans text-brand-mid text-[13px] leading-[1.8] mb-[18px]">
+        Both products are in active development under SAB/works.
+      </p>
+
+      {items.map((it, i) => (
+        <div class={`flex items-center gap-[14px] border-t border-brand-rule py-[13px] ${i === items.length - 1 ? "border-b" : ""}`}>
+          <span class={`w-[6px] h-[6px] rounded-full flex-shrink-0 ${it.state === "live" ? "bg-brand-red" : "bg-brand-dim"}`} aria-hidden="true"></span>
+          <span class="font-display font-bold text-brand-white text-[15px] tracking-[-0.01em] flex-1">
+            {it.name}
+          </span>
+          <span class={`font-mono text-[9px] tracking-[0.12em] uppercase border-[0.5px] px-2 py-[3px] whitespace-nowrap ${it.state === "live" ? "text-brand-red border-brand-red opacity-90" : "text-brand-mid border-brand-dim"}`}>
+            {it.badge}
+          </span>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

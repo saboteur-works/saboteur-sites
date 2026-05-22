@@ -1,0 +1,73 @@
+---
+// Products preview — matches live saboteur.dev pattern.
+//
+// Section grid (label + intro) sits above a 2-up product-card grid that spans
+// the full section width. On parent page the product descriptor uses sub-brand
+// attribution (— SAB/works) rather than product domain.
+
+const products = [
+  {
+    wordmarkHtml: `OffBeat<span class="text-brand-red font-mono font-normal text-[0.52em] ml-[3px] tracking-[0.04em] align-middle">FM</span>`,
+    descriptor: "INDEPENDENT MUSIC DISCOVERY — SAB/works",
+    body: `Music discovery for people who are tired of playlists. <em class="not-italic text-brand-white">No algorithms. No editorial committees.</em> Independent artists, real metadata, and a platform that makes it possible to find something you've never heard.`,
+    tags: ["Independent", "Discovery", "No algorithms"],
+    action: { label: "Learn more →", href: "https://offbeat-fm.com", external: true },
+  },
+  {
+    wordmarkHtml: `<span class="text-brand-mid font-normal tracking-[-0.02em]">Get</span>Write`,
+    descriptor: "LOCAL-FIRST WRITING STUDIO — SAB/works",
+    body: `A writing environment built around your process, not ours. <em class="not-italic text-brand-white">Local-first. Your files. Your structure.</em> Revision control, resource management, and an editor that disappears when you need to think.`,
+    tags: ["Local-first", "Long-form", "Revision control"],
+    action: { label: "Coming Soon", disabled: true },
+  },
+];
+---
+<section id="products" class="border-b border-brand-rule px-6 py-14">
+
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-[140px_1fr] md:gap-10 items-start mb-7">
+    <div class="font-mono text-[10px] tracking-[0.2em] text-brand-mid uppercase md:pt-1 pb-2 md:pb-0 border-b md:border-b-0 border-brand-rule">
+      Products
+    </div>
+    <div class="font-sans text-brand-mid text-[13px] leading-[1.8]">
+      Two products. Same philosophy. Different audiences.
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-[2px] bg-brand-rule">
+    {products.map((p) => (
+      <article class="bg-brand-surface p-9 md:p-9 flex flex-col">
+
+        <div class="border-l-[3px] border-brand-red pl-4 flex flex-col gap-1 mb-6">
+          <span class="font-display font-bold text-brand-white tracking-[-0.03em] leading-none text-[clamp(24px,5vw,36px)]" set:html={p.wordmarkHtml} />
+          <span class="font-mono text-brand-mid tracking-[0.16em] text-[9px] border-t-[0.5px] border-brand-dim pt-2 mt-1.5">
+            {p.descriptor}
+          </span>
+        </div>
+
+        <p class="font-sans text-brand-mid text-[13px] leading-[1.8] flex-1 mb-5" set:html={p.body} />
+
+        <ul class="flex flex-wrap gap-1 mb-5">
+          {p.tags.map((tag) => (
+            <li class="font-mono text-[9px] tracking-[0.12em] text-brand-mid border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">
+              {tag}
+            </li>
+          ))}
+        </ul>
+
+        {p.action.disabled ? (
+          <button type="button" disabled
+                  class="self-start font-mono text-[10px] tracking-[0.14em] text-brand-mid uppercase border border-brand-dim px-[14px] py-2 cursor-not-allowed opacity-60">
+            {p.action.label}
+          </button>
+        ) : (
+          <a href={p.action.href} target={p.action.external ? "_blank" : null} rel={p.action.external ? "noopener noreferrer" : null}
+             class="self-start font-mono text-[10px] tracking-[0.14em] text-brand-mid hover:text-brand-white uppercase border border-brand-dim hover:border-brand-mid px-[14px] py-2 transition-colors duration-150">
+            {p.action.label}
+          </a>
+        )}
+
+      </article>
+    ))}
+  </div>
+
+</section>

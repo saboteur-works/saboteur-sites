@@ -1,0 +1,51 @@
+<!--
+  Status — example markup. Matches live saboteur.dev.
+
+  Slots to fill:
+    - Intro line — one sentence about what this list represents.
+    - One row per item. Each has:
+        name  — IBM Plex Sans Condensed 700, 15px
+        badge — one of: Live · In development · Pre-production
+        state — "live" (red dot, red outlined badge) or "pre" (dim dot, mid outlined badge)
+                Items in "In development" use state="live" (red dot) — they're active work.
+                Items in "Pre-production" use state="pre" (dim dot).
+
+  Tokens used: border-brand-rule, border-brand-red, border-brand-dim,
+               bg-brand-red, bg-brand-dim,
+               text-brand-white, text-brand-mid, text-brand-red,
+               font-display, font-sans, font-mono.
+-->
+<section class="border-b border-brand-rule px-6 py-14">
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-[140px_1fr] md:gap-10 items-start">
+
+    <div class="font-mono text-[10px] tracking-[0.2em] text-brand-mid uppercase md:pt-1 pb-2 md:pb-0 border-b md:border-b-0 border-brand-rule">
+      Status
+    </div>
+
+    <div class="max-w-2xl">
+      <p class="font-sans text-brand-mid text-[13px] leading-[1.8] mb-[18px]">
+        Both products are in active development under SAB/works.
+      </p>
+
+      <div class="flex items-center gap-[14px] border-t border-brand-rule py-[13px]">
+        <span class="w-[6px] h-[6px] rounded-full flex-shrink-0 bg-brand-red" aria-hidden="true"></span>
+        <span class="font-display font-bold text-brand-white text-[15px] tracking-[-0.01em] flex-1">OffBeat-FM</span>
+        <span class="font-mono text-[9px] tracking-[0.12em] uppercase border-[0.5px] px-2 py-[3px] whitespace-nowrap text-brand-red border-brand-red opacity-90">Live</span>
+      </div>
+
+      <div class="flex items-center gap-[14px] border-t border-brand-rule py-[13px]">
+        <span class="w-[6px] h-[6px] rounded-full flex-shrink-0 bg-brand-red" aria-hidden="true"></span>
+        <span class="font-display font-bold text-brand-white text-[15px] tracking-[-0.01em] flex-1">GetWrite</span>
+        <span class="font-mono text-[9px] tracking-[0.12em] uppercase border-[0.5px] px-2 py-[3px] whitespace-nowrap text-brand-red border-brand-red opacity-90">In development</span>
+      </div>
+
+      <div class="flex items-center gap-[14px] border-t border-b border-brand-rule py-[13px]">
+        <span class="w-[6px] h-[6px] rounded-full flex-shrink-0 bg-brand-dim" aria-hidden="true"></span>
+        <span class="font-display font-bold text-brand-white text-[15px] tracking-[-0.01em] flex-1">SAB/labs</span>
+        <span class="font-mono text-[9px] tracking-[0.12em] uppercase border-[0.5px] px-2 py-[3px] whitespace-nowrap text-brand-mid border-brand-dim">Pre-production</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>

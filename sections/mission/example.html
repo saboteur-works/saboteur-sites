@@ -1,0 +1,69 @@
+<!--
+  Mission — example markup. Matches live saboteur.dev pattern.
+
+  Section structure: grid with a narrow label column on the left (140px) and
+  a content column on the right (1fr), 40px gap. Mobile collapses to a single
+  column with a hairline rule under the label.
+
+  Slots to fill:
+    - Heading: one sentence, positive restatement of the stance.
+    - Body: one paragraph, "diagnosis → pivot → prescription".
+    - Tenets / principles (optional but common on the parent page): a flat list
+      of numbered items NESTED inside the mission's right column. See
+      sections/principles/ for the tenets pattern in detail.
+
+  Tokens used: border-brand-rule, text-brand-white, text-brand-mid,
+               font-display, font-sans, font-mono, tracking-wordmark.
+-->
+<section id="mission" class="border-b border-brand-rule px-6 py-14">
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-[140px_1fr] md:gap-10 items-start">
+
+    <!-- Label column — unnumbered, mono uppercase, mid grey -->
+    <div class="font-mono text-[10px] tracking-[0.2em] text-brand-mid uppercase md:pt-1 pb-2 md:pb-0 border-b md:border-b-0 border-brand-rule">
+      Mission
+    </div>
+
+    <!-- Content column -->
+    <div>
+      <h2 class="font-display font-bold text-brand-white text-[clamp(24px,5vw,32px)] tracking-[-0.03em] leading-[1.1] mb-3.5">
+        Software that gets out of the way.
+      </h2>
+
+      <p class="font-sans text-brand-mid text-[13px] leading-[1.8] mb-5 max-w-2xl">
+        Most software is built for the platform, not the person.
+        It monetizes attention, fragments ownership, and optimizes for retention over output.
+        <em class="not-italic text-brand-white">We build the opposite.</em>
+        Tools that make you more capable without making you dependent.
+      </p>
+
+      <!--
+        Tenets / principles list nested inside the mission section.
+        See sections/principles/ for the standalone pattern reference.
+      -->
+      <div class="flex flex-col max-w-2xl">
+        <div class="flex gap-4 items-baseline border-t border-brand-rule py-[13px]">
+          <span class="font-mono text-[10px] tracking-[0.14em] text-brand-red w-[18px] flex-shrink-0">01</span>
+          <span class="font-sans text-brand-mid text-[13px] leading-[1.6]">
+            <strong class="font-bold text-brand-white">Creator-first.</strong>
+            Every product decision starts with the person doing the work — not the advertiser, not the algorithm, not the board.
+          </span>
+        </div>
+        <div class="flex gap-4 items-baseline border-t border-brand-rule py-[13px]">
+          <span class="font-mono text-[10px] tracking-[0.14em] text-brand-red w-[18px] flex-shrink-0">02</span>
+          <span class="font-sans text-brand-mid text-[13px] leading-[1.6]">
+            <strong class="font-bold text-brand-white">Own your output.</strong>
+            Your files, your data, your process. We make software you can trust with work that matters.
+          </span>
+        </div>
+        <div class="flex gap-4 items-baseline border-t border-b border-brand-rule py-[13px]">
+          <span class="font-mono text-[10px] tracking-[0.14em] text-brand-red w-[18px] flex-shrink-0">03</span>
+          <span class="font-sans text-brand-mid text-[13px] leading-[1.6]">
+            <strong class="font-bold text-brand-white">Deliberate complexity.</strong>
+            Simple where it should be simple. Powerful where depth is earned. Never complicated for complexity's sake.
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

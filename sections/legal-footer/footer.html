@@ -1,0 +1,29 @@
+<!--
+  Legal footer — required on every Saboteur landing page.
+
+  Compact single-row layout matching the live saboteur.dev pattern.
+  18px vertical padding, 24px horizontal, mono uppercase 10px text in brand-dim.
+
+  Slots to fill:
+    - Sign-off text. Per tier (from brand/identity.md):
+        Parent       © 2026 Saboteur LLC · saboteur.dev
+        Labs         © 2026 Saboteur LLC · SAB/labs
+        Works        © 2026 Saboteur LLC · SAB/works
+        Product      © 2026 Saboteur LLC · offbeat-fm.com
+    - Privacy / Terms links — REQUIRED (GDPR Art. 13 applies on cookieless sites too).
+    - Optional: a third link (Contact, Colophon).
+
+  Tokens used: border-brand-rule, text-brand-dim, text-brand-mid, font-mono.
+-->
+<footer class="border-t border-brand-rule px-6 py-[18px] flex items-center justify-between flex-wrap gap-2">
+
+  <span class="font-mono text-[10px] tracking-[0.13em] text-brand-dim uppercase">
+    © 2026 Saboteur LLC · saboteur.dev
+  </span>
+
+  <ul class="flex items-center gap-4 font-mono text-[10px] tracking-[0.13em] uppercase">
+    <li><a href="/privacy" class="text-brand-dim hover:text-brand-mid transition-colors duration-150">Privacy</a></li>
+    <li><a href="/terms" class="text-brand-dim hover:text-brand-mid transition-colors duration-150">Terms</a></li>
+  </ul>
+
+</footer>

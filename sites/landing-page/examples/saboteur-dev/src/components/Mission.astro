@@ -1,0 +1,51 @@
+---
+// Mission — matches live saboteur.dev pattern.
+//
+// Section structure: 140px label column + 1fr content column with 40px gap.
+// Mobile: single column with hairline under the label.
+//
+// Principles (tenets) are NESTED inside mission's right column — they are not
+// a separate section. Pattern lives at sections/principles/ as a reusable
+// sub-pattern.
+
+const tenets = [
+  { n: "01", headline: "Creator-first.", body: "Every product decision starts with the person doing the work — not the advertiser, not the algorithm, not the board." },
+  { n: "02", headline: "Own your output.", body: "Your files, your data, your process. We make software you can trust with work that matters." },
+  { n: "03", headline: "Deliberate complexity.", body: "Simple where it should be simple. Powerful where depth is earned. Never complicated for complexity's sake." },
+];
+---
+<section id="mission" class="border-b border-brand-rule px-6 py-14">
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-[140px_1fr] md:gap-10 items-start">
+
+    <div class="font-mono text-[10px] tracking-[0.2em] text-brand-mid uppercase md:pt-1 pb-2 md:pb-0 border-b md:border-b-0 border-brand-rule">
+      Mission
+    </div>
+
+    <div>
+      <h2 class="font-display font-bold text-brand-white text-[clamp(24px,5vw,32px)] tracking-[-0.03em] leading-[1.1] mb-3.5">
+        Software that gets out of the way.
+      </h2>
+
+      <p class="font-sans text-brand-mid text-[13px] leading-[1.8] mb-5 max-w-2xl">
+        Most software is built for the platform, not the person.
+        It monetizes attention, fragments ownership, and optimizes for retention over output.
+        <em class="not-italic text-brand-white">We build the opposite.</em>
+        Tools that make you more capable without making you dependent.
+      </p>
+
+      <div class="flex flex-col max-w-2xl">
+        {tenets.map((t, i) => (
+          <div class={`flex gap-4 items-baseline border-t border-brand-rule py-[13px] ${i === tenets.length - 1 ? "border-b" : ""}`}>
+            <span class="font-mono text-[10px] tracking-[0.14em] text-brand-red w-[18px] flex-shrink-0">
+              {t.n}
+            </span>
+            <span class="font-sans text-brand-mid text-[13px] leading-[1.6]">
+              <strong class="font-bold text-brand-white">{t.headline}</strong> {t.body}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>

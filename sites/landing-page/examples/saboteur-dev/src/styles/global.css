@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@import "./saboteur-base.css";
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-brand-red);
+  color: var(--color-brand-white);
+}

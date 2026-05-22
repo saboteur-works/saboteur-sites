@@ -1,0 +1,94 @@
+---
+// Contact — matches live saboteur.dev pattern.
+//
+// Section structure: label + four-line intro in the LEFT column; form in the
+// RIGHT column. The form uses the label-card-above-input-card pattern (label
+// has top+sides border, input has sides+bottom border — together they look
+// like one surface). Submit is RED FILLED (primary CTA style).
+//
+// Posts to a Cloudflare Worker per compliance/forms.md (URL is a placeholder
+// in this port). Live saboteur.dev currently uses formsubmit.co — the port
+// shows the canonical Saboteur backend instead.
+
+const topics = [
+  "OffBeat-FM — Early access",
+  "OffBeat-FM — Artist partnership",
+  "GetWrite — Early access",
+  "SAB/labs — Developer interest",
+  "Press inquiry",
+  "Other",
+];
+---
+<section id="contact" class="px-6 py-14">
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-[140px_1fr] md:gap-10 items-start">
+
+    <div>
+      <div class="font-mono text-[10px] tracking-[0.2em] text-brand-mid uppercase md:pt-1 pb-2 md:pb-0 border-b md:border-b-0 border-brand-rule mb-3">
+        Contact
+      </div>
+      <div class="font-sans text-brand-dim text-[12px] leading-[2]">
+        Press inquiries.<br />
+        Artist partnerships.<br />
+        Early access.<br />
+        Anything else.
+      </div>
+    </div>
+
+    <form action="https://forms.saboteur.dev/contact" method="POST" class="flex flex-col gap-[2px]">
+
+      <!-- Honeypot — off-screen, screen-reader-hidden -->
+      <input type="text" name="company" tabindex="-1" autocomplete="off"
+             class="absolute -left-[9999px] w-px h-px overflow-hidden" aria-hidden="true" />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-[2px]">
+
+        <div class="flex flex-col">
+          <label for="cf-name" class="font-mono text-[9px] tracking-[0.18em] text-brand-mid uppercase px-[14px] pt-[10px] pb-[5px] bg-brand-surface border-[0.5px] border-b-0 border-brand-dim">
+            Name
+          </label>
+          <input id="cf-name" type="text" name="name" placeholder="Your name"
+                 class="font-mono text-[12px] text-brand-white bg-brand-surface border-[0.5px] border-t-0 border-brand-dim focus:border-brand-mid outline-none px-[14px] pb-[11px] tracking-[0.04em] appearance-none" />
+        </div>
+
+        <div class="flex flex-col">
+          <label for="cf-email" class="font-mono text-[9px] tracking-[0.18em] text-brand-mid uppercase px-[14px] pt-[10px] pb-[5px] bg-brand-surface border-[0.5px] border-b-0 border-brand-dim">
+            Email
+          </label>
+          <input id="cf-email" type="email" name="email" placeholder="you@example.com" required
+                 class="font-mono text-[12px] text-brand-white bg-brand-surface border-[0.5px] border-t-0 border-brand-dim focus:border-brand-mid outline-none px-[14px] pb-[11px] tracking-[0.04em] appearance-none" />
+        </div>
+
+      </div>
+
+      <div class="flex flex-col">
+        <label for="cf-topic" class="font-mono text-[9px] tracking-[0.18em] text-brand-mid uppercase px-[14px] pt-[10px] pb-[5px] bg-brand-surface border-[0.5px] border-b-0 border-brand-dim">
+          Regarding
+        </label>
+        <select id="cf-topic" name="topic"
+                class="font-mono text-[12px] text-brand-white bg-brand-surface border-[0.5px] border-t-0 border-brand-dim focus:border-brand-mid outline-none px-[14px] pb-[11px] tracking-[0.04em] appearance-none">
+          <option value="">Select a topic</option>
+          {topics.map((t) => <option value={t}>{t}</option>)}
+        </select>
+      </div>
+
+      <div class="flex flex-col">
+        <label for="cf-message" class="font-mono text-[9px] tracking-[0.18em] text-brand-mid uppercase px-[14px] pt-[10px] pb-[5px] bg-brand-surface border-[0.5px] border-b-0 border-brand-dim">
+          Message
+        </label>
+        <textarea id="cf-message" name="message" rows="5" required
+                  class="font-mono text-[12px] text-brand-white bg-brand-surface border-[0.5px] border-t-0 border-brand-dim focus:border-brand-mid outline-none px-[14px] py-3 tracking-[0.04em] leading-[1.7] h-[110px] resize-none"></textarea>
+      </div>
+
+      <button type="submit"
+              class="self-start font-mono text-[10px] tracking-[0.2em] text-brand-white uppercase bg-brand-red hover:opacity-90 transition-opacity duration-150 border-0 px-6 py-[14px] mt-1 cursor-pointer">
+        Send message →
+      </button>
+
+      <p class="font-sans text-brand-dim text-[10px] leading-[1.7] mt-3 max-w-md tracking-[0.08em]">
+        We'll only use your email to reply. We don't share it, sell it, or store it past our reply.
+      </p>
+
+    </form>
+
+  </div>
+</section>

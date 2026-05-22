@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saboteur — Full Brand System v0.6</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@400;700&family=IBM+Plex+Sans:wght@300;400;700&family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+
+  :root {
+    --black:    #0a0a0a;
+    --white:    #f5f4f0;
+    --mid:      #6a6864;
+    --dim:      #2e2e2c;
+    --rule:     #1a1a18;
+    --red:      #d44040;
+    --surface:  #111110;
+    --surface2: #161614;
+    --paper:    #f0ede6;
+    --ink:      #1a1916;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 60px 64px 120px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 24px;
+    margin-bottom: 88px;
+  }
+  .page-header .eyebrow {
+    font-size: 10px; letter-spacing: 0.22em; color: var(--mid);
+    text-transform: uppercase; margin-bottom: 20px;
+    display: flex; justify-content: space-between;
+  }
+  .page-header .title {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-weight: 700; font-size: 13px; letter-spacing: 0.08em;
+    color: var(--mid); text-transform: uppercase;
+  }
+
+  /* ── SECTION ── */
+  .section-label {
+    font-size: 10px; letter-spacing: 0.22em; color: var(--mid); text-transform: uppercase;
+    margin-bottom: 48px; display: flex; align-items: center; gap: 16px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 0.5px; background: var(--rule); }
+
+  .product-section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .product-section-header .ps-name {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+  .product-section-header::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--rule);
+  }
+
+  .block { margin-bottom: 96px; }
+
+  .annotation {
+    font-size: 11px; letter-spacing: 0.06em; color: var(--mid);
+    margin-top: 32px; line-height: 1.9;
+    border-left: 1px solid var(--dim); padding-left: 16px;
+  }
+  .annotation em { color: var(--white); font-style: normal; }
+
+  /* ── PARENT MARK ── */
+  .mark {
+    border-left: 4px solid var(--red);
+    padding-left: 24px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .mark .wm {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--white);
+  }
+  .mark .jp {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700; letter-spacing: 0.18em; line-height: 1; color: var(--white);
+  }
+  .mark .desc {
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.22em; color: var(--mid);
+    border-top: 0.5px solid var(--dim); padding-top: 10px; margin-top: 4px;
+  }
+  .sz-hero .wm  { font-size: clamp(72px, 11vw, 108px); }
+  .sz-hero .jp  { font-size: clamp(24px, 3.8vw, 36px); }
+  .sz-hero .desc { font-size: 10px; }
+  .sz-sm .wm   { font-size: 32px; }
+  .sz-sm .jp   { font-size: 11px; letter-spacing: 0.12em; }
+  .sz-sm .desc  { display: none; }
+
+  /* ── SUB-BRAND ── */
+  .subbrand-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .sb-card { background: var(--surface); padding: 40px 36px 36px; display: flex; flex-direction: column; }
+  .sb-mark {
+    border-left: 3px solid var(--red); padding-left: 18px;
+    display: inline-flex; flex-direction: column; gap: 4px; margin-bottom: 28px;
+  }
+  .sb-mark .sb-name {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-weight: 700; font-size: 40px; letter-spacing: -0.02em; line-height: 1; color: var(--white);
+  }
+  .sb-mark .sb-jp {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700; font-size: 16px; letter-spacing: 0.14em; line-height: 1; color: var(--white);
+  }
+  .sb-mark .sb-desc {
+    font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.18em;
+    color: var(--mid); border-top: 0.5px solid var(--dim); padding-top: 8px; margin-top: 6px;
+  }
+  .sb-gloss { font-size: 10px; letter-spacing: 0.08em; color: #3e3e3c; line-height: 2; margin-top: auto; }
+  .sb-gloss .reading { color: var(--mid); display: block; font-size: 11px; margin-bottom: 2px; }
+
+  /* ── PRODUCT MARKS ── */
+  /* OffBeat-FM */
+  .ob-mark {
+    border-left: 4px solid var(--red);
+    padding-left: 24px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ob-wm {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--white);
+  }
+  .ob-wm .fm {
+    color: var(--red); font-weight: 400;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.04em;
+    vertical-align: middle; margin-left: 4px;
+  }
+  .ob-desc {
+    font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em;
+    color: var(--mid); border-top: 0.5px solid var(--dim); padding-top: 10px; margin-top: 4px;
+  }
+  .ob-sz-hero .ob-wm { font-size: clamp(60px, 9vw, 88px); }
+  .ob-sz-hero .ob-wm .fm { font-size: 0.52em; }
+  .ob-sz-hero .ob-desc { font-size: 10px; }
+  .ob-sz-sm .ob-wm { font-size: 24px; }
+  .ob-sz-sm .ob-wm .fm { font-size: 0.52em; }
+  .ob-sz-sm .ob-desc { display: none; }
+
+  /* GetWrite */
+  .gw-mark {
+    border-left: 4px solid var(--red);
+    padding-left: 24px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .gw-wm {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--white);
+  }
+  .gw-wm .get { color: var(--mid); font-weight: 400; letter-spacing: -0.02em; }
+  .gw-desc {
+    font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em;
+    color: var(--mid); border-top: 0.5px solid var(--dim); padding-top: 10px; margin-top: 4px;
+  }
+  .gw-sz-hero .gw-wm { font-size: clamp(60px, 9vw, 88px); }
+  .gw-sz-hero .gw-desc { font-size: 10px; }
+  .gw-sz-sm .gw-wm { font-size: 24px; }
+  .gw-sz-sm .gw-desc { display: none; }
+
+  /* ── COLOR TOKENS ── */
+  .token-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .token-cell { background: var(--surface); padding: 24px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .token-swatch { width: 36px; height: 36px; border-radius: 3px; }
+  .token-name  { font-size: 11px; letter-spacing: 0.06em; color: var(--white); }
+  .token-hex   { font-size: 10px; letter-spacing: 0.14em; color: var(--mid); }
+  .token-role  { font-size: 10px; letter-spacing: 0.06em; color: var(--dim); line-height: 1.7; margin-top: 2px; }
+
+  /* ── TYPE TOKENS ── */
+  .type-grid { display: flex; flex-direction: column; gap: 2px; }
+  .type-row {
+    background: var(--surface); padding: 20px 28px;
+    display: flex; align-items: baseline; gap: 28px;
+  }
+  .type-meta { width: 200px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px; }
+  .type-meta .t-name { font-size: 10px; letter-spacing: 0.14em; color: var(--mid); text-transform: uppercase; }
+  .type-meta .t-spec  { font-size: 9px; letter-spacing: 0.1em; color: var(--dim); line-height: 1.6; margin-top: 2px; }
+  .type-sample { flex: 1; }
+
+  /* ── AVATAR ── */
+  .avatar-row { display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
+  .av-group   { display: flex; flex-direction: column; gap: 10px; }
+  .av-context { font-size: 10px; letter-spacing: 0.14em; color: var(--mid); text-transform: uppercase; }
+  .av-sizes   { display: flex; gap: 10px; align-items: flex-end; }
+  .av-item    { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .av-item .px { font-size: 9px; letter-spacing: 0.1em; color: #2a2a28; }
+  .av-circle {
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; overflow: hidden;
+  }
+  .av-circle span { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; line-height: 1; display: block; }
+  .av-circle.s64 { width: 64px; height: 64px; }
+  .av-circle.s48 { width: 48px; height: 48px; }
+  .av-circle.s32 { width: 32px; height: 32px; }
+  .av-circle.s64 span { font-size: 36px; }
+  .av-circle.s48 span { font-size: 26px; }
+  .av-circle.s32 span { font-size: 18px; }
+  .av-parent { background: var(--black); border: 2.5px solid var(--white); }
+  .av-parent span { color: var(--white); }
+  .av-parent.s32 { border-width: 1.5px; }
+  .av-labs   { background: var(--black); border: 2.5px solid var(--red); }
+  .av-labs span { color: var(--white); }
+  .av-labs.s32 { border-width: 1.5px; }
+  .av-works  { background: var(--red); }
+  .av-works span { color: var(--white); }
+
+  /* ── RULES GRID ── */
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .rule-cell  { background: var(--surface); padding: 24px 28px; }
+  .rule-cell .r-context { font-size: 10px; letter-spacing: 0.18em; color: var(--mid); text-transform: uppercase; margin-bottom: 12px; }
+  .rule-cell .r-body    { font-size: 11px; letter-spacing: 0.06em; color: #4a4a48; line-height: 1.9; }
+  .rule-cell .r-body em { color: var(--white); font-style: normal; }
+
+  /* ── DO/DON'T ── */
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .do-cell, .dont-cell { background: var(--surface); padding: 28px 32px; }
+  .do-cell   .dd-label { font-size: 10px; letter-spacing: 0.2em; color: var(--red); text-transform: uppercase; margin-bottom: 20px; }
+  .dont-cell .dd-label { font-size: 10px; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; margin-bottom: 20px; }
+  .dd-items { display: flex; flex-direction: column; gap: 10px; }
+  .dd-item  { font-size: 11px; letter-spacing: 0.06em; color: var(--mid); line-height: 1.7; padding-left: 14px; position: relative; }
+  .dd-item::before { content: '—'; position: absolute; left: 0; color: var(--dim); }
+  .do-cell   .dd-item em { color: var(--white); font-style: normal; }
+  .dont-cell .dd-item em { color: #4a4a48; font-style: normal; }
+
+  /* ── CHANGELOG ── */
+  .changelog { display: flex; flex-direction: column; gap: 2px; }
+  .cl-row { background: var(--surface); padding: 16px 28px; display: flex; gap: 28px; align-items: baseline; }
+  .cl-ver  { font-size: 10px; letter-spacing: 0.16em; color: var(--red); width: 48px; flex-shrink: 0; }
+  .cl-note { font-size: 11px; letter-spacing: 0.06em; color: var(--mid); line-height: 1.7; }
+  .cl-note em { color: var(--white); font-style: normal; }
+
+  /* ── PRODUCT COLOR ROLES ── */
+  .color-roles { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .cr-cell { background: var(--surface); padding: 24px 28px; }
+  .cr-product { font-size: 10px; letter-spacing: 0.18em; color: var(--red); text-transform: uppercase; margin-bottom: 4px; }
+  .cr-tempo   { font-size: 10px; letter-spacing: 0.1em; color: var(--dim); margin-bottom: 16px; }
+  .cr-items   { font-size: 11px; letter-spacing: 0.06em; color: var(--mid); line-height: 2; }
+  .cr-items em { color: var(--white); font-style: normal; }
+
+  .page-footer {
+    border-top: 0.5px solid var(--rule); padding-top: 20px; margin-top: 80px;
+    font-size: 10px; letter-spacing: 0.15em; color: var(--mid);
+    display: flex; justify-content: space-between; text-transform: uppercase;
+  }
+
+  /* invert block */
+  .on-white { background: var(--white); padding: 48px 40px; }
+</style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="eyebrow">
+      <span>Saboteur LLC — Full Brand System</span>
+      <span>v0.6 — All decisions locked</span>
+    </div>
+    <div class="title">Source of truth: parent brand, sub-brands, and product identities.</div>
+  </header>
+
+  <!-- ════════════════════════════════════════
+       PART 1: PARENT BRAND
+  ════════════════════════════════════════ -->
+
+  <section class="block">
+    <div class="section-label">01 — Primary mark</div>
+    <div class="mark sz-hero">
+      <span class="wm">SABOTEUR</span>
+      <span class="jp">サボタージ員</span>
+      <span class="desc">CREATOR-FIRST SOFTWARE — saboteur.works</span>
+    </div>
+    <p class="annotation">
+      Vertical bar in Signal red (#D44040) is the structural anchor.<br>
+      Wordmark and Japanese at matched weight — neither element is subordinate.<br>
+      Mono descriptor as third tier: context, not identity.<br>
+      <em>IBM Plex Sans Condensed · IBM Plex Sans · IBM Plex Mono.</em>
+    </p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">02 — Inverted</div>
+    <div class="on-white">
+      <div class="mark sz-hero">
+        <span class="wm" style="color:#0a0a0a;">SABOTEUR</span>
+        <span class="jp" style="color:#0a0a0a;">サボタージ員</span>
+        <span class="desc" style="color:#999790; border-top-color:#d0cec8;">CREATOR-FIRST SOFTWARE — saboteur.works</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="section-label">03 — Sub-brand system</div>
+    <div class="subbrand-wrap">
+      <div class="sb-card">
+        <div class="sb-mark">
+          <span class="sb-name">SAB/labs</span>
+          <span class="sb-jp">研究所</span>
+          <span class="sb-desc">saboteur-labs · developer tools & knowledge</span>
+        </div>
+        <div class="sb-gloss">
+          <span class="reading">kenkyūjo</span>
+          研 study · 究 investigate · 所 place<br>
+          Research institute, laboratory.
+        </div>
+      </div>
+      <div class="sb-card">
+        <div class="sb-mark">
+          <span class="sb-name">SAB/works</span>
+          <span class="sb-jp">製作所</span>
+          <span class="sb-desc">saboteur-works · creator & consumer products</span>
+        </div>
+        <div class="sb-gloss">
+          <span class="reading">seizakusho</span>
+          製 manufacture · 作 create · 所 place<br>
+          Production works, creative factory.
+        </div>
+      </div>
+    </div>
+    <p class="annotation">
+      Both at identical size (40px / −0.02em). Neither implies hierarchy.<br>
+      <em>The Japanese characters carry all differentiation.</em>
+    </p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">04 — Avatar system</div>
+    <div class="avatar-row">
+      <div class="av-group">
+        <div class="av-context">Parent — outlined white</div>
+        <div class="av-sizes">
+          <div class="av-item"><div class="av-circle s64 av-parent"><span>員</span></div><span class="px">64</span></div>
+          <div class="av-item"><div class="av-circle s48 av-parent"><span>員</span></div><span class="px">48</span></div>
+          <div class="av-item"><div class="av-circle s32 av-parent"><span>員</span></div><span class="px">32</span></div>
+        </div>
+      </div>
+      <div class="av-group">
+        <div class="av-context">Labs — outlined red</div>
+        <div class="av-sizes">
+          <div class="av-item"><div class="av-circle s64 av-labs"><span>員</span></div><span class="px">64</span></div>
+          <div class="av-item"><div class="av-circle s48 av-labs"><span>員</span></div><span class="px">48</span></div>
+          <div class="av-item"><div class="av-circle s32 av-labs"><span>員</span></div><span class="px">32</span></div>
+        </div>
+      </div>
+      <div class="av-group">
+        <div class="av-context">Works — red fill</div>
+        <div class="av-sizes">
+          <div class="av-item"><div class="av-circle s64 av-works"><span>員</span></div><span class="px">64</span></div>
+          <div class="av-item"><div class="av-circle s48 av-works"><span>員</span></div><span class="px">48</span></div>
+          <div class="av-item"><div class="av-circle s32 av-works"><span>員</span></div><span class="px">32</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="annotation">
+      Parent: neutral root. Labs: active, supporting. Works: the priority — bold, no qualifier.<br>
+      <em>S/filled is the universal fallback below 48px for all three orgs.</em>
+    </p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">05 — Color tokens</div>
+    <div class="token-grid">
+      <div class="token-cell">
+        <div class="token-swatch" style="background:#0a0a0a; border:0.5px solid #2e2e2c;"></div>
+        <div class="token-name">Black</div>
+        <div class="token-hex">#0A0A0A</div>
+        <div class="token-role">Primary background. Dark UI surfaces.</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-swatch" style="background:#f5f4f0; border:0.5px solid #2e2e2c;"></div>
+        <div class="token-name">White</div>
+        <div class="token-hex">#F5F4F0</div>
+        <div class="token-role">Primary text. Light UI background. Slightly warm.</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-swatch" style="background:#d44040;"></div>
+        <div class="token-name">Signal Red</div>
+        <div class="token-hex">#D44040</div>
+        <div class="token-role">Brand accent. Structure and interaction only.</div>
+      </div>
+      <div class="token-cell">
+        <div class="token-swatch" style="background:#6a6864;"></div>
+        <div class="token-name">Mid</div>
+        <div class="token-hex">#6A6864</div>
+        <div class="token-role">Secondary text. Descriptors, muted elements.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="section-label">06 — Typography tokens</div>
+    <div class="type-grid">
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="t-name">Display</span>
+          <span class="t-spec">IBM Plex Sans Condensed 700<br>−0.04em · Wordmarks only</span>
+        </div>
+        <span style="font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:44px;letter-spacing:-0.04em;color:var(--white);">SABOTEUR</span>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="t-name">Japanese</span>
+          <span class="t-spec">IBM Plex Sans 700<br>0.18em · Mark element only</span>
+        </div>
+        <span style="font-family:'IBM Plex Sans',sans-serif;font-weight:700;font-size:26px;letter-spacing:0.18em;color:var(--white);">サボタージ員</span>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="t-name">UI / Body</span>
+          <span class="t-spec">IBM Plex Sans 400/700<br>Product interfaces</span>
+        </div>
+        <div>
+          <div style="font-family:'IBM Plex Sans',sans-serif;font-weight:700;font-size:14px;color:var(--white);margin-bottom:3px;">Your workspace, your rules.</div>
+          <div style="font-family:'IBM Plex Sans',sans-serif;font-size:13px;color:var(--mid);line-height:1.6;">Writing tools for authors who own their process.</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="t-name">Mono / Technical</span>
+          <span class="t-spec">IBM Plex Mono 400<br>0.14–0.22em · Labels, descriptors</span>
+        </div>
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--mid);margin-bottom:4px;">CREATOR-FIRST SOFTWARE</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--dim);">saboteur-labs · v0.6</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="t-name">Serif / Editor</span>
+          <span class="t-spec">IBM Plex Serif 400/700<br>GetWrite editor surface only</span>
+        </div>
+        <div>
+          <div style="font-family:'IBM Plex Serif',serif;font-weight:700;font-size:14px;color:var(--white);margin-bottom:3px;">Chapter 1</div>
+          <div style="font-family:'IBM Plex Serif',serif;font-size:14px;color:var(--mid);line-height:1.7;font-style:italic;">The rain had been falling for three days straight...</div>
+        </div>
+      </div>
+    </div>
+    <p class="annotation">
+      IBM Plex Serif is a fifth token — <em>GetWrite editor surface only.</em><br>
+      It never appears in brand marks, navigation, or any context outside the writing environment.
+    </p>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PART 2: PRODUCT IDENTITIES
+  ════════════════════════════════════════ -->
+
+  <section class="block">
+    <div class="product-section-header"><span class="ps-name">Product identity — OffBeat-FM</span></div>
+
+    <div class="section-label">07 — OffBeat-FM mark</div>
+    <div class="ob-mark ob-sz-hero">
+      <span class="ob-wm">OffBeat<span class="fm">FM</span></span>
+      <span class="ob-desc">INDEPENDENT MUSIC DISCOVERY — offbeat-fm.com</span>
+    </div>
+
+    <p class="annotation">
+      FM set in IBM Plex Mono at reduced size in Signal red — a frequency designation, not a decoration.<br>
+      Reads as a stance: independent radio, pre-algorithm, analog warmth against streaming homogeneity.<br>
+      <em>FM never inverts — it stays red on both black and white backgrounds.</em>
+    </p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">08 — OffBeat-FM color tempo</div>
+    <div class="color-roles">
+      <div class="cr-cell">
+        <div class="cr-product">OffBeat-FM</div>
+        <div class="cr-tempo">Higher frequency · Red is present and active</div>
+        <div class="cr-items">
+          FM suffix (always red)<br>
+          Active nav state<br>
+          Primary CTA fill<br>
+          Track card left-border stripe<br>
+          Artist card left-border accent<br>
+          <em>Active / selected genre tags</em>
+        </div>
+      </div>
+      <div class="cr-cell">
+        <div class="cr-product" style="color: var(--mid);">GetWrite</div>
+        <div class="cr-tempo">Lower frequency · Red marks position, not action</div>
+        <div class="cr-items">
+          Active file in resource tree<br>
+          Active tab underline<br>
+          Canonical revision badge<br>
+          Text cursor in editor<br>
+          Chapter heading in editor<br>
+          <em>Active metadata tags</em>
+        </div>
+      </div>
+    </div>
+    <p class="annotation">
+      Same token (#D44040), different tempos.<br>
+      OffBeat-FM: red signals energy and discovery — it moves.<br>
+      <em>GetWrite: red marks where you are — the cursor, the canonical version, the active file. It is precise, not loud.</em>
+    </p>
+  </section>
+
+  <section class="block">
+    <div class="product-section-header"><span class="ps-name">Product identity — GetWrite</span></div>
+
+    <div class="section-label">09 — GetWrite mark</div>
+    <div class="gw-mark gw-sz-hero">
+      <span class="gw-wm"><span class="get">Get</span>Write</span>
+      <span class="gw-desc">LOCAL-FIRST WRITING STUDIO — getwrite.io</span>
+    </div>
+
+    <p class="annotation">
+      "Get" at regular weight and mid-grey — prefix, verb, instruction.<br>
+      "Write" at full weight and white — the action, the product, the command.<br>
+      Weight split within one word creates internal tension without adding new elements.<br>
+      <em>"LOCAL-FIRST WRITING STUDIO" stays — it is specific, technical, and earns its place.</em>
+    </p>
+  </section>
+
+  <section class="block">
+    <div class="section-label">10 — GetWrite surface system</div>
+    <div class="rules-grid">
+      <div class="rule-cell">
+        <div class="r-context">Editor surface</div>
+        <div class="r-body">Warm paper #F0EDE6 (light) · Near-black #1C1C1A (dark).<br><em>Always warmer than the surrounding chrome.</em></div>
+      </div>
+      <div class="rule-cell">
+        <div class="r-context">UI chrome</div>
+        <div class="r-body">System black/white. IBM Plex Sans for all navigation and labels.<br><em>Never serif outside the editor surface.</em></div>
+      </div>
+      <div class="rule-cell">
+        <div class="r-context">Editor typography</div>
+        <div class="r-body">IBM Plex Serif as default editor font. User may change.<br><em>Brand chrome stays IBM Plex Sans regardless.</em></div>
+      </div>
+      <div class="rule-cell">
+        <div class="r-context">Cursor</div>
+        <div class="r-body">Signal red (#D44040). The most intimate use of the brand color — marks exactly where the writer is.<br><em>Appears nowhere else on the editor surface.</em></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       PART 3: SYSTEM RULES
+  ════════════════════════════════════════ -->
+
+  <section class="block">
+    <div class="section-label">11 — System usage rules</div>
+    <div class="rules-grid">
+      <div class="rule-cell">
+        <div class="r-context">Full mark</div>
+        <div class="r-body">All three tiers. Hero, landing, print, email.<br><em>Minimum width: ~300px.</em></div>
+      </div>
+      <div class="rule-cell">
+        <div class="r-context">Reduced mark</div>
+        <div class="r-body">Wordmark + Japanese only. Small nav, footers.<br><em>Below ~160px wide.</em></div>
+      </div>
+      <div class="rule-cell">
+        <div class="r-context">Sub-brand context</div>
+        <div class="r-body">SAB/labs and SAB/works replace the primary mark in their own product contexts.<br><em>Never stack both sub-brands with the parent.</em></div>
+      </div>
+      <div class="rule-cell">
+        <div class="r-context">Product marks</div>
+        <div class="r-body">OffBeat-FM and GetWrite marks replace the parent mark within their products. Parent appears in footers and about pages only.<br><em>Products are siblings, not children.</em></div>
+      </div>
+      <div class="rule-cell">
+        <div class="r-context">Red — universal rule</div>
+        <div class="r-body">Marks structure, identity, and active state.<br><em>Never body text. Never decorative fill. Never arbitrary accent.</em></div>
+      </div>
+      <div class="rule-cell">
+        <div class="r-context">Type roles</div>
+        <div class="r-body">Condensed: wordmarks only. Sans: UI and body. Mono: technical labels. Serif: GetWrite editor surface only.<br><em>Never mix within the same element.</em></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="section-label">12 — Do / don't</div>
+    <div class="do-dont">
+      <div class="do-cell">
+        <div class="dd-label">Do</div>
+        <div class="dd-items">
+          <div class="dd-item">Use <em>red in the bar</em> as the structural anchor across all marks</div>
+          <div class="dd-item">Keep <em>FM red</em> in OffBeat-FM regardless of background</div>
+          <div class="dd-item">Use <em>warm paper surfaces</em> in GetWrite editor — never pure white</div>
+          <div class="dd-item">Treat <em>products as siblings</em> — same DNA, distinct personalities</div>
+          <div class="dd-item">Let <em>red frequency vary</em> by product — same token, different tempos</div>
+          <div class="dd-item">Use <em>#F5F4F0</em> not #FFFFFF. Warmth is intentional throughout.</div>
+        </div>
+      </div>
+      <div class="dont-cell">
+        <div class="dd-label">Don't</div>
+        <div class="dd-items">
+          <div class="dd-item"><em>Don't use browser blue</em> for interactive elements — it has no place in this system</div>
+          <div class="dd-item"><em>Don't use serif type</em> outside the GetWrite editor surface</div>
+          <div class="dd-item"><em>Don't flood red</em> in GetWrite — it should feel like a marker, not a CTA</div>
+          <div class="dd-item"><em>Don't use stock photography</em> that reads as "music generally" for OffBeat-FM</div>
+          <div class="dd-item"><em>Don't use gradients</em> as decoration — surfaces are flat</div>
+          <div class="dd-item"><em>Don't center marks by default</em> — left-align is primary in all contexts</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="section-label">13 — Decision log</div>
+    <div class="changelog">
+      <div class="cl-row"><span class="cl-ver">v0.1</span><span class="cl-note">Initial directions. Three type concepts. Sub-brand slash system. IBM Plex family selected.</span></div>
+      <div class="cl-row"><span class="cl-ver">v0.2</span><span class="cl-note">Direction 02 selected. Mono descriptor added. <em>研究所 (labs) and 製作所 (works) confirmed.</em></span></div>
+      <div class="cl-row"><span class="cl-ver">v0.3</span><span class="cl-note">Descriptor Variant C locked (ruled separator). Avatar system defined.</span></div>
+      <div class="cl-row"><span class="cl-ver">v0.4</span><span class="cl-note"><em>Signal red #D44040 locked brand-wide.</em> Red in bar only. Four color tokens defined.</span></div>
+      <div class="cl-row"><span class="cl-ver">v0.5</span><span class="cl-note">Sub-brand sizing corrected. <em>SAB/labs and SAB/works equal at 40px / −0.02em.</em></span></div>
+      <div class="cl-row"><span class="cl-ver">v0.6</span><span class="cl-note">Avatar system locked: parent outlined white, labs outlined red, works red fill. <em>OffBeat-FM and GetWrite product identities established.</em> IBM Plex Serif added as fifth type token for GetWrite editor surface only.</span></div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <span>Saboteur LLC — Pre-production</span>
+    <span>Full Brand System v0.6</span>
+  </footer>
+
+</body>
+</html>

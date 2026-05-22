@@ -1,0 +1,31 @@
+---
+// Nav — minimal variant. Matches live saboteur.dev pattern.
+// 52px tall, sticky, mono uppercase links in mid grey.
+---
+<nav class="sticky top-0 z-10 bg-brand-black border-b border-brand-rule flex items-center h-[52px] px-6">
+  <a href="/" class="flex items-baseline border-l-[3px] border-brand-red pl-3" aria-label="Home">
+    <span class="font-display font-bold text-brand-white text-[17px] tracking-[-0.03em] leading-none">
+      SABOTEUR
+    </span>
+    <span class="font-sans font-bold text-brand-mid text-[10px] tracking-[0.1em] ml-2 leading-none">
+      サボタージ員
+    </span>
+  </a>
+  <ul class="ml-auto flex items-center gap-5">
+    <li>
+      <a href="#mission" class="font-mono text-[10px] tracking-[0.14em] text-brand-mid hover:text-brand-white uppercase transition-colors duration-150">
+        Mission
+      </a>
+    </li>
+    <li>
+      <a href="#products" class="font-mono text-[10px] tracking-[0.14em] text-brand-mid hover:text-brand-white uppercase transition-colors duration-150">
+        Products
+      </a>
+    </li>
+    <li>
+      <a href="#contact" class="font-mono text-[10px] tracking-[0.14em] text-brand-mid hover:text-brand-white uppercase transition-colors duration-150">
+        Get in touch
+      </a>
+    </li>
+  </ul>
+</nav>

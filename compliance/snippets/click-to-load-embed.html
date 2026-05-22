@@ -1,0 +1,60 @@
+<!--
+  Click-to-load embed snippet.
+
+  Used wherever a third-party embed is genuinely needed.
+  Renders as a self-hosted placeholder card. On click, replaces itself with the real embed.
+
+  Slots to fill:
+    - data-embed-src: the iframe src to load when the user clicks.
+    - data-embed-title: accessible title for the iframe.
+    - The visible text and (optional) preview image.
+
+  Tokens used: bg-brand-surface, border-brand-rule, border-brand-red,
+               text-brand-white, text-brand-mid,
+               font-sans, font-mono, tracking-label-wide.
+
+  No external assets are loaded until the user clicks. The privacy policy must
+  name the embed source (e.g., "YouTube") and disclose that clicking shares the
+  visitor's IP and may set cookies.
+-->
+<div class="click-to-load-embed bg-brand-surface border border-brand-rule p-6 md:p-10"
+     data-embed-src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+     data-embed-title="Demo video">
+
+  <div class="flex flex-col gap-4">
+
+    <div class="font-mono text-xs tracking-label-wide text-brand-mid uppercase">
+      Third-party embed · YouTube
+    </div>
+
+    <div class="font-sans text-brand-white text-lg leading-snug">
+      Click to load this video.
+    </div>
+
+    <div class="font-sans text-brand-mid text-sm leading-relaxed max-w-md">
+      Loading will share your IP address with YouTube and may set cookies.
+      We don't load anything from YouTube until you click.
+    </div>
+
+    <button type="button"
+            class="self-start font-mono text-xs tracking-label-wide text-brand-white hover:text-brand-red border-b border-brand-red pb-1 mt-2 transition-colors duration-150 cursor-pointer"
+            onclick="(function(el){
+              var card = el.closest('.click-to-load-embed');
+              var src = card.getAttribute('data-embed-src');
+              var title = card.getAttribute('data-embed-title') || 'Embedded content';
+              var iframe = document.createElement('iframe');
+              iframe.src = src;
+              iframe.title = title;
+              iframe.setAttribute('loading', 'lazy');
+              iframe.setAttribute('allow', 'encrypted-media; picture-in-picture');
+              iframe.setAttribute('allowfullscreen', '');
+              iframe.style.width = '100%';
+              iframe.style.aspectRatio = '16 / 9';
+              iframe.style.border = '0';
+              card.replaceWith(iframe);
+            })(this)">
+      LOAD VIDEO →
+    </button>
+
+  </div>
+</div>
