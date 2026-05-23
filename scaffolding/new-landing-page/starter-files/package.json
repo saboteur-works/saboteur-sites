@@ -1,0 +1,25 @@
+{
+  "name": "PRODUCT-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TODO: one-line description",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "saboteur-styles": "github:saboteur-works/saboteur-styles",
+    "@fontsource/ibm-plex-mono": "^5.1.0",
+    "@fontsource/ibm-plex-sans": "^5.1.0",
+    "@fontsource/ibm-plex-sans-condensed": "^5.1.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^5.0.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}

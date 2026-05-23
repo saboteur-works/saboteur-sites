@@ -42,6 +42,6 @@ For a new landing page, the flow looks like:
 - **Set up CI.** Cloudflare Pages push-to-deploy is enough for typical landing pages. Add CI only if the site grows past that.
 - **Run.** The scaffolding is a template, not a tool. A future skill (in another repo) will invoke this template — see [`../skills/`](../skills/) (Phase 3).
 
-## Phase 1 status
+## Status
 
-Empty. Scaffolding gets built in Phase 3, after the section library and one hand-generated landing page validate the patterns.
+Phase 3 complete. `new-landing-page/` contains starter files and both checklists.

@@ -34,7 +34,9 @@ A future skill will read this repo on demand to do that work for a specific prod
 
 **Phase 2 complete.** Brand layer, landing-page anatomy, all section HTML (nav, hero, mission, principles, products-preview, status, contact, legal-footer), compliance docs (GDPR, privacy policy, terms, accessibility, analytics, fonts, forms, third-party embeds, pre-launch checklist), and the `saboteur-dev` worked example are all in place.
 
-**Phase 3 remaining:** scaffolding starter files (`scaffolding/new-landing-page/`) and the consuming skill (separate repo).
+**Phase 3 complete.** Scaffolding starter files are in `scaffolding/new-landing-page/`.
+
+**Remaining:** the consuming skill (separate repo) that reads this repo on demand and generates a site for a specific product.
 
 ## License & contributing
 

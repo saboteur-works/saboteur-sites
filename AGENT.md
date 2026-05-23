@@ -72,7 +72,7 @@ These are not preferences. Violations break the site's compliance posture or its
 
 Phase 2 is complete. The following are deliberately deferred and should not be invented from scratch — wait for them, or surface the gap when you hit it:
 
-- **Scaffolding starter files** ([`scaffolding/`](scaffolding/) is empty). Phase 3: copy-in templates for new site repos. Coming after the `saboteur-dev` worked example validates the patterns.
+- **Scaffolding starter files** — complete. See [`scaffolding/new-landing-page/`](scaffolding/new-landing-page/) for the bootstrap guide, first-time checklist, and starter files.
 - **`features/` and `demo/` sections** — no canonical HTML yet. `optional-sections.md` documents the expected patterns; generate from those descriptions until the files exist.
 - **The skill that consumes this repo from other projects.** Lives in a separate repo (not yet created).
 
