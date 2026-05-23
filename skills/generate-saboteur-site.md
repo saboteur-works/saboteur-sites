@@ -47,7 +47,9 @@ If not found there, try `../saboteur-sites/AGENT.md` relative to the current dir
 
 Store the resolved path as SITES (e.g. `/Users/jedaisaboteur/Repositories/saboteur-works/saboteur-sites`).
 
-### Step 3 — Load reference docs
+### Step 3 — Check style freshness, then load reference docs
+
+Read `$SITES/brand/inputs/STYLES_SYNCED`. If `last_synced` is more than a few days before today, tell the user: "The style token mirror was last synced on [date]. If `saboteur-styles` has changed since then, run `bash scripts/sync-styles.sh` in the `saboteur-sites` repo before I generate token-sensitive markup." Then ask whether to proceed or wait. If the user says proceed (or the mirror is fresh), continue.
 
 Read all of these before generating anything:
 

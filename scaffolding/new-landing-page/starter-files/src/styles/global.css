@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "saboteur-styles/saboteur-base.css";
+@import "saboteur-styles/styles/saboteur-base.css";
 
 html {
   -webkit-font-smoothing: antialiased;

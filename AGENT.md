@@ -14,6 +14,10 @@ These files are short and load-bearing for any Saboteur web task. Load all three
 2. [`compliance/cookieless-by-default.md`](compliance/cookieless-by-default.md) — the four hard rules every Saboteur site must satisfy.
 3. [`tech/stack.md`](tech/stack.md) — Astro + Tailwind v4 + Cloudflare Pages, and what *not* to use.
 
+## Style mirror freshness
+
+The local CSS mirror at [`brand/inputs/saboteur-base.css`](brand/inputs/saboteur-base.css) is a snapshot of the canonical `saboteur-styles` repo. Before generating token-sensitive code (component markup, theme files), read [`brand/inputs/STYLES_SYNCED`](brand/inputs/STYLES_SYNCED) and check `last_synced`. If it is more than a few days old relative to the current date, inform the user and suggest running `bash scripts/sync-styles.sh` before proceeding. Do not block on this — proceed with the mirror if the user confirms or if the task is not token-sensitive.
+
 ## Task-specific loads
 
 ### "Generate a Saboteur landing page for product X"

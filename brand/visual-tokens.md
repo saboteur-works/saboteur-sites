@@ -7,7 +7,7 @@ For voice, hierarchy, and the rules behind the tokens, see [`identity.md`](ident
 ## Where the tokens live
 
 - **Canonical source:** [`saboteur-works/saboteur-styles`](https://github.com/saboteur-works/saboteur-styles) → `styles/saboteur-base.css`
-- **Local mirror (read-only):** [`inputs/saboteur-base.css`](inputs/saboteur-base.css) — snapshot for agent reference; may lag the canonical source.
+- **Local mirror (read-only):** [`inputs/saboteur-base.css`](inputs/saboteur-base.css) — snapshot for agent reference. Check [`inputs/STYLES_SYNCED`](inputs/STYLES_SYNCED) for the last-sync date and commit. If stale, run `bash scripts/sync-styles.sh` to refresh.
 - **Format:** Tailwind v4 `@theme` block exposing CSS custom properties.
 
 ## How generated sites consume them
