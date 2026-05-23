@@ -26,8 +26,8 @@ There's one variant. The sign-off text varies by tier (see [`../../brand/identit
 - **Hairline top rule** — `border-t border-brand-rule`. Separates the footer from the page body.
 - **Vertical padding** — 18px top and bottom. The footer is a closing strip, not a section.
 - **Horizontal padding** — 24px, matching the page-wide horizontal rhythm.
-- **Sign-off (left)** — mono uppercase, 10px, `brand-dim`, tracking `0.13em`. Pattern: `© YEAR Saboteur LLC · <domain or tier suffix>`.
-- **Links (right)** — mono uppercase, 10px, `brand-dim`, with `hover:text-brand-mid`. Privacy and Terms are required; a third link (Contact, Colophon) is allowed.
+- **Sign-off (left)** — mono uppercase, 10px, `fg-tertiary`, tracking `0.13em`. Pattern: `© YEAR Saboteur LLC · <domain or tier suffix>`.
+- **Links (right)** — mono uppercase, 10px, `fg-tertiary`, with `hover:text-fg-secondary`. Privacy and Terms are required; a third link (Contact, Colophon) is allowed.
 - **Mobile** — flex-wrap; links wrap below the sign-off if the row doesn't fit.
 
 ## Rules

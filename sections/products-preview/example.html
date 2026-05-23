@@ -11,17 +11,18 @@
         action     — { label, href } for live, or { label: "Coming Soon", disabled: true }
 
   Tokens used: bg-brand-surface, bg-brand-rule, border-brand-rule, border-brand-red,
-               border-brand-dim, border-brand-mid, text-brand-white, text-brand-mid,
-               text-brand-red, font-display, font-sans, font-mono.
+               border-brand-dim, border-brand-mid, text-brand-red,
+               text-fg-primary, text-fg-secondary, text-fg-tertiary,
+               font-display, font-sans, font-mono.
 -->
 <section id="products" class="border-b border-brand-rule px-6 py-14">
 
   <!-- Section-inner: label column + intro line -->
   <div class="grid grid-cols-1 gap-5 md:grid-cols-[140px_1fr] md:gap-10 items-start mb-7">
-    <div class="font-mono text-[10px] tracking-[0.2em] text-brand-mid uppercase md:pt-1 pb-2 md:pb-0 border-b md:border-b-0 border-brand-rule">
+    <div class="font-mono text-[10px] tracking-[0.2em] text-fg-tertiary uppercase md:pt-1 pb-2 md:pb-0 border-b md:border-b-0 border-brand-rule">
       Products
     </div>
-    <div class="font-sans text-brand-mid text-[13px] leading-[1.8]">
+    <div class="font-sans text-fg-secondary text-[13px] leading-[1.8]">
       Two products. Same philosophy. Different audiences.
     </div>
   </div>
@@ -31,50 +32,50 @@
 
     <article class="bg-brand-surface p-9 flex flex-col">
       <div class="border-l-[3px] border-brand-red pl-4 flex flex-col gap-1 mb-6">
-        <span class="font-display font-bold text-brand-white tracking-[-0.03em] leading-none text-[clamp(24px,5vw,36px)]">
+        <span class="font-display font-bold text-fg-primary tracking-[-0.03em] leading-none text-[clamp(24px,5vw,36px)]">
           OffBeat<span class="text-brand-red font-mono font-normal text-[0.52em] ml-[3px] tracking-[0.04em] align-middle">FM</span>
         </span>
-        <span class="font-mono text-brand-mid tracking-[0.16em] text-[9px] border-t-[0.5px] border-brand-dim pt-2 mt-1.5">
+        <span class="font-mono text-fg-tertiary tracking-[0.16em] text-[9px] border-t-[0.5px] border-brand-dim pt-2 mt-1.5">
           INDEPENDENT MUSIC DISCOVERY — SAB/works
         </span>
       </div>
-      <p class="font-sans text-brand-mid text-[13px] leading-[1.8] flex-1 mb-5">
+      <p class="font-sans text-fg-secondary text-[13px] leading-[1.8] flex-1 mb-5">
         Music discovery for people who are tired of playlists.
-        <em class="not-italic text-brand-white">No algorithms. No editorial committees.</em>
+        <em class="not-italic text-fg-primary">No algorithms. No editorial committees.</em>
         Independent artists, real metadata, and a platform that makes it possible to find something you've never heard.
       </p>
       <ul class="flex flex-wrap gap-1 mb-5">
-        <li class="font-mono text-[9px] tracking-[0.12em] text-brand-mid border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">Independent</li>
-        <li class="font-mono text-[9px] tracking-[0.12em] text-brand-mid border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">Discovery</li>
-        <li class="font-mono text-[9px] tracking-[0.12em] text-brand-mid border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">No algorithms</li>
+        <li class="font-mono text-[9px] tracking-[0.12em] text-fg-tertiary border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">Independent</li>
+        <li class="font-mono text-[9px] tracking-[0.12em] text-fg-tertiary border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">Discovery</li>
+        <li class="font-mono text-[9px] tracking-[0.12em] text-fg-tertiary border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">No algorithms</li>
       </ul>
       <a href="https://offbeat-fm.com" target="_blank" rel="noopener noreferrer"
-         class="self-start font-mono text-[10px] tracking-[0.14em] text-brand-mid hover:text-brand-white uppercase border border-brand-dim hover:border-brand-mid px-[14px] py-2 transition-colors duration-150">
+         class="self-start font-mono text-[10px] tracking-[0.14em] text-fg-tertiary hover:text-fg-primary uppercase border border-brand-dim hover:border-brand-mid px-[14px] py-2 transition-colors duration-150">
         Learn more →
       </a>
     </article>
 
     <article class="bg-brand-surface p-9 flex flex-col">
       <div class="border-l-[3px] border-brand-red pl-4 flex flex-col gap-1 mb-6">
-        <span class="font-display font-bold text-brand-white tracking-[-0.03em] leading-none text-[clamp(24px,5vw,36px)]">
-          <span class="text-brand-mid font-normal tracking-[-0.02em]">Get</span>Write
+        <span class="font-display font-bold text-fg-primary tracking-[-0.03em] leading-none text-[clamp(24px,5vw,36px)]">
+          <span class="text-fg-tertiary font-normal tracking-[-0.02em]">Get</span>Write
         </span>
-        <span class="font-mono text-brand-mid tracking-[0.16em] text-[9px] border-t-[0.5px] border-brand-dim pt-2 mt-1.5">
+        <span class="font-mono text-fg-tertiary tracking-[0.16em] text-[9px] border-t-[0.5px] border-brand-dim pt-2 mt-1.5">
           LOCAL-FIRST WRITING STUDIO — SAB/works
         </span>
       </div>
-      <p class="font-sans text-brand-mid text-[13px] leading-[1.8] flex-1 mb-5">
+      <p class="font-sans text-fg-secondary text-[13px] leading-[1.8] flex-1 mb-5">
         A writing environment built around your process, not ours.
-        <em class="not-italic text-brand-white">Local-first. Your files. Your structure.</em>
+        <em class="not-italic text-fg-primary">Local-first. Your files. Your structure.</em>
         Revision control, resource management, and an editor that disappears when you need to think.
       </p>
       <ul class="flex flex-wrap gap-1 mb-5">
-        <li class="font-mono text-[9px] tracking-[0.12em] text-brand-mid border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">Local-first</li>
-        <li class="font-mono text-[9px] tracking-[0.12em] text-brand-mid border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">Long-form</li>
-        <li class="font-mono text-[9px] tracking-[0.12em] text-brand-mid border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">Revision control</li>
+        <li class="font-mono text-[9px] tracking-[0.12em] text-fg-tertiary border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">Local-first</li>
+        <li class="font-mono text-[9px] tracking-[0.12em] text-fg-tertiary border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">Long-form</li>
+        <li class="font-mono text-[9px] tracking-[0.12em] text-fg-tertiary border-[0.5px] border-brand-dim px-[7px] py-[3px] uppercase">Revision control</li>
       </ul>
       <button type="button" disabled
-              class="self-start font-mono text-[10px] tracking-[0.14em] text-brand-mid uppercase border border-brand-dim px-[14px] py-2 cursor-not-allowed opacity-60">
+              class="self-start font-mono text-[10px] tracking-[0.14em] text-fg-tertiary uppercase border border-brand-dim px-[14px] py-2 cursor-not-allowed opacity-60">
         Coming Soon
       </button>
     </article>

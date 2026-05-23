@@ -43,10 +43,10 @@ The intro line uses the standard section grid (140px label + 1fr content). The p
 - Background: `bg-brand-surface` (`#111110`).
 - Padding: `36px 28px 32px` (use `p-9` or arbitrary).
 - Cards separated by **2px gaps** with `bg-brand-rule` showing through (`gap-[2px] bg-brand-rule` on the grid).
-- **Mark** — 3px red bar, `pl-4`. Wordmark in display 700, `clamp(24px, 5vw, 36px)`. Mono descriptor below, `9px`, `brand-mid`, tracking `0.16em`, with hairline top rule. **On the parent page, the descriptor's domain is the sub-brand (e.g., `— SAB/works`), not the product domain.**
-- **Body** — sans 13px, leading `1.8`, `brand-mid`. The middle clause is lifted to `brand-white` via `<em class="not-italic">`.
-- **Tags** — `9px` mono uppercase, tracking `0.12em`, `brand-mid`, hairline border `border-brand-dim`. Padding `3px 7px`. 5px gap between tags.
-- **Action** — outlined mono button. 10px tracking `0.14em` uppercase. Border `brand-dim`, padding `8px 14px`. `hover:text-brand-white hover:border-brand-mid`. For pre-launch products, the button reads `Coming Soon` and is disabled.
+- **Mark** — 3px red bar, `pl-4`. Wordmark in display 700, `clamp(24px, 5vw, 36px)`. Mono descriptor below, `9px`, `fg-tertiary`, tracking `0.16em`, with hairline top rule. **On the parent page, the descriptor's domain is the sub-brand (e.g., `— SAB/works`), not the product domain.**
+- **Body** — sans 13px, leading `1.8`, `fg-secondary`. The middle clause is lifted to `fg-primary` via `<em class="not-italic">`.
+- **Tags** — `9px` mono uppercase, tracking `0.12em`, `fg-tertiary`, hairline border `border-brand-dim`. Padding `3px 7px`. 5px gap between tags.
+- **Action** — outlined mono button. 10px tracking `0.14em` uppercase. Border `brand-dim`, padding `8px 14px`. `text-fg-tertiary hover:text-fg-primary hover:border-brand-mid`. For pre-launch products, the button reads `Coming Soon` and is disabled.
 
 ## Rules
 

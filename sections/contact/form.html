@@ -7,7 +7,7 @@
 
   Tokens used: bg-brand-black, bg-brand-surface, bg-brand-red,
                border-brand-rule, border-brand-dim, border-brand-mid,
-               text-brand-white, text-brand-mid, text-brand-dim,
+               text-fg-primary, text-fg-secondary, text-fg-tertiary,
                font-sans, font-mono.
 -->
 <section id="contact" class="px-6 py-14">
@@ -15,10 +15,10 @@
 
     <!-- Left column: label + four-line intro -->
     <div>
-      <div class="font-mono text-[10px] tracking-[0.2em] text-brand-mid uppercase md:pt-1 pb-2 md:pb-0 border-b md:border-b-0 border-brand-rule mb-3">
+      <div class="font-mono text-[10px] tracking-[0.2em] text-fg-tertiary uppercase md:pt-1 pb-2 md:pb-0 border-b md:border-b-0 border-brand-rule mb-3">
         Contact
       </div>
-      <div class="font-sans text-brand-dim text-[12px] leading-[2]">
+      <div class="font-sans text-fg-tertiary text-[12px] leading-[2]">
         Press inquiries.<br />
         Artist partnerships.<br />
         Early access.<br />
@@ -36,29 +36,29 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-[2px]">
 
         <div class="flex flex-col">
-          <label for="cf-name" class="font-mono text-[9px] tracking-[0.18em] text-brand-mid uppercase px-[14px] pt-[10px] pb-[5px] bg-brand-surface border-[0.5px] border-b-0 border-brand-dim">
+          <label for="cf-name" class="font-mono text-[9px] tracking-[0.18em] text-fg-tertiary uppercase px-[14px] pt-[10px] pb-[5px] bg-brand-surface border-[0.5px] border-b-0 border-brand-dim">
             Name
           </label>
           <input id="cf-name" type="text" name="name" placeholder="Your name"
-                 class="font-mono text-[12px] text-brand-white bg-brand-surface border-[0.5px] border-t-0 border-brand-dim focus:border-brand-mid outline-none px-[14px] pb-[11px] tracking-[0.04em] appearance-none" />
+                 class="font-mono text-[12px] text-fg-primary bg-brand-surface border-[0.5px] border-t-0 border-brand-dim focus:border-brand-mid outline-none px-[14px] pb-[11px] tracking-[0.04em] appearance-none" />
         </div>
 
         <div class="flex flex-col">
-          <label for="cf-email" class="font-mono text-[9px] tracking-[0.18em] text-brand-mid uppercase px-[14px] pt-[10px] pb-[5px] bg-brand-surface border-[0.5px] border-b-0 border-brand-dim">
+          <label for="cf-email" class="font-mono text-[9px] tracking-[0.18em] text-fg-tertiary uppercase px-[14px] pt-[10px] pb-[5px] bg-brand-surface border-[0.5px] border-b-0 border-brand-dim">
             Email
           </label>
           <input id="cf-email" type="email" name="email" placeholder="you@example.com" required
-                 class="font-mono text-[12px] text-brand-white bg-brand-surface border-[0.5px] border-t-0 border-brand-dim focus:border-brand-mid outline-none px-[14px] pb-[11px] tracking-[0.04em] appearance-none" />
+                 class="font-mono text-[12px] text-fg-primary bg-brand-surface border-[0.5px] border-t-0 border-brand-dim focus:border-brand-mid outline-none px-[14px] pb-[11px] tracking-[0.04em] appearance-none" />
         </div>
 
       </div>
 
       <div class="flex flex-col">
-        <label for="cf-topic" class="font-mono text-[9px] tracking-[0.18em] text-brand-mid uppercase px-[14px] pt-[10px] pb-[5px] bg-brand-surface border-[0.5px] border-b-0 border-brand-dim">
+        <label for="cf-topic" class="font-mono text-[9px] tracking-[0.18em] text-fg-tertiary uppercase px-[14px] pt-[10px] pb-[5px] bg-brand-surface border-[0.5px] border-b-0 border-brand-dim">
           Regarding
         </label>
         <select id="cf-topic" name="topic"
-                class="font-mono text-[12px] text-brand-white bg-brand-surface border-[0.5px] border-t-0 border-brand-dim focus:border-brand-mid outline-none px-[14px] pb-[11px] tracking-[0.04em] appearance-none">
+                class="font-mono text-[12px] text-fg-primary bg-brand-surface border-[0.5px] border-t-0 border-brand-dim focus:border-brand-mid outline-none px-[14px] pb-[11px] tracking-[0.04em] appearance-none">
           <option value="">Select a topic</option>
           <option>OffBeat-FM — Early access</option>
           <option>OffBeat-FM — Artist partnership</option>
@@ -70,23 +70,23 @@
       </div>
 
       <div class="flex flex-col">
-        <label for="cf-message" class="font-mono text-[9px] tracking-[0.18em] text-brand-mid uppercase px-[14px] pt-[10px] pb-[5px] bg-brand-surface border-[0.5px] border-b-0 border-brand-dim">
+        <label for="cf-message" class="font-mono text-[9px] tracking-[0.18em] text-fg-tertiary uppercase px-[14px] pt-[10px] pb-[5px] bg-brand-surface border-[0.5px] border-b-0 border-brand-dim">
           Message
         </label>
         <textarea id="cf-message" name="message" rows="5" required
-                  class="font-mono text-[12px] text-brand-white bg-brand-surface border-[0.5px] border-t-0 border-brand-dim focus:border-brand-mid outline-none px-[14px] py-3 tracking-[0.04em] leading-[1.7] h-[110px] resize-none"></textarea>
+                  class="font-mono text-[12px] text-fg-primary bg-brand-surface border-[0.5px] border-t-0 border-brand-dim focus:border-brand-mid outline-none px-[14px] py-3 tracking-[0.04em] leading-[1.7] h-[110px] resize-none"></textarea>
       </div>
 
       <button type="submit"
-              class="self-start font-mono text-[10px] tracking-[0.2em] text-brand-white uppercase bg-brand-red hover:opacity-90 transition-opacity duration-150 border-0 px-6 py-[14px] mt-1 cursor-pointer">
+              class="self-start font-mono text-[10px] tracking-[0.2em] text-fg-primary uppercase bg-brand-red hover:opacity-90 transition-opacity duration-150 border-0 px-6 py-[14px] mt-1 cursor-pointer">
         Send message →
       </button>
 
-      <p class="font-sans text-brand-dim text-[10px] leading-[1.7] mt-3 max-w-md tracking-[0.08em]">
+      <p class="font-sans text-fg-tertiary text-[10px] leading-[1.7] mt-3 max-w-md tracking-[0.08em]">
         We'll only use your email to reply. We don't share it, sell it, or store it past our reply.
       </p>
 
-      <p class="font-sans text-brand-mid text-[13px] mt-8 max-w-md">
+      <p class="font-sans text-fg-secondary text-[13px] mt-8 max-w-md">
         We read everything. We reply to most of it.
       </p>
 

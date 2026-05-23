@@ -35,9 +35,9 @@ See [`copy-patterns.md`](copy-patterns.md) for headline / stance / CTA copy guid
 - **Vertical bar (4px red).** Structural anchor of the mark. Same color regardless of background.
 - **Wordmark.** IBM Plex Sans Condensed 700, tracking `-0.04em`. Sized `clamp(48px, 12vw, 88px)` for parent, `clamp(36px, 9vw, 72px)` for product.
 - **Japanese (parent / sub-brand only).** IBM Plex Sans 700, tracking `0.16em`. Sized `clamp(15px, 4vw, 28px)`. Omitted on product variants.
-- **Mono descriptor.** Pattern: `DESCRIPTOR — domain`. 10px mono `brand-mid`, tracking `0.18em`, with hairline top rule (`border-t-[0.5px] border-brand-dim`).
-- **Body (one paragraph, three clauses).** IBM Plex Sans 300 (**light**), `clamp(15px, 3.5vw, 18px)`, leading 1.7, tracking 0.01em. Color is `brand-mid`. The middle clause — the stance — is wrapped in `<em class="not-italic text-brand-white">` to lift it into `brand-white`. The visual effect: a quiet sentence, a sharp middle, a quiet closer.
-- **Primary CTA (product variant).** Outlined mono button: `text-brand-white hover:text-brand-mid border border-brand-dim hover:border-brand-mid`, `padding: 8px 14px`, `font-mono text-[10px] tracking-[0.14em] uppercase`. At most one. Parent pages typically skip the CTA.
+- **Mono descriptor.** Pattern: `DESCRIPTOR — domain`. 10px mono `fg-tertiary`, tracking `0.18em`, with hairline top rule (`border-t-[0.5px] border-brand-dim`).
+- **Body (one paragraph, three clauses).** IBM Plex Sans 300 (**light**), `clamp(15px, 3.5vw, 18px)`, leading 1.7, tracking 0.01em. Color is `fg-secondary`. The middle clause — the stance — is wrapped in `<em class="not-italic text-fg-primary">` to lift it into `fg-primary`. The visual effect: a quiet sentence, a sharp middle, a quiet closer.
+- **Primary CTA (product variant).** Outlined mono button: `text-fg-primary hover:text-fg-tertiary border border-brand-dim hover:border-brand-mid`, `padding: 8px 14px`, `font-mono text-[10px] tracking-[0.14em] uppercase`. At most one. Parent pages typically skip the CTA.
 
 ## Rules
 

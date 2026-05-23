@@ -45,7 +45,7 @@ Adapt the item count between **two and four**. Fewer than two isn't a list; more
 - **Layout** — vertical `flex` column. Each item has a top hairline rule; the last item also has a bottom rule. Use `border-t border-brand-rule` on each row and `border-b` on the last.
 - **Row padding** — `13px` top and bottom (`py-[13px]`).
 - **Number** — mono, 10px, `brand-red`, tracking `0.14em`. Fixed width `18px` so the headlines align.
-- **Headline + body** — both on one line (or wrapping inline), `font-sans`, 13px, leading `1.6`. Headline is `<strong class="font-bold text-brand-white">` ending with a period; body that follows is in `brand-mid`.
+- **Headline + body** — both on one line (or wrapping inline), `font-sans`, 13px, leading `1.6`. Headline is `<strong class="font-bold text-fg-primary">` ending with a period; body that follows is in `fg-secondary`.
 
 ## Rules
 

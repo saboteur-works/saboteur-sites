@@ -45,7 +45,7 @@ All Saboteur content sections — Mission, Products, Status, Contact — share t
 ```
 
 - **Grid:** `grid-template-columns: 140px 1fr; gap: 40px;` on desktop. Single column on mobile (<600px) with a hairline rule under the label.
-- **Label column:** mono uppercase, 10px, `brand-mid`, tracking `0.2em`. **Unnumbered.** Just `Mission`, `Products`, `Status`, `Contact`. Never `01 — MISSION`.
+- **Label column:** mono uppercase, 10px, `fg-tertiary`, tracking `0.2em`. **Unnumbered.** Just `Mission`, `Products`, `Status`, `Contact`. Never `01 — MISSION`.
 - **Content column:** the section's actual content. Heading, body, plus any nested sub-elements (tenets, status rows, product cards, form, etc.).
 - **Section padding:** `56px` vertical (`py-14`), `24px` horizontal (`px-6`).
 - **Hairline bottom rule:** `border-b border-brand-rule` separates each section. The last section before the footer (typically Contact) drops the rule.
@@ -59,10 +59,10 @@ The brand-system reference HTML uses numbered section labels (`01 — Primary ma
 The right column has a stable shape:
 
 1. **Heading** — one sentence, display family (IBM Plex Sans Condensed 700), `clamp(24px, 5vw, 32px)`, tracking `-0.03em`, leading `1.1`. Often a positive restatement of what the hero stance rejects.
-2. **Body** — one paragraph, sans 400, 13px, leading `1.8`, color `brand-mid`. Pattern: *diagnosis → pivot → prescription.*
-   - Diagnosis: two sentences naming what the dominant alternative does wrong, in `brand-mid`.
-   - Pivot: a short clause wrapped in `<em class="not-italic text-brand-white">` — usually *"We build the opposite."*
-   - Prescription: one sentence in `brand-mid` after the pivot, naming what *this* does instead.
+2. **Body** — one paragraph, sans 400, 13px, leading `1.8`, color `fg-secondary`. Pattern: *diagnosis → pivot → prescription.*
+   - Diagnosis: two sentences naming what the dominant alternative does wrong, in `fg-secondary`.
+   - Pivot: a short clause wrapped in `<em class="not-italic text-fg-primary">` — usually *"We build the opposite."*
+   - Prescription: one sentence in `fg-secondary` after the pivot, naming what *this* does instead.
 3. **Tenets list (optional)** — numbered items nested directly below the body. See [`../principles/`](../principles/) for the standalone pattern.
 
 ## Rules

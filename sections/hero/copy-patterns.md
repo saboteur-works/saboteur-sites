@@ -50,7 +50,7 @@ The structure does three things in one breath: states the audience, names the re
 - Subject-verb-object. The product (or company) is the subject; the verb is plain; the object is what it does *for* the reader.
 - Stay under 80 characters.
 
-**Stance** (the middle clause, wrapped in `<em class="not-italic text-brand-white">`) — *"No lock-in. No committees. No feature designed by a growth team."*
+**Stance** (the middle clause, wrapped in `<em class="not-italic text-fg-primary">`) — *"No lock-in. No committees. No feature designed by a growth team."*
 - Names what the product or company *rejects*, specifically.
 - The voice's sharpest beat. *No A. No B. No C.* — three-beat rhythm.
 - Name targets by name: *committees*, *the algorithm*, *growth team*, *lock-in*. Generic targets (*the status quo*, *legacy software*) are weaker.
@@ -69,7 +69,7 @@ The structure does three things in one breath: states the audience, names the re
 ### Don't
 
 - Don't break the stance into a separate paragraph — the inline structure is the voice.
-- Don't italicize the stance visually with `font-style: italic`. Use `<em>` semantically and lift via `text-brand-white`.
+- Don't italicize the stance visually with `font-style: italic`. Use `<em>` semantically and lift via `text-fg-primary`.
 - No marketing verbs (*unleash, empower, supercharge, delight, transform*).
 - No "the future of X" / "the new way to Y" formulations.
 - No hedging (*might*, *can help you*, *designed to*). Make the claim or don't.

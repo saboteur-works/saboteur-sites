@@ -35,12 +35,12 @@ Standard section grid (140px label + 1fr content). Content is an intro line foll
 
 - **Layout** — flex row, `gap: 14px`. Top hairline rule on every row; bottom rule on the last row only.
 - **Dot** — `6px × 6px`, `border-radius: 50%`. `bg-brand-red` for live items; `bg-brand-dim` for pre-launch / inactive.
-- **Name** — display family (IBM Plex Sans Condensed 700), 15px, tracking `-0.01em`, `text-brand-white`. Flex-grows to fill the row.
-- **Badge** — mono 9px tracking `0.12em` uppercase, hairline outlined. Live badges use `text-brand-red border-brand-red` with `opacity: 0.9`; pre-launch use `text-brand-mid border-brand-dim`.
+- **Name** — display family (IBM Plex Sans Condensed 700), 15px, tracking `-0.01em`, `text-fg-primary`. Flex-grows to fill the row.
+- **Badge** — mono 9px tracking `0.12em` uppercase, hairline outlined. Live badges use `text-brand-red border-brand-red` with `opacity: 0.9`; pre-launch use `text-fg-tertiary border-brand-dim`.
 
 ### Intro line
 
-- Sans 13px, leading `1.8`, `brand-mid`.
+- Sans 13px, leading `1.8`, `fg-secondary`.
 - `margin-bottom: 18px` before the row list.
 - One sentence, honest about what's being shown.
 

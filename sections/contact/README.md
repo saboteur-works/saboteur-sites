@@ -46,7 +46,7 @@ The contact section uses the **standard section grid**, but with the section lab
 ### Left column
 
 - The section label (`Contact`) at the top, same style as other sections.
-- Below the label: a four-line list of inquiry types in `brand-dim`. Each on its own line via `<br>`. Sans 12px, leading 2.
+- Below the label: a four-line list of inquiry types in `fg-tertiary`. Each on its own line via `<br>`. Sans 12px, leading 2.
 
 ```
 Press inquiries.
@@ -62,14 +62,14 @@ This list is **not** a set of nav buttons — it's prose telling the visitor wha
 - **Layout** — `flex flex-col gap-[2px]`. The 2px gap shows the dark background between adjacent fields and gives the form its characteristic stacked-card appearance.
 - **Name + Email row** — `grid grid-cols-2 gap-[2px]` so the two short fields share one row on desktop. Stack on mobile.
 - **Each field** — a `<label>` div above the input, sharing borders to look like one card:
-  - **Label** — mono 9px tracking `0.18em` uppercase, `brand-mid`. Background `brand-surface`, hairline border `border-brand-dim` on top + sides (no bottom).
-  - **Input / select / textarea** — mono 12px, `text-brand-white`, `bg-brand-surface`, hairline border `border-brand-dim` on sides + bottom (no top). Padding `0 14px 11px` for input/select; `12px 14px` for textarea. Focus border lifts to `border-brand-mid`. `appearance: none` to suppress browser defaults on select.
-- **Submit** — **filled red** (`bg-brand-red`), mono 10px tracking `0.2em` uppercase, white text, `padding: 14px 24px`, no border. Self-start (left-aligned, not full-width). `hover:opacity-90`.
-- **Lawful-basis copy** — directly below the submit, sans 10px in `brand-dim`. *We'll only use your email to reply. We don't share it, sell it, or store it past our reply.*
+  - **Label** — mono 9px tracking `0.18em` uppercase, `fg-tertiary`. Background `brand-surface`, hairline border `border-brand-dim` on top + sides (no bottom).
+  - **Input / select / textarea** — mono 12px, `text-fg-primary`, `bg-brand-surface`, hairline border `border-brand-dim` on sides + bottom (no top). Padding `0 14px 11px` for input/select; `12px 14px` for textarea. Focus border lifts to `border-brand-mid`. `appearance: none` to suppress browser defaults on select.
+- **Submit** — **filled red** (`bg-brand-red`), mono 10px tracking `0.2em` uppercase, `fg-primary` text, `padding: 14px 24px`, no border. Self-start (left-aligned, not full-width). `hover:opacity-90`.
+- **Lawful-basis copy** — directly below the submit, sans 10px in `fg-tertiary`. *We'll only use your email to reply. We don't share it, sell it, or store it past our reply.*
 
 ### After the form
 
-The closing line **"We read everything. We reply to most of it."** lives below the form (still in the right column). Sans 13px or 14px in `brand-mid`, with extra top margin. This line is brand canon and appears wherever a Saboteur contact form lives.
+The closing line **"We read everything. We reply to most of it."** lives below the form (still in the right column). Sans 13px or 14px in `fg-secondary`, with extra top margin. This line is brand canon and appears wherever a Saboteur contact form lives.
 
 ## Rules
 
