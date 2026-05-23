@@ -23,7 +23,7 @@ Load **in addition to the always-load context**:
 1. [`sites/landing-page/README.md`](sites/landing-page/README.md) — variant, anatomy, decision flow.
 2. [`brand/visual-tokens.md`](brand/visual-tokens.md) — tokens to style with, rules to respect.
 3. [`brand/inputs/saboteur-base.css`](brand/inputs/saboteur-base.css) — the actual token names available to Tailwind utilities.
-4. *(Phase 2)* the relevant section files under [`sections/`](sections/).
+4. The relevant section files under [`sections/`](sections/) — required: `nav/`, `hero/`, `mission/`, `legal-footer/`; optional per [`sites/landing-page/optional-sections.md`](sites/landing-page/optional-sections.md).
 
 Then collect the per-product inputs the page needs:
 
@@ -70,11 +70,10 @@ These are not preferences. Violations break the site's compliance posture or its
 
 ## What's *not* here yet
 
-Phase 1 ships the structure and the load-bearing docs. The following are deliberately deferred and should not be invented from scratch — wait for them, or surface the gap when you hit it:
+Phase 2 is complete. The following are deliberately deferred and should not be invented from scratch — wait for them, or surface the gap when you hit it:
 
-- Section-level HTML snippets ([`sections/`](sections/) is empty).
-- Compliance templates beyond the charter — privacy policy, terms, accessibility, forms, fonts, analytics, third-party embeds.
-- Scaffolding starter files ([`scaffolding/`](scaffolding/) is empty).
-- The skill that consumes this repo from other projects.
+- **Scaffolding starter files** ([`scaffolding/`](scaffolding/) is empty). Phase 3: copy-in templates for new site repos. Coming after the `saboteur-dev` worked example validates the patterns.
+- **`features/` and `demo/` sections** — no canonical HTML yet. `optional-sections.md` documents the expected patterns; generate from those descriptions until the files exist.
+- **The skill that consumes this repo from other projects.** Lives in a separate repo (not yet created).
 
 If a task requires content that isn't here, stop and surface the gap rather than fabricating it.
