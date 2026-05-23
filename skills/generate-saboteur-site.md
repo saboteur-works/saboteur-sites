@@ -2,11 +2,14 @@
 name: generate-saboteur-site
 description: >
   Scaffold and generate a complete, customized Saboteur LLC landing page in the
-  current directory. Use this skill whenever a user is starting a new Saboteur
-  product site or parent landing page — it reads the saboteur-sites reference
+  current directory. Use this skill whenever the user wants to build, start, or
+  set up a Saboteur product site or parent landing page — including requests like
+  "generate a site for X", "make a landing page for Y", "set up the OffBeat-FM
+  site", or "create the saboteur.dev page". It reads the saboteur-sites reference
   docs, collects brand and product inputs, and writes all Astro component files,
-  config, and boilerplate. Invoke as /generate-saboteur-site from a fresh site
-  repo, optionally passing variant, product name, and domain as arguments.
+  global CSS, config, and boilerplate. Invoke as /generate-saboteur-site from a
+  fresh site repo, optionally passing variant, product name, and domain as
+  arguments.
 ---
 
 # Generate Saboteur Landing Page
@@ -47,23 +50,39 @@ If not found there, try `../saboteur-sites/AGENT.md` relative to the current dir
 
 Store the resolved path as SITES (e.g. `~/code/saboteur-works/saboteur-sites`).
 
-### Step 3 — Locate saboteur-styles docs, then load reference docs
+### Step 3 — Load saboteur-styles docs
 
-The `saboteur-styles` repo has a `docs/` directory written for AI agents — it is the authoritative source for all token and color guidance. Find it:
+The `saboteur-styles` repo has a `docs/` directory written for AI agents — the authoritative source for all token and color guidance. You need `tokens.md` and `color-rules.md` before generating any markup.
+
+**1. Check for a local clone:**
 
 ```bash
 find ~/Repositories ~/repos ~/code ~/dev ~/Projects ~/projects ~/workspace ~/src -maxdepth 4 -name "tokens.md" -path "*/saboteur-styles/docs/*" 2>/dev/null | head -1
 ```
 
-If found, store the parent `docs/` path as STYLE_DOCS (e.g. `~/code/saboteur-works/saboteur-styles/docs`). Read `$STYLE_DOCS/tokens.md` and `$STYLE_DOCS/color-rules.md` before generating any markup.
+If found, store the parent `docs/` path as STYLE_DOCS and read the files from there.
 
-If not found, fall back to the local mirror. Read `$SITES/brand/inputs/STYLES_SYNCED` and check `last_synced`. If stale (more than a few days old), warn the user and suggest running `bash scripts/sync-styles.sh`.
+**2. If not found locally**, ask the user in one message:
+
+> "I didn't find `saboteur-styles` locally. Do you have a local clone you'd like me to use? If not, I'll fetch the style docs from GitHub — that works fine too."
+
+- If they provide a path, use it as STYLE_DOCS.
+- If they don't have one locally (or prefer GitHub), fetch from the canonical repo:
+
+```bash
+gh api repos/saboteur-works/saboteur-styles/contents/docs/tokens.md --jq '.content' | base64 -d
+gh api repos/saboteur-works/saboteur-styles/contents/docs/color-rules.md --jq '.content' | base64 -d
+```
+
+Hold these file contents in context as TOKENS_DOC and COLOR_RULES_DOC. There is no STYLE_DOCS path in this case.
+
+**3. Last resort** — if `gh` is unavailable and no local clone exists, fall back to `$SITES/brand/inputs/saboteur-base.css` and `$SITES/brand/visual-tokens.md`. Read `$SITES/brand/inputs/STYLES_SYNCED` and warn the user if `last_synced` is more than a few days old.
 
 Read all of these before generating anything:
 
 1. `$SITES/brand/identity.md`
-2. `$STYLE_DOCS/tokens.md` (or `$SITES/brand/inputs/saboteur-base.css` if fallback)
-3. `$STYLE_DOCS/color-rules.md` (or `$SITES/brand/visual-tokens.md` if fallback)
+2. `tokens.md` (from STYLE_DOCS, GitHub fetch, or fallback CSS)
+3. `color-rules.md` (from STYLE_DOCS, GitHub fetch, or fallback `visual-tokens.md`)
 4. `$SITES/compliance/cookieless-by-default.md`
 5. `$SITES/sites/landing-page/README.md`
 6. `$SITES/sites/landing-page/required-sections.md`
@@ -146,7 +165,7 @@ Reference: `$SITES/sections/nav/variant-minimal.html` for the exact class patter
 ```
 wordmark (no Japanese tier)
 descriptor: <DESCRIPTOR> — <domain>
-body: <tagline>. <em class="not-italic text-brand-white"><stance></em> <closer>
+body: <tagline>. <em class="not-italic text-fg-primary"><stance></em> <closer>
 CTA: outlined button (if cta_label provided)
 ```
 
@@ -171,9 +190,9 @@ Grid: `grid-cols-1 gap-5 md:grid-cols-[140px_1fr] md:gap-10`. Section `id="missi
 
 Right column:
 - `<h2>` display font `clamp(24px,5vw,32px)` tracking `-0.03em` leading `1.1`: `mission_heading`
-- `<p>` 13px sans 400 leading `1.8` in `brand-mid`, white pivot via `<em class="not-italic text-brand-white">`: `mission_body`
+- `<p>` 13px sans 400 leading `1.8` in `fg-secondary`, white pivot via `<em class="not-italic text-fg-primary">`: `mission_body`
 
-**Parent variant** — add tenets list below the paragraph (using the provided `tenets`). Number in `brand-red`. Headline in `text-brand-white font-bold`. Each row has `border-t border-brand-rule py-[13px]`; last row also has `border-b`.
+**Parent variant** — add tenets list below the paragraph (using the provided `tenets`). Number in `text-brand-red`. Headline in `text-fg-primary font-bold`. Body in `text-fg-secondary`. Each row has `border-t border-brand-rule py-[13px]`; last row also has `border-b`.
 
 **Product variant** — omit tenets unless explicitly provided.
 
@@ -181,14 +200,14 @@ Reference: `$SITES/sections/mission/example.html`.
 
 #### Features.astro (product variant only, if `features` provided)
 
-Section label: `FEATURES`. Same section grid. Right column: one row per feature, each with `border-t border-brand-rule py-[13px]`. 13px sans `brand-mid`. No icons.
+Section label: `FEATURES`. Same section grid. Right column: one row per feature, each with `border-t border-brand-rule py-[13px]`. 13px sans `fg-secondary`. No icons.
 
 #### ProductsPreview.astro (parent variant only)
 
 Section label: `PRODUCTS`. Intro line (1 sentence) above a 2-up card grid. Each card:
 - `bg-brand-surface p-9`
 - Mark with 3px red bar, display wordmark, mono descriptor ending in `— <sub_brand>`
-- Body with `<em class="not-italic text-brand-white">` on the stance clause
+- Body with `<em class="not-italic text-fg-primary">` on the stance clause
 - Tags: 9px mono uppercase, `border-brand-dim`, `px-[7px] py-[3px]`
 - Action: outlined mono button or disabled `Coming Soon`
 
@@ -201,8 +220,8 @@ Section label: `STATUS`. Intro line + flat list of rows.
 Each row:
 - `flex gap-[14px] items-center border-t border-brand-rule py-[13px]` (last row also `border-b`)
 - Dot `w-[6px] h-[6px] rounded-full`: `bg-brand-red` if Live, `bg-brand-dim` otherwise
-- Name: display 700 15px `text-brand-white flex-1`
-- Badge: 9px mono uppercase hairline outlined. Live: `text-brand-red border-brand-red opacity-90`. Others: `text-brand-mid border-brand-dim`
+- Name: display 700 15px `text-fg-primary flex-1`
+- Badge: 9px mono uppercase hairline outlined. Live: `text-brand-red border-brand-red opacity-90`. Others: `text-fg-tertiary border-brand-dim`
 
 Reference: `$SITES/sections/status/example.html`.
 
