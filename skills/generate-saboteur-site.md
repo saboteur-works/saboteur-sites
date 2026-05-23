@@ -47,18 +47,27 @@ If not found there, try `../saboteur-sites/AGENT.md` relative to the current dir
 
 Store the resolved path as SITES (e.g. `/Users/jedaisaboteur/Repositories/saboteur-works/saboteur-sites`).
 
-### Step 3 — Check style freshness, then load reference docs
+### Step 3 — Locate saboteur-styles docs, then load reference docs
 
-Read `$SITES/brand/inputs/STYLES_SYNCED`. If `last_synced` is more than a few days before today, tell the user: "The style token mirror was last synced on [date]. If `saboteur-styles` has changed since then, run `bash scripts/sync-styles.sh` in the `saboteur-sites` repo before I generate token-sensitive markup." Then ask whether to proceed or wait. If the user says proceed (or the mirror is fresh), continue.
+The `saboteur-styles` repo has a `docs/` directory written for AI agents — it is the authoritative source for all token and color guidance. Find it:
+
+```bash
+find ~/Repositories -maxdepth 4 -name "tokens.md" -path "*/saboteur-styles/docs/*" 2>/dev/null | head -1
+```
+
+If found, store the parent `docs/` path as STYLE_DOCS (e.g. `/Users/jedaisaboteur/Repositories/saboteur-labs/saboteur-styles/docs`). Read `$STYLE_DOCS/tokens.md` and `$STYLE_DOCS/color-rules.md` before generating any markup.
+
+If not found, fall back to the local mirror. Read `$SITES/brand/inputs/STYLES_SYNCED` and check `last_synced`. If stale (more than a few days old), warn the user and suggest running `bash scripts/sync-styles.sh`.
 
 Read all of these before generating anything:
 
 1. `$SITES/brand/identity.md`
-2. `$SITES/brand/visual-tokens.md`
-3. `$SITES/compliance/cookieless-by-default.md`
-4. `$SITES/sites/landing-page/README.md`
-5. `$SITES/sites/landing-page/required-sections.md`
-6. `$SITES/sites/landing-page/optional-sections.md`
+2. `$STYLE_DOCS/tokens.md` (or `$SITES/brand/inputs/saboteur-base.css` if fallback)
+3. `$STYLE_DOCS/color-rules.md` (or `$SITES/brand/visual-tokens.md` if fallback)
+4. `$SITES/compliance/cookieless-by-default.md`
+5. `$SITES/sites/landing-page/README.md`
+6. `$SITES/sites/landing-page/required-sections.md`
+7. `$SITES/sites/landing-page/optional-sections.md`
 
 ### Step 4 — Collect per-product inputs
 

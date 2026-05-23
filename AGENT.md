@@ -14,9 +14,28 @@ These files are short and load-bearing for any Saboteur web task. Load all three
 2. [`compliance/cookieless-by-default.md`](compliance/cookieless-by-default.md) — the four hard rules every Saboteur site must satisfy.
 3. [`tech/stack.md`](tech/stack.md) — Astro + Tailwind v4 + Cloudflare Pages, and what *not* to use.
 
-## Style mirror freshness
+## Style guidance — load from saboteur-styles
 
-The local CSS mirror at [`brand/inputs/saboteur-base.css`](brand/inputs/saboteur-base.css) is a snapshot of the canonical `saboteur-styles` repo. Before generating token-sensitive code (component markup, theme files), read [`brand/inputs/STYLES_SYNCED`](brand/inputs/STYLES_SYNCED) and check `last_synced`. If it is more than a few days old relative to the current date, inform the user and suggest running `bash scripts/sync-styles.sh` before proceeding. Do not block on this — proceed with the mirror if the user confirms or if the task is not token-sensitive.
+The `saboteur-styles` repo (`saboteur-works/saboteur-styles`) contains a `docs/` folder written explicitly for AI agents. It is the authoritative source for all token, color, typography, mark, and product style guidance. Load from it directly when the repo is available locally.
+
+**Locate it:**
+```bash
+find ~/Repositories -maxdepth 4 -name "tokens.md" -path "*/saboteur-styles/docs/*" 2>/dev/null | head -1
+```
+
+**Load by task:**
+
+| Task | Load these |
+|---|---|
+| Any token-sensitive generation (components, theme files) | `docs/tokens.md` + `docs/color-rules.md` |
+| Mark, logo, avatar work | `docs/mark-usage.md` |
+| Typography decisions | `docs/typography-rules.md` |
+| Product-specific work | `docs/products.md` |
+| Full brand context | all five docs files |
+
+If `saboteur-styles` is not available locally, fall back to the local mirror at [`brand/inputs/saboteur-base.css`](brand/inputs/saboteur-base.css) and check [`brand/inputs/STYLES_SYNCED`](brand/inputs/STYLES_SYNCED) for freshness. If stale, run `bash scripts/sync-styles.sh`.
+
+**Important:** `brand/visual-tokens.md` in this repo is now a thin pointer index, not the full reference. Always prefer `saboteur-styles/docs/` for detail.
 
 ## Task-specific loads
 
