@@ -74,6 +74,6 @@ Phase 2 is complete. The following are deliberately deferred and should not be i
 
 - **Scaffolding starter files** — complete. See [`scaffolding/new-landing-page/`](scaffolding/new-landing-page/) for the bootstrap guide, first-time checklist, and starter files.
 - **`features/` and `demo/` sections** — no canonical HTML yet. `optional-sections.md` documents the expected patterns; generate from those descriptions until the files exist.
-- **The skill that consumes this repo from other projects.** Lives in a separate repo (not yet created).
+- **The skill that consumes this repo** — complete. `/generate-saboteur-site` lives in [`skills/generate-saboteur-site.md`](skills/generate-saboteur-site.md), symlinked globally. Invoke it from a new site repo to scaffold and generate a complete landing page from this repo's docs.
 
 If a task requires content that isn't here, stop and surface the gap rather than fabricating it.

@@ -36,7 +36,7 @@ A future skill will read this repo on demand to do that work for a specific prod
 
 **Phase 3 complete.** Scaffolding starter files are in `scaffolding/new-landing-page/`.
 
-**Remaining:** the consuming skill (separate repo) that reads this repo on demand and generates a site for a specific product.
+**Skill complete.** `/generate-saboteur-site` lives in `skills/` and is symlinked to `~/.claude/commands/` for global use. Invoke it from any new site repo to scaffold and generate a complete landing page.
 
 ## License & contributing
 
