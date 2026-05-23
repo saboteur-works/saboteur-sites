@@ -16,3 +16,6 @@ dist/
 # Editor
 .vscode/
 .idea/
+
+# Claude local settings (machine-specific paths, not shareable)
+.claude/settings.local.json

@@ -20,7 +20,7 @@ The `saboteur-styles` repo (`saboteur-works/saboteur-styles`) contains a `docs/`
 
 **Locate it:**
 ```bash
-find ~/Repositories -maxdepth 4 -name "tokens.md" -path "*/saboteur-styles/docs/*" 2>/dev/null | head -1
+find ~/Repositories ~/repos ~/code ~/dev ~/Projects ~/projects ~/workspace ~/src -maxdepth 4 -name "tokens.md" -path "*/saboteur-styles/docs/*" 2>/dev/null | head -1
 ```
 
 **Load by task:**

@@ -40,22 +40,22 @@ You are generating a Saboteur LLC landing page. Follow these steps exactly, in o
 Run this to find the `saboteur-sites` reference repo:
 
 ```bash
-find ~/Repositories -maxdepth 4 -name "AGENT.md" -path "*/saboteur-sites/*" 2>/dev/null | head -1
+find ~/Repositories ~/repos ~/code ~/dev ~/Projects ~/projects ~/workspace ~/src -maxdepth 4 -name "AGENT.md" -path "*/saboteur-sites/*" 2>/dev/null | head -1
 ```
 
-If not found there, try `../saboteur-sites/AGENT.md` relative to the current directory. If still not found, ask the user for the path before continuing.
+If not found there, try `../saboteur-sites/AGENT.md` relative to the current directory. If still not found, ask the user where they cloned https://github.com/saboteur-works/saboteur-sites before continuing.
 
-Store the resolved path as SITES (e.g. `/Users/jedaisaboteur/Repositories/saboteur-works/saboteur-sites`).
+Store the resolved path as SITES (e.g. `~/code/saboteur-works/saboteur-sites`).
 
 ### Step 3 — Locate saboteur-styles docs, then load reference docs
 
 The `saboteur-styles` repo has a `docs/` directory written for AI agents — it is the authoritative source for all token and color guidance. Find it:
 
 ```bash
-find ~/Repositories -maxdepth 4 -name "tokens.md" -path "*/saboteur-styles/docs/*" 2>/dev/null | head -1
+find ~/Repositories ~/repos ~/code ~/dev ~/Projects ~/projects ~/workspace ~/src -maxdepth 4 -name "tokens.md" -path "*/saboteur-styles/docs/*" 2>/dev/null | head -1
 ```
 
-If found, store the parent `docs/` path as STYLE_DOCS (e.g. `/Users/jedaisaboteur/Repositories/saboteur-labs/saboteur-styles/docs`). Read `$STYLE_DOCS/tokens.md` and `$STYLE_DOCS/color-rules.md` before generating any markup.
+If found, store the parent `docs/` path as STYLE_DOCS (e.g. `~/code/saboteur-works/saboteur-styles/docs`). Read `$STYLE_DOCS/tokens.md` and `$STYLE_DOCS/color-rules.md` before generating any markup.
 
 If not found, fall back to the local mirror. Read `$SITES/brand/inputs/STYLES_SYNCED` and check `last_synced`. If stale (more than a few days old), warn the user and suggest running `bash scripts/sync-styles.sh`.
 
