@@ -87,6 +87,7 @@ Read all of these before generating anything:
 5. `$SITES/sites/landing-page/README.md`
 6. `$SITES/sites/landing-page/required-sections.md`
 7. `$SITES/sites/landing-page/optional-sections.md`
+8. `$SITES/sections/SHARED-image-rules.md`
 
 ### Step 4 — Collect per-product inputs
 
@@ -124,6 +125,22 @@ If any of the following are still missing after parsing `$ARGUMENTS`, ask for th
 | `tenets` | Three principles: each has a headline (short, ends with period) and a body (one–two sentences) |
 | `products` | 2–3 products to show in ProductsPreview; each has: name, descriptor, sub-brand suffix, body, tags (2–3), action label, action URL (or "Coming Soon") |
 | `status_rows` | One status row per product: name + stage |
+
+**Optional inputs (any variant):**
+
+| Input | Description | Example |
+|---|---|---|
+| `og_image_path` | Path to a 1200×630 OG card image. If omitted, the head emits a `<!-- TODO og:image -->` comment instead of an `og:image` meta. | `./assets/og-card.png` |
+
+**Optional inputs (`product` variant only):**
+
+| Input | Description | Example |
+|---|---|---|
+| `include_demo` | Whether to include a Demo section (`yes`/`no`). Default: `no`. | `no` |
+| `demo_image_path` | Path to a screenshot for the Demo section. If `include_demo` is `yes` but this is omitted, the section renders the placeholder snippet from [`compliance/snippets/image-placeholder.html`](../../compliance/snippets/image-placeholder.html). | `./assets/demo-library-view.png` |
+| `demo_alt` | `alt` text for the Demo image. Required when `demo_image_path` is supplied. Describes what the image *shows*, not a marketing line. | `OffBeatFM library view — three columns showing artists, releases, and a now-playing pane.` |
+
+Images follow the rules in [`$SITES/sections/SHARED-image-rules.md`](../../sections/SHARED-image-rules.md). Never reference an external image host (placehold.co, Unsplash, Cloudinary, etc.) — those break the cookieless posture. If the user describes an image for a forbidden section (Hero, Mission, Principles, Features, Products preview, Status, Contact, Legal footer, Nav), surface the conflict rather than insert it.
 
 **Mission body pattern:**
 
@@ -202,6 +219,17 @@ Reference: `$SITES/sections/mission/example.html`.
 
 Section label: `FEATURES`. Same section grid. Right column: one row per feature, each with `border-t border-brand-rule py-[13px]`. 13px sans `fg-secondary`. No icons.
 
+#### Demo.astro (product variant only, if `include_demo` is `yes`)
+
+Section label: `DEMO`. Same section grid (140px label + 1fr) for the label and a one-sentence intro. Below the section-inner, a full-width image block.
+
+Image block:
+
+- **If `demo_image_path` is supplied:** write an `<img>` against that path with `class="w-full border border-brand-dim"`. Set `alt` to `demo_alt`. Copy the asset file from the supplied path into `public/assets/` (kebab-case the filename if needed). If `demo_alt` is missing, stop and ask the user.
+- **If `demo_image_path` is omitted:** paste the placeholder snippet from `$SITES/compliance/snippets/image-placeholder.html` verbatim, with the caption updated to `[ SCREENSHOT · 1440×900 ]`. Leave a `<!-- TODO: replace with real screenshot -->` comment above it.
+
+No carousel, no autoplay, no animated GIF. Static raster only. See `$SITES/sections/SHARED-image-rules.md`.
+
 #### ProductsPreview.astro (parent variant only)
 
 Section label: `PRODUCTS`. Intro line (1 sentence) above a 2-up card grid. Each card:
@@ -254,7 +282,10 @@ Rewrite `src/pages/index.astro`:
 - Import `Base` layout
 - Import every generated component
 - Set `<Base title="..." description="...">` using the product name and tagline
-- Compose sections in order: Nav → Hero → Mission → (Features) → (ProductsPreview) → (Status) → (Contact) → LegalFooter
+- If `og_image_path` was supplied, pass `ogImage="/assets/<filename>"` to `Base` so the layout can emit `<meta property="og:image">`. If the Base layout does not yet accept an `ogImage` prop, extend it: add the prop and emit `<meta property="og:image" content={ogImage}>` (and the standard `og:image:width=1200` / `og:image:height=630`) when it is set.
+- If `og_image_path` was *not* supplied, write `<!-- TODO og:image — see sections/SHARED-image-rules.md -->` inside the head so the omission is visible in source.
+- Copy the supplied OG file into `public/assets/` (kebab-case the filename if needed).
+- Compose sections in order: Nav → Hero → Mission → (Features) → (Demo) → (ProductsPreview) → (Status) → (Contact) → LegalFooter
 
 Remove the scaffold's commented-out placeholder imports.
 
@@ -270,6 +301,11 @@ Before reporting done, check each item:
 - [ ] LegalFooter has both Privacy and Terms links
 - [ ] `astro.config.mjs` has the correct production URL (not the TODO placeholder)
 - [ ] `package.json` name does not contain `PRODUCT`
+- [ ] No external image host referenced (placehold.co, picsum.photos, Unsplash, Cloudinary, via.placeholder.com, etc.) — all `<img src>` values point at `/assets/...`
+- [ ] No `<img>` in a forbidden section (Nav, Hero, Mission, Principles, Features, ProductsPreview, Status, Contact, LegalFooter)
+- [ ] If Demo is included with no supplied image: the placeholder snippet is present with a visible `[ SCREENSHOT · ... ]` caption and a TODO comment above it
+- [ ] If Demo is included with a supplied image: the file exists under `public/assets/`, the `<img>` has a real `alt`, and the surrounding `<figure>` uses `border-brand-dim`
+- [ ] OG image: either `<meta property="og:image">` is set against `/assets/...`, or a `<!-- TODO og:image -->` comment is present in the head
 
 Fix any violations before reporting.
 
