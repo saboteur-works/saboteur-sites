@@ -1,0 +1,57 @@
+<!--
+  Demo — example markup. Single static screenshot of the product surface.
+
+  Slots to fill:
+    - Image src / alt — replace the <figure> placeholder block below with an
+      <img> once a real asset exists at public/assets/<filename>. Alt names
+      what the image shows, not what the product does.
+    - Optional figcaption — uncomment and fill if the view needs naming
+      beyond the alt text (e.g., "Library view. Three columns.").
+      Default is no caption; the section label already says DEMO.
+
+  Aspect: 16/9 by default (matches product UI screenshots). 4/3 allowed for
+  older / narrower captures. No portrait — the right column is wide.
+
+  Tokens used: border-brand-rule, border-brand-dim, bg-brand-surface,
+               text-fg-tertiary, font-mono.
+
+  See ../SHARED-image-rules.md for the full image policy and
+  ../../compliance/snippets/image-placeholder.html for the placeholder block
+  used here.
+-->
+<section class="border-b border-brand-rule px-6 py-14">
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-[140px_1fr] md:gap-10 items-start">
+
+    <div class="font-mono text-[10px] tracking-[0.2em] text-fg-tertiary uppercase md:pt-1 pb-2 md:pb-0 border-b md:border-b-0 border-brand-rule">
+      Demo
+    </div>
+
+    <div class="w-full">
+
+      <!--
+        Placeholder — replace with a real <img> once an asset exists, e.g.:
+
+        <img src="/assets/demo-library-view.png"
+             srcset="/assets/demo-library-view.png 1x, /assets/demo-library-view@2x.png 2x"
+             alt="OffBeat-FM library view — three columns showing artists, releases, and a now-playing pane."
+             class="w-full border border-brand-dim" />
+      -->
+      <figure class="border border-brand-dim bg-brand-surface aspect-[16/9] w-full flex items-center justify-center">
+        <figcaption class="font-mono text-[10px] tracking-[0.2em] text-fg-tertiary uppercase">
+          [ SCREENSHOT &middot; 1440&times;810 ]
+        </figcaption>
+      </figure>
+
+      <!--
+        Optional figcaption under the image. Uncomment and fill if the view
+        needs naming. Keep it to a noun phrase — not a sentence, not a sell.
+
+        <p class="font-mono text-[10px] tracking-[0.2em] text-fg-tertiary uppercase mt-3">
+          Library view. Three columns.
+        </p>
+      -->
+
+    </div>
+
+  </div>
+</section>

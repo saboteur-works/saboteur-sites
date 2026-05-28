@@ -14,6 +14,8 @@ sections/
 ├── mission/                   Required. Section grid + one paragraph + optional nested tenets.
 ├── principles/                Optional. Numbered tenets list (typically nested inside Mission).
 ├── products-preview/          Optional. Parent / sub-brand pages only. 2-up product cards.
+├── features/                  Optional. Product pages only. 3–5 hairline-ruled prose rows.
+├── demo/                      Optional. Product pages only. Single static screenshot.
 ├── status/                    Optional. Honest project/product stage list.
 ├── contact/                   Optional. Form posting to a CF Worker (see compliance/forms.md).
 └── legal-footer/              Required. Compact sign-off + Privacy/Terms links.
@@ -21,8 +23,6 @@ sections/
 
 Future sections (added only when a real page needs them):
 
-- `features/` — three-to-five-item feature list for product pages.
-- `demo/` — single screenshot or click-to-load video for product pages.
 - `pricing/` — pricing card grid for products that have pricing.
 - `faq/` — short Q&A.
 

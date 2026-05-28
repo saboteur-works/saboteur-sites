@@ -34,7 +34,7 @@ A numbered list of operating commitments. **Not a standalone section** — it ne
 
 ## Features
 
-*No dedicated section file yet — this section is forthcoming. The pattern below matches the Saboteur visual language; generate from it until a canonical file exists.*
+**File:** [`../../sections/features/example.html`](../../sections/features/example.html)
 
 **When to include:** Product landing pages only. The parent page does not have a features section — products are introduced via the Products preview.
 
@@ -65,7 +65,7 @@ Side-by-side product cards for parent and sub-brand landing pages. **Not used on
 
 ## Demo
 
-*No dedicated section file yet. Use the pattern below.*
+**File:** [`../../sections/demo/example.html`](../../sections/demo/example.html)
 
 **When to include:** When a single static screenshot would materially help a visitor understand what the product surface looks like. Skip it if the product is pre-launch with no real UI, or if the mission and features copy already carry the weight.
 

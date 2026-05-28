@@ -91,12 +91,6 @@ These are not preferences. Violations break the site's compliance posture or its
 - **Brand-tokens canonical source:** [`saboteur-works/saboteur-styles`](https://github.com/saboteur-works/saboteur-styles).
 - **Brand system reference (rendered):** [`brand/inputs/saboteur-brand-system-v06.html`](brand/inputs/saboteur-brand-system-v06.html).
 
-## What's *not* here yet
-
-Phase 2 is complete. The following are deliberately deferred and should not be invented from scratch — wait for them, or surface the gap when you hit it:
-
-- **Scaffolding starter files** — complete. See [`scaffolding/new-landing-page/`](scaffolding/new-landing-page/) for the bootstrap guide, first-time checklist, and starter files.
-- **`features/` and `demo/` sections** — no canonical HTML yet. `optional-sections.md` documents the expected patterns; generate from those descriptions until the files exist.
-- **The skill that consumes this repo** — complete. `/generate-saboteur-site` lives in [`skills/generate-saboteur-site.md`](skills/generate-saboteur-site.md), symlinked globally. Invoke it from a new site repo to scaffold and generate a complete landing page from this repo's docs.
+## When something is missing
 
 If a task requires content that isn't here, stop and surface the gap rather than fabricating it.

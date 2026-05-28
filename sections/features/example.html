@@ -1,0 +1,58 @@
+<!--
+  Features — example markup. 3–5 hairline-ruled rows of plain prose.
+
+  Slots to fill:
+    - Section label — default "Features". Product-specific equivalents are
+      allowed: "How it works", "What's inside", "What it does". Always mono
+      uppercase via the existing classes.
+    - 3 to 5 rows. Each row is one sentence (or two short sentences).
+      Optional bold lift on the first clause via <strong> — use it on every
+      row or none, never mixed.
+
+  Rows use the same mechanics as sections/principles/example.html, minus the
+  red number prefix. Top hairline rule on every row; bottom rule on the last.
+
+  Tokens used: border-brand-rule, text-fg-primary, text-fg-secondary,
+               text-fg-tertiary, font-sans, font-mono.
+-->
+<section class="border-b border-brand-rule px-6 py-14">
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-[140px_1fr] md:gap-10 items-start">
+
+    <div class="font-mono text-[10px] tracking-[0.2em] text-fg-tertiary uppercase md:pt-1 pb-2 md:pb-0 border-b md:border-b-0 border-brand-rule">
+      Features
+    </div>
+
+    <div class="flex flex-col max-w-2xl">
+
+      <div class="border-t border-brand-rule py-[13px]">
+        <p class="font-sans text-fg-secondary text-[13px] leading-[1.6]">
+          <strong class="font-bold text-fg-primary">Your library lives on disk.</strong>
+          No sync required. Point the app at a folder and it indexes what's there.
+        </p>
+      </div>
+
+      <div class="border-t border-brand-rule py-[13px]">
+        <p class="font-sans text-fg-secondary text-[13px] leading-[1.6]">
+          <strong class="font-bold text-fg-primary">Plays anything with a URL.</strong>
+          No accounts, no DRM, no walled gardens. If the audio exists on the open web, it plays.
+        </p>
+      </div>
+
+      <div class="border-t border-brand-rule py-[13px]">
+        <p class="font-sans text-fg-secondary text-[13px] leading-[1.6]">
+          <strong class="font-bold text-fg-primary">One window.</strong>
+          Search, queue, playback. Nothing else competing for the surface.
+        </p>
+      </div>
+
+      <div class="border-t border-b border-brand-rule py-[13px]">
+        <p class="font-sans text-fg-secondary text-[13px] leading-[1.6]">
+          <strong class="font-bold text-fg-primary">Keyboard-first.</strong>
+          Every action has a binding. The mouse is optional.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>

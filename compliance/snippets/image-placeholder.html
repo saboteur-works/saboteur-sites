@@ -1,0 +1,34 @@
+<!--
+  Image placeholder — generation-time stand-in.
+
+  A self-hosted block to use when generating a Saboteur site without a real
+  asset on hand. Replace with a real <img> once an asset is available. Never
+  use an external placeholder service (placehold.co, picsum.photos, Unsplash,
+  via.placeholder.com) — they load assets from a third party on render and
+  break the cookieless posture. See ../cookieless-by-default.md.
+
+  Slots to fill:
+    - aspect-* class — one of:
+        aspect-[16/9]        demo screenshots, app surfaces, video stand-ins
+        aspect-[4/3]         older UI captures
+        aspect-square        avatars, square marks
+        aspect-[3/2]         landscape photography
+        aspect-[1200/630]    OG / social card
+    - The visible label. Include both the asset type and the intended
+      pixel dimensions in mono caps so the maintainer who replaces this
+      block already knows what to produce. Examples:
+        [ SCREENSHOT · 1440×900 ]
+        [ OG CARD · 1200×630 ]
+        [ FAVICON · 64×64 ]
+
+  Tokens used: bg-brand-surface, border-brand-dim, text-fg-tertiary,
+               font-mono.
+
+  Intentionally plain. The placeholder should be impossible to mistake for
+  a finished image in a rendered preview.
+-->
+<figure class="border border-brand-dim bg-brand-surface aspect-[16/9] w-full flex items-center justify-center">
+  <figcaption class="font-mono text-[10px] tracking-[0.2em] text-fg-tertiary uppercase">
+    [ SCREENSHOT · 1440×900 ]
+  </figcaption>
+</figure>
