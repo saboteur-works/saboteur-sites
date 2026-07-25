@@ -12,7 +12,7 @@ Calling this *principles* in the docs and *tenets* in the live HTML is intention
 
 Expand the mission stance into three to four concrete commitments. Each item has a short headline that states the principle as a rule and a body that says what the principle means in practice.
 
-The list earns its place by being specific. *"Creator-first."* is a tenet; *"We care about creators"* is marketing copy.
+The list earns its place by being specific. *"Creator-first."* is a tenet; *"I care about creators"* is marketing copy.
 
 ## Variants
 
@@ -33,7 +33,7 @@ Adapt the item count between **two and four**. Fewer than two isn't a list; more
                                                                                           13px
 ─────────────────────────────────────────────────────────────
    02    Own your output. Your files, your data, your
-         process. We make software you can trust …
+         process. I make software you can trust …
                                                                                           13px
 ─────────────────────────────────────────────────────────────
    03    Deliberate complexity. Simple where it should
@@ -63,7 +63,7 @@ Adapt the item count between **two and four**. Fewer than two isn't a list; more
 
 > **01 Creator-first.** Every product decision starts with the person doing the work — not the advertiser, not the algorithm, not the board.
 >
-> **02 Own your output.** Your files, your data, your process. We make software you can trust with work that matters.
+> **02 Own your output.** Your files, your data, your process. I make software you can trust with work that matters.
 >
 > **03 Deliberate complexity.** Simple where it should be simple. Powerful where depth is earned. Never complicated for complexity's sake.
 

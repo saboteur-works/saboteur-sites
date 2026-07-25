@@ -54,5 +54,5 @@ The intro line uses the standard section grid (140px label + 1fr content). The p
 2. **One action per card.** Either a `Learn more →` link to the product site (live products) or a disabled `Coming Soon` button (pre-launch).
 3. **Cards are visual peers.** Both cards same size, same column. Don't size-vary to signal hierarchy — the live product reads as "live" via its action, not via card size.
 4. **Two to three tags per card.** More than three reads like a feature list; tags should pick out a *posture* (independent, local-first, no algorithms) not a feature dump.
-5. **Tag labels are nouns or compound nouns, not sentences.** *Local-first*. *No algorithms*. *Revision control*. Not *We use local-first storage*.
+5. **Tag labels are nouns or compound nouns, not sentences.** *Local-first*. *No algorithms*. *Revision control*. Not *I use local-first storage*.
 6. **No screenshots, no product photography, no raster logos in the card.** A card is a label, not a preview. The product mark *is* the typographic wordmark already inside the card (display font, optional inline mono accent) — there is never a separate image asset above or beside it. A Demo section is where a screenshot belongs, on the product's own landing page, when needed. See [`../SHARED-image-rules.md`](../SHARED-image-rules.md) for the full image policy.

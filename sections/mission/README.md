@@ -28,7 +28,7 @@ All Saboteur content sections — Mission, Products, Status, Contact — share t
 │                Most software is built for the platform, not the  │
 │                person. It monetizes attention, fragments         │
 │                ownership, and optimizes for retention over       │
-│                output. We build the opposite. Tools that make    │
+│                output. I build the opposite. Tools that make     │
 │                you more capable without making you dependent.    │
 │                                                                  │
 │                ───────────────────────────────────────────────   │
@@ -61,7 +61,7 @@ The right column has a stable shape:
 1. **Heading** — one sentence, display family (IBM Plex Sans Condensed 700), `clamp(24px, 5vw, 32px)`, tracking `-0.03em`, leading `1.1`. Often a positive restatement of what the hero stance rejects.
 2. **Body** — one paragraph, sans 400, 13px, leading `1.8`, color `fg-secondary`. Pattern: *diagnosis → pivot → prescription.*
    - Diagnosis: two sentences naming what the dominant alternative does wrong, in `fg-secondary`.
-   - Pivot: a short clause wrapped in `<em class="not-italic text-fg-primary">` — usually *"We build the opposite."*
+   - Pivot: a short clause wrapped in `<em class="not-italic text-fg-primary">` — usually *"I build the opposite."*
    - Prescription: one sentence in `fg-secondary` after the pivot, naming what *this* does instead.
 3. **Tenets list (optional)** — numbered items nested directly below the body. See [`../principles/`](../principles/) for the standalone pattern.
 
@@ -77,13 +77,13 @@ The right column has a stable shape:
 
 The body follows a reliable shape:
 
-> *[The dominant alternative] [does these specific things visitors will recognize as wrong]. [Pivot in white — usually "We build the opposite."] [Positive prescription — what this is instead].*
+> *[The dominant alternative] [does these specific things visitors will recognize as wrong]. [Pivot in white — usually "I build the opposite."] [Positive prescription — what this is instead].*
 
 ### Live example (saboteur.dev)
 
-> *Most software is built for the platform, not the person. It monetizes attention, fragments ownership, and optimizes for retention over output. **We build the opposite.** Tools that make you more capable without making you dependent.*
+> *Most software is built for the platform, not the person. It monetizes attention, fragments ownership, and optimizes for retention over output. **I build the opposite.** Tools that make you more capable without making you dependent.*
 
-The paragraph names the target (*the platform*), enumerates three offenses, pivots into white at *We build the opposite.*, and lands on a prescription that doesn't repeat the diagnosis.
+The paragraph names the target (*the platform*), enumerates three offenses, pivots into white at *I build the opposite.*, and lands on a prescription that doesn't repeat the diagnosis.
 
 ### When writing for a product
 

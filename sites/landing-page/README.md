@@ -44,7 +44,7 @@ When generating a Saboteur landing page, resolve these in order:
 `saboteur.dev` (Phase 1 reference for the parent variant). Observed structure:
 
 - Nav: *Mission · Products · Get in touch*
-- Hero: *CREATOR-FIRST SOFTWARE* / *"We build tools for people who make things"* / *"No lock-in. No committees. No feature designed by a growth team."*
+- Hero: *CREATOR-FIRST SOFTWARE* / *"I build tools for people who make things"* / *"No lock-in. No committees. No feature designed by a growth team."*
 - Mission: *"Software that gets out of the way"* — contrasted against software that *"monetizes attention, fragments ownership, and optimizes for retention."*
 - Principles: Three numbered — creator-first decisions, user ownership, deliberate complexity.
 - Products: `OffBeat-FM` ("No algorithms. No editorial committees.") and `GetWrite` ("Local-first. Your files. Your structure.").

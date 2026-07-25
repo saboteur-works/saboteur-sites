@@ -38,12 +38,24 @@ The parent mark appears in the footers and about pages of product sites — neve
 
 The voice is **declarative, restrained, and counter-platform**. It states things rather than persuades. It rejects industry vocabulary openly. It earns trust by being specific about what it *won't* do, not by promising what it will.
 
+### Person — first person singular
+
+Saboteur is one person. **Site copy uses "I," never the corporate "we."** *I build the opposite.* *I read everything. I reply to most of it.* The singular is part of the trust the voice is trading on — a "we" that isn't there reads as the same institutional fog the brand rejects.
+
+Three exceptions:
+
+1. **Policy and legal copy** — the privacy policy, terms of service, and anything where the subject is Saboteur LLC as a legal entity. Those documents define *"Saboteur," "we," "us," "our"* as the company and stay in the plural.
+2. **The company as subject** — *Saboteur LLC does not sell personal data.* Prefer naming the entity outright over a bare "we."
+3. **Internal docs** — engineering and reference prose in this repo (this file included) may use the ordinary editorial "we." It isn't site copy.
+
+Where "I" would sound strange on an interface string — microcopy describing what the *page* does rather than what the person does — drop the subject instead of reaching for "we": *Your email is used only to reply.* *Nothing loads from YouTube until you click.*
+
 Reference phrases from the live site (saboteur.dev) and the brand system:
 
 - *Software that gets out of the way.*
-- *We build the opposite.*
+- *I build the opposite.*
 - *No lock-in. No committees. No feature designed by a growth team.*
-- *We read everything. We reply to most of it.*
+- *I read everything. I reply to most of it.*
 - *INDEPENDENT MUSIC DISCOVERY — offbeat-fm.com*
 - *LOCAL-FIRST WRITING STUDIO — getwrite.io*
 
@@ -53,7 +65,7 @@ Reference phrases from the live site (saboteur.dev) and the brand system:
 - Use short declarative sentences. End sentences early.
 - Name what you reject by name — *growth team*, *lock-in*, *the algorithm* — when it earns its place.
 - Treat technical terms as ordinary. Don't soften *local-first* or *self-hosted* with explanation.
-- Specific is better than reassuring. *"We reply to most of it"* beats *"We value every email."*
+- Specific is better than reassuring. *"I reply to most of it"* beats *"I value every email."*
 
 ### Don't
 

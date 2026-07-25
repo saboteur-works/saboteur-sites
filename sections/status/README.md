@@ -66,7 +66,7 @@ A SAB/labs page might say:
 Avoid:
 
 - *Stay tuned for updates!*
-- *We can't wait to show you what we're building.*
+- *I can't wait to show you what I'm building.*
 - *More on this soon.*
 
 The list itself is the update.

@@ -26,7 +26,7 @@ See [`copy-patterns.md`](copy-patterns.md) for headline / stance / CTA copy guid
 │  ─────────────────
 │  CREATOR-FIRST SOFTWARE — saboteur.dev              ← mono descriptor
 
-  We build tools for people who make things.          ← body — ONE paragraph, three clauses
+  I build tools for people who make things.           ← body — ONE paragraph, three clauses
   No lock-in. No committees. No feature designed
   by a growth team.   Just software that respects
   the work.

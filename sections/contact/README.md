@@ -6,7 +6,7 @@ For the form's backend, compliance, and Worker template, see [`../../compliance/
 
 ## Purpose
 
-Give visitors a single, low-friction way to reach Saboteur. The form is also the place where the brand's voice closes out the page — *"We read everything. We reply to most of it."* sits below the form on every Saboteur landing page that has one.
+Give visitors a single, low-friction way to reach Saboteur. The form is also the place where the brand's voice closes out the page — *"I read everything. I reply to most of it."* sits below the form on every Saboteur landing page that has one.
 
 ## Variants
 
@@ -35,8 +35,8 @@ The contact section uses the **standard section grid**, but with the section lab
 │                                                                  │
 │                [ SEND MESSAGE → ]                                │
 │                                                                  │
-│                We'll only use your email to reply. We don't      │
-│                share it, sell it, or store it past our reply.    │
+│                Your email is used only to reply. It isn't        │
+│                shared, sold, or stored past the reply.           │
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
                                                                           (no border-b on contact —
@@ -65,11 +65,11 @@ This list is **not** a set of nav buttons — it's prose telling the visitor wha
   - **Label** — mono 9px tracking `0.18em` uppercase, `fg-tertiary`. Background `brand-surface`, hairline border `border-brand-dim` on top + sides (no bottom).
   - **Input / select / textarea** — mono 12px, `text-fg-primary`, `bg-brand-surface`, hairline border `border-brand-dim` on sides + bottom (no top). Padding `0 14px 11px` for input/select; `12px 14px` for textarea. Focus border lifts to `border-brand-mid`. `appearance: none` to suppress browser defaults on select.
 - **Submit** — **filled red** (`bg-brand-red`), mono 10px tracking `0.2em` uppercase, `fg-primary` text, `padding: 14px 24px`, no border. Self-start (left-aligned, not full-width). `hover:opacity-90`.
-- **Lawful-basis copy** — directly below the submit, sans 10px in `fg-tertiary`. *We'll only use your email to reply. We don't share it, sell it, or store it past our reply.*
+- **Lawful-basis copy** — directly below the submit, sans 10px in `fg-tertiary`. *Your email is used only to reply. It isn't shared, sold, or stored past the reply.*
 
 ### After the form
 
-The closing line **"We read everything. We reply to most of it."** lives below the form (still in the right column). Sans 13px or 14px in `fg-secondary`, with extra top margin. This line is brand canon and appears wherever a Saboteur contact form lives.
+The closing line **"I read everything. I reply to most of it."** lives below the form (still in the right column). Sans 13px or 14px in `fg-secondary`, with extra top margin. This line is brand canon and appears wherever a Saboteur contact form lives.
 
 ## Rules
 
@@ -77,7 +77,7 @@ The closing line **"We read everything. We reply to most of it."** lives below t
 2. **No newsletter checkbox.** The form captures *replies-only* intent. Mixing in a marketing-list opt-in changes the lawful basis and complicates the privacy policy.
 3. **The four-line intro is the canonical pattern.** Use the live phrasing or close variants. Each line names a *kind of message we welcome*. End with a softer line — *"Anything else."* — to invite messages that don't fit the categories.
 4. **Honeypot, not reCAPTCHA.** A hidden `<input name="company">` field positioned off-screen catches most bots. Turnstile is added when traffic warrants it. reCAPTCHA is forbidden per [`../../compliance/cookieless-by-default.md`](../../compliance/cookieless-by-default.md).
-5. **Closing line stays.** *"We read everything. We reply to most of it."* — this is the brand's voice landing the page. Don't rewrite to be more "professional."
+5. **Closing line stays.** *"I read everything. I reply to most of it."* — this is the brand's voice landing the page. Don't rewrite to be more "professional."
 6. **Contact section drops the bottom hairline rule.** It's the last section before the footer; no rule beneath it.
 
 ## Backend

@@ -34,7 +34,7 @@ Prefer self-hosted alternatives where they exist (e.g., `<video>` with a hosted 
 
 A form processes personal data even without cookies. The default Saboteur form backend is **Cloudflare Workers → Resend** (both already in use, both free tier). Any form must:
 
-- State its lawful basis in plain language near the submit button (e.g., *"We'll only use this email to reply to you."*).
+- State its lawful basis in plain language near the submit button (e.g., *"Your email is used only to reply."*).
 - Be referenced in the site's privacy policy with: what is collected, why, where it goes (Resend), how long it is retained.
 - Include a honeypot field or Turnstile challenge — spam mitigation matters, and aggressive bot defenses (reCAPTCHA) themselves create compliance issues.
 

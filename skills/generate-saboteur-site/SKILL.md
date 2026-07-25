@@ -144,7 +144,7 @@ Images follow the rules in [`$SITES/sections/SHARED-image-rules.md`](../../secti
 
 **Mission body pattern:**
 
-> *[The dominant category] [two or three specific things it does wrong]. [White pivot — usually "We build the opposite." or "We made something else."] [Positive prescription.]*
+> *[The dominant category] [two or three specific things it does wrong]. [White pivot — usually "I build the opposite." or "I made something else."] [Positive prescription.]*
 
 ### Step 5 — Copy starter files
 
@@ -262,7 +262,7 @@ Full form per the canonical pattern. Derive topic options from the product's con
 - Message `<textarea>`
 - Submit: `bg-brand-red` filled, mono 10px
 - Lawful-basis copy below submit
-- Closing line: *"We read everything. We reply to most of it."*
+- Closing line: *"I read everything. I reply to most of it."*
 
 Form `action`: `https://forms.saboteur.dev/contact` (placeholder; user replaces with their Worker URL).
 
@@ -335,5 +335,6 @@ These constraints exist for specific reasons — get any of them wrong and you e
 5. **Warm off-white, not pure white.** `#F5F4F0` (`brand-white`) is the canonical white. Pure `#FFFFFF` looks harsh against `brand-black` and is explicitly excluded from the token set.
 6. **Left-aligned body content.** The hero, mission, and section copy are always left-aligned. Centering body text signals a different brand personality — one Saboteur doesn't have.
 7. **No marketing verbs in copy.** The brand voice is declarative and restrained. Words like *unleash*, *supercharge*, *delight*, *empower*, *transform* — and exclamation marks — undermine that. Write as if describing a fact, not selling a feature.
-8. **Section labels are plain words.** `MISSION`, `PRODUCTS`, `STATUS` — not `01 — MISSION`. Numbered labels belong to documentation pages (like the brand-system reference HTML), not landing pages.
-9. **Privacy and Terms links in the footer are required.** Even without cookies, server logs capture IP addresses — GDPR Article 13 disclosure obligations still apply. A footer without these links is non-compliant.
+8. **Site copy is first person singular.** Saboteur is one person — write *I build*, *I read everything*, never the corporate *we*. The plural belongs only in `/privacy` and `/terms` (where the subject is Saboteur LLC as a legal entity) and in sentences naming the company outright. If *I* reads strangely on an interface string, drop the subject rather than reaching for *we*: *Your email is used only to reply.*
+9. **Section labels are plain words.** `MISSION`, `PRODUCTS`, `STATUS` — not `01 — MISSION`. Numbered labels belong to documentation pages (like the brand-system reference HTML), not landing pages.
+10. **Privacy and Terms links in the footer are required.** Even without cookies, server logs capture IP addresses — GDPR Article 13 disclosure obligations still apply. A footer without these links is non-compliant.

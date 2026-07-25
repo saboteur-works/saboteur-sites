@@ -112,8 +112,8 @@ For each section present, grep the component file for its required text invarian
 |---|---|---|
 | Hero | `<em class="not-italic` wrapping the middle stance clause | `sections/hero/README.md` |
 | Mission | `<em class="not-italic` wrapping the white pivot | `sections/mission/README.md` |
-| Contact (if present) | `We read everything. We reply to most of it.` — verbatim closing line | `sections/contact/README.md` |
-| Contact (if present) | `We'll only use your email to reply.` — lawful-basis copy below submit (verbatim opener) | same |
+| Contact (if present) | `I read everything. I reply to most of it.` — verbatim closing line | `sections/contact/README.md` |
+| Contact (if present) | `Your email is used only to reply.` — lawful-basis copy below submit (verbatim opener) | same |
 | Contact (if present) | `<input` with `name="company"` — the honeypot field | same |
 | Contact (if present) | Submit button class includes `bg-brand-red` | same |
 | LegalFooter | Contains `Saboteur LLC` in the sign-off | `sections/legal-footer/README.md` |
@@ -167,6 +167,7 @@ Compare against the Do/Don't lists in `$SITES/brand/identity.md` (load it before
 - **Soft selling** — copy that praises the product instead of stating what it is or what it stands against
 - **Over-explanation** — copy that explains the joke or softens a stance instead of letting it stand
 - **Wrong register** — copy that reads as enthusiastic / breezy / casual rather than declarative / restrained
+- **Corporate "we"** — Saboteur is one person; site copy uses *I*. Flag *we / us / our* in any section body, hero, tenet, card, or form microcopy. Do **not** flag it in `/privacy` or `/terms` page content, or in a sentence whose subject is *Saboteur LLC* itself — the plural is conventional there. Suggested repair for interface strings where *I* reads oddly is to drop the subject (*Your email is used only to reply.*), not to keep *we*.
 
 Voice findings are judgment calls. For each, quote the offending sentence and explain in one line why it drifts. Be conservative — only flag clear drift, not subjective taste.
 

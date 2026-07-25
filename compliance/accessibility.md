@@ -110,7 +110,7 @@ Cross-references the form pattern in [`forms.md`](forms.md) and [`../sections/co
 
 - The honeypot field (`<input name="company">`) is **off-screen via positioning**, not `display: none`. Screen readers should still ignore it (`aria-hidden="true"`, `tabindex="-1"`). This is the standard accessible honeypot pattern.
 - The lawful-basis copy near the submit button is **plain prose**, not a tooltip. Screen readers reach it in source order.
-- The closing line *"We read everything. We reply to most of it."* is below the form; it's read after the form, which is what we want.
+- The closing line *"I read everything. I reply to most of it."* is below the form; it's read after the form, which is what we want.
 
 ## What this stack already gets right
 

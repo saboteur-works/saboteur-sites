@@ -105,8 +105,8 @@ The form section. Almost always the last content section before the footer.
 
 **Invariants:**
 - Submit button is **filled red** (`bg-brand-red`) — the single allowed filled-red CTA on the page.
-- Lawful-basis copy directly below submit: *"We'll only use your email to reply. We don't share it, sell it, or store it past our reply."*
-- Closing line: *"We read everything. We reply to most of it."* — brand canon, do not rewrite.
+- Lawful-basis copy directly below submit: *"Your email is used only to reply. It isn't shared, sold, or stored past the reply."*
+- Closing line: *"I read everything. I reply to most of it."* — brand canon, do not rewrite.
 - Honeypot field (`<input name="company">` positioned off-screen), not reCAPTCHA.
 - **No bottom hairline rule** — Contact is the last section; the footer's top rule takes over.
 

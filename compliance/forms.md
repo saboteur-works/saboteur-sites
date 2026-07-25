@@ -29,7 +29,7 @@ A Saboteur form has the following parts, in order:
 3. **Body** — one or two short sentences in brand-mid. Sets expectations: who reads this, when they'll reply.
 4. **Fields** — name, email, topic (optional), message. Standard browser controls; no custom dropdowns unless necessary.
 5. **Honeypot or Turnstile** — invisible. Required.
-6. **Lawful-basis copy** — one short sentence near the submit button. *"We'll only use this email to reply to you."*
+6. **Lawful-basis copy** — one short sentence near the submit button. *"Your email is used only to reply."*
 7. **Submit button** — mono, text-with-red-underline (same styling as a hero CTA).
 
 The markup template is in [`../sections/contact/form.html`](../sections/contact/form.html).
@@ -131,7 +131,7 @@ Adapt the `ALLOWED_ORIGINS` set and the env vars per-site. The Worker repo can b
 
 ## Compliance items every form must satisfy
 
-1. **Lawful-basis copy near the submit button.** Plain language naming what happens to the data. *"We'll only use this email to reply to you. We don't share it, sell it, or store it past our reply."*
+1. **Lawful-basis copy near the submit button.** Plain language naming what happens to the data. *"Your email is used only to reply. It isn't shared, sold, or stored past the reply."*
 2. **Privacy policy entry.** What's collected, why, where it goes (Resend as processor, email inbox as final destination), how long it's retained.
 3. **Honeypot or Turnstile.** Spam mitigation matters; the cheapest path is a hidden honeypot field. Add Turnstile for heavier-traffic forms.
 4. **No reCAPTCHA.** It loads Google fingerprinting and creates its own consent issues.
@@ -154,9 +154,9 @@ Adjust the wording — but the *substance* (what's collected, who processes it, 
 
 ## Failure modes & UX
 
-- **Submit succeeds.** Show an inline confirmation: *"Got it. We read everything; we reply to most of it."* Don't redirect — the user stays on the page.
+- **Submit succeeds.** Show an inline confirmation: *"Got it. I read everything; I reply to most of it."* Don't redirect — the user stays on the page.
 - **Submit fails (network error, 5xx).** Inline error: *"Something went wrong sending that. Try again in a moment, or email hello@saboteur.dev directly."* The fallback email gives the user a path out of a broken form.
-- **Rate-limit hit (429).** *"You've sent us a few in a row. Try again in an hour."* Don't shame the user; this is rare.
+- **Rate-limit hit (429).** *"You've sent a few in a row. Try again in an hour."* Don't shame the user; this is rare.
 - **Validation error (empty required field).** Use the browser's native validation. No custom modal.
 
 ## Pre-launch audit

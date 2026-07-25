@@ -32,12 +32,12 @@ The descriptor is two to four words in all caps, set in mono with `tracking-labe
 The hero body is **one paragraph** containing three clauses. Visually, the middle clause lifts into `brand-white` to carry the rhetorical weight; the openers stay in `brand-mid`.
 
 ```
-[Positive opener — what we do]   [Italicized stance — what we reject]   [Positive closer — what we leave]
+[Positive opener — what I do]   [Italicized stance — what I reject]   [Positive closer — what I leave]
 ```
 
 ### Live example (saboteur.dev)
 
-> We build tools for people who make things.
+> I build tools for people who make things.
 > *No lock-in. No committees. No feature designed by a growth team.*
 > Just software that respects the work.
 
@@ -45,7 +45,7 @@ The structure does three things in one breath: states the audience, names the re
 
 ### The three clauses
 
-**Opener** — *"We build tools for people who make things."*
+**Opener** — *"I build tools for people who make things."*
 - One sentence. Plain verb. Names the audience or category in concrete terms.
 - Subject-verb-object. The product (or company) is the subject; the verb is plain; the object is what it does *for* the reader.
 - Stay under 80 characters.
@@ -63,7 +63,7 @@ The structure does three things in one breath: states the audience, names the re
 ### Do
 
 - Use a single paragraph. The three clauses are one breath.
-- Use plain verbs. *We build*. *We make*. *We ship*.
+- Use plain verbs. *I build*. *I make*. *I ship*.
 - Keep the stance to three beats. Two beats is fine; four starts to feel like a list.
 
 ### Don't
