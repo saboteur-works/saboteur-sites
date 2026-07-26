@@ -7,10 +7,26 @@ import ProductsPreview from "../components/ProductsPreview.astro";
 import Status from "../components/Status.astro";
 import Contact from "../components/Contact.astro";
 import LegalFooter from "../components/LegalFooter.astro";
+
+// Parent variant: Organization. `sameAs` is the main entity signal that ties the
+// products' separate domains back to one publisher. Describes only what is on
+// the page — no AggregateRating, Review, or FAQPage.
+// See saboteur-sites/tech/seo.md.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Saboteur LLC",
+  alternateName: "Saboteur",
+  url: "https://saboteur.dev",
+  description:
+    "I build tools for people who make things. No lock-in. No committees. No feature designed by a growth team.",
+  sameAs: ["https://github.com/saboteur-works"],
+};
 ---
 <Base
   title="Saboteur — Creator-first software"
   description="I build tools for people who make things. No lock-in. No committees. No feature designed by a growth team."
+  jsonLd={jsonLd}
 >
   <Nav />
   <Hero />

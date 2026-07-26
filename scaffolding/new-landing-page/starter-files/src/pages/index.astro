@@ -15,10 +15,33 @@
 //
 // See: saboteur-sites/sites/landing-page/optional-sections.md
 import Base from "../layouts/Base.astro";
+
+// Entity markup. Describes only what is actually on the page — never add
+// AggregateRating, Review, or FAQPage for content a visitor can't see.
+// Per-variant shapes: saboteur-sites/tech/seo.md
+// TODO: add a self-hosted 1200×630 card at public/assets/og-card.png, then pass
+// ogImage="/assets/og-card.png" and ogImageAlt="..." to <Base> below.
+// Never reference an external image host.
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication", // "Organization" on the parent variant
+  name: "TODO",
+  description: "TODO: same sentence as the meta description.",
+  url: "https://TODO.com",
+  applicationCategory: "TODO", // e.g. "MultimediaApplication"
+  operatingSystem: "TODO", // e.g. "Web"
+  publisher: {
+    "@type": "Organization",
+    name: "Saboteur LLC",
+    url: "https://saboteur.dev",
+  },
+};
 ---
 <Base
   title="TODO — TODO tagline"
   description="TODO: one sentence, declarative, in brand voice."
+  jsonLd={jsonLd}
 >
   {/* Required */}
   {/* <Nav /> */}

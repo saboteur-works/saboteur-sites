@@ -5,4 +5,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://TODO.com/sitemap-index.xml
+Sitemap: https://saboteur.dev/sitemap-index.xml

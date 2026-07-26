@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "saboteur-styles": "github:saboteur-works/saboteur-styles",
+    "@astrojs/sitemap": "^3.2.0",
     "@fontsource/ibm-plex-mono": "^5.1.0",
     "@fontsource/ibm-plex-sans": "^5.1.0",
     "@fontsource/ibm-plex-sans-condensed": "^5.1.0",

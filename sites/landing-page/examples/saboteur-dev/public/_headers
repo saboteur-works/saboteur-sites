@@ -1,0 +1,28 @@
+# Cloudflare Pages headers. Match lines are literal paths or absolute URLs;
+# indented lines are the headers applied to that match.
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+
+# Keep preview and branch deploys out of the search index. They are near-exact
+# duplicates of production and would compete with it. Two rules are needed: a
+# placeholder stops at a period, so it can't span both label shapes.
+#   <project>.pages.dev
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
+#   <branch-or-hash>.<project>.pages.dev
+https://:alias.:project.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
+/*
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  # Everything is first-party: self-hosted fonts, no external images, no cookies.
+  # 'unsafe-inline' on style-src covers Astro's inlined critical CSS.
+  # TODO: if Cloudflare Web Analytics is enabled, add
+  #   script-src 'self' https://static.cloudflareinsights.com;
+  #   connect-src 'self' https://cloudflareinsights.com;
+  # TODO: if the contact form posts to a Worker, add its origin to form-action.
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
