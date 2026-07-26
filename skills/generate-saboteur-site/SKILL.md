@@ -88,6 +88,7 @@ Read all of these before generating anything:
 6. `$SITES/sites/landing-page/required-sections.md`
 7. `$SITES/sites/landing-page/optional-sections.md`
 8. `$SITES/sections/SHARED-image-rules.md`
+9. `$SITES/tech/seo.md`
 
 ### Step 4 — Collect per-product inputs
 
@@ -131,6 +132,10 @@ If any of the following are still missing after parsing `$ARGUMENTS`, ask for th
 | Input | Description | Example |
 |---|---|---|
 | `og_image_path` | Path to a 1200×630 OG card image. If omitted, the head emits a `<!-- TODO og:image -->` comment instead of an `og:image` meta. | `./assets/og-card.png` |
+| `og_image_alt` | What the card shows. Required when `og_image_path` is supplied. | `The OffBeat-FM wordmark on black.` |
+| `site_name` | Site name as a person says it, for `og:site_name`. Defaults to `product_name`. | `OffBeat-FM` |
+| `same_as` | URLs of profiles genuinely belonging to the entity, for JSON-LD `sameAs`. Parent variant. | `https://github.com/saboteur-works` |
+| `application_category` | schema.org category for the product's JSON-LD. Product variant. | `MultimediaApplication` |
 
 **Optional inputs (`product` variant only):**
 
@@ -156,7 +161,11 @@ Copy everything from `$SITES/scaffolding/new-landing-page/starter-files/` into t
 
 **`astro.config.mjs`** — replace `"https://TODO.com"` with `"https://<domain>"`.
 
-**`public/robots.txt`** — replace `https://TODO.com` with `https://<domain>`.
+**`public/robots.txt`** — replace `https://TODO.com` with `https://<domain>`. Leave the allow-all rule and the AI-crawler comment as they are unless the user explicitly asks to block crawlers.
+
+**`public/_headers`** — ships with security headers and the `pages.dev` noindex rules already correct; they need no per-site edit. Resolve the two CSP TODO comments: add the Cloudflare Web Analytics origins only if the user wants analytics, and add the Worker origin to `form-action` if the site has a contact form.
+
+**`src/layouts/Base.astro`** — replace `const SITE_NAME = "TODO"` with `site_name` (defaulting to `product_name`). Leave the rest of the layout alone; it already emits the full metadata contract from [`$SITES/tech/seo.md`](../../tech/seo.md).
 
 **`README.md`** — fill in all TODO lines with the product name, one-line description, status, domain, and sub-brand.
 
@@ -281,10 +290,10 @@ Reference: `$SITES/sections/legal-footer/footer.html`.
 Rewrite `src/pages/index.astro`:
 - Import `Base` layout
 - Import every generated component
-- Set `<Base title="..." description="...">` using the product name and tagline
-- If `og_image_path` was supplied, pass `ogImage="/assets/<filename>"` to `Base` so the layout can emit `<meta property="og:image">`. If the Base layout does not yet accept an `ogImage` prop, extend it: add the prop and emit `<meta property="og:image" content={ogImage}>` (and the standard `og:image:width=1200` / `og:image:height=630`) when it is set.
-- If `og_image_path` was *not* supplied, write `<!-- TODO og:image — see sections/SHARED-image-rules.md -->` inside the head so the omission is visible in source.
-- Copy the supplied OG file into `public/assets/` (kebab-case the filename if needed).
+- Set `<Base title="..." description="...">` using the product name and tagline. Title pattern: `{Product} — {short descriptor}`, under 60 characters. Description: 140–160 characters, in voice.
+- Build the JSON-LD object in the frontmatter and pass it as `jsonLd={jsonLd}`. Use the exact shape for the variant from `$SITES/tech/seo.md` — `Organization` for parent, `SoftwareApplication` with a `publisher` block for product. **Include only properties describing content actually on the page.** Never emit `AggregateRating`, `Review`, `FAQPage`, or an `Offer` with a price the page doesn't state.
+- If `og_image_path` was supplied, pass `ogImage="/assets/<filename>"` and `ogImageAlt="<og_image_alt>"`. The layout already emits the image tags, dimensions, and the `summary_large_image` card — do not add head tags by hand. Copy the file into `public/assets/` (kebab-case the filename if needed).
+- If `og_image_path` was *not* supplied, leave both props off and add a `// TODO: og image — see sections/SHARED-image-rules.md` comment in the frontmatter. The layout degrades `twitter:card` to `summary` on its own.
 - Compose sections in order: Nav → Hero → Mission → (Features) → (Demo) → (ProductsPreview) → (Status) → (Contact) → LegalFooter
 
 Remove the scaffold's commented-out placeholder imports.
@@ -305,7 +314,14 @@ Before reporting done, check each item:
 - [ ] No `<img>` in a forbidden section (Nav, Hero, Mission, Principles, Features, ProductsPreview, Status, Contact, LegalFooter)
 - [ ] If Demo is included with no supplied image: the placeholder snippet is present with a visible `[ SCREENSHOT · ... ]` caption and a TODO comment above it
 - [ ] If Demo is included with a supplied image: the file exists under `public/assets/`, the `<img>` has a real `alt`, and the surrounding `<figure>` uses `border-brand-dim`
-- [ ] OG image: either `<meta property="og:image">` is set against `/assets/...`, or a `<!-- TODO og:image -->` comment is present in the head
+- [ ] OG image: either `ogImage` is passed against `/assets/...` with a real `ogImageAlt`, or neither prop is set and a TODO comment is present
+- [ ] `Base.astro` has no `SITE_NAME = "TODO"` left
+- [ ] `public/robots.txt` and `astro.config.mjs` both carry the real domain — no `TODO.com` anywhere
+- [ ] `public/_headers` exists and its two CSP TODO comments have been resolved or deliberately left with the default first-party policy
+- [ ] `astro.config.mjs` still registers `sitemap()` — if it were removed, the `Sitemap:` line in `robots.txt` would point at a 404
+- [ ] Exactly one `jsonLd` object, matching the variant's shape, with no `AggregateRating` / `Review` / `FAQPage` / `Offer`
+- [ ] On a product page, the JSON-LD `publisher` points at `https://saboteur.dev` and the footer's parent mark is a working link to it
+- [ ] **Mission, Features, and Principles copy is specific to this product** — no sentence that would read correctly on another Saboteur domain with only the name swapped. This is the doorway-page invariant in `$SITES/tech/seo.md`; violating it risks a site-wide penalty across every Saboteur domain.
 
 Fix any violations before reporting.
 
@@ -319,7 +335,12 @@ Next steps
 1. npm install && npm run dev — verify locally
 2. Replace form action URL with your CF Worker endpoint
 3. Add /privacy and /terms pages (from compliance/privacy-policy/template.md and terms-of-service/template.md)
-4. Run compliance/pre-launch-checklist.md before going live
+4. Add a 1200x630 OG card at public/assets/og-card.png, then pass
+   ogImage + ogImageAlt to <Base> (see tech/seo.md)
+5. Run compliance/pre-launch-checklist.md before going live
+6. After deploy: verify the domain in Google Search Console, submit
+   /sitemap-index.xml, and confirm the *.pages.dev preview returns
+   X-Robots-Tag: noindex
 ```
 
 ---
@@ -338,3 +359,5 @@ These constraints exist for specific reasons — get any of them wrong and you e
 8. **Site copy is first person singular.** Saboteur is one person — write *I build*, *I read everything*, never the corporate *we*. The plural belongs only in `/privacy` and `/terms` (where the subject is Saboteur LLC as a legal entity) and in sentences naming the company outright. If *I* reads strangely on an interface string, drop the subject rather than reaching for *we*: *Your email is used only to reply.*
 9. **Section labels are plain words.** `MISSION`, `PRODUCTS`, `STATUS` — not `01 — MISSION`. Numbered labels belong to documentation pages (like the brand-system reference HTML), not landing pages.
 10. **Privacy and Terms links in the footer are required.** Even without cookies, server logs capture IP addresses — GDPR Article 13 disclosure obligations still apply. A footer without these links is non-compliant.
+11. **Never reuse copy across Saboteur domains.** The section patterns supply structure, tokens, and voice — never sentences. Each product owns a separate domain, so near-duplicate Mission or Features paragraphs across them are the doorway-page pattern, and the resulting penalty is site-wide rather than per-page. If a paragraph would read correctly on another Saboteur domain with only the product name swapped, rewrite it around what this product specifically does. See `$SITES/tech/seo.md`.
+12. **Structured data describes only visible content.** JSON-LD may state what a visitor can see on the page and nothing more. Fabricated ratings, reviews, FAQs, or prices are the most common cause of a search manual action.

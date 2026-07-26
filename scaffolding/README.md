@@ -20,7 +20,9 @@ scaffolding/
     │   │   ├── pages/index.astro
     │   │   └── styles/global.css   imports saboteur-base.css
     │   ├── public/
-    │   │   └── robots.txt
+    │   │   ├── robots.txt
+    │   │   ├── favicon.svg
+    │   │   └── _headers       Security headers + noindex on *.pages.dev previews
     │   └── README.md          Per-site README template (what to fill in)
     └── first-time-checklist.md   Bootstrap → deploy → custom domain → privacy policy
 ```

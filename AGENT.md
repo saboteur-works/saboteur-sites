@@ -47,6 +47,7 @@ Load **in addition to the always-load context**:
 2. [`brand/visual-tokens.md`](brand/visual-tokens.md) — tokens to style with, rules to respect.
 3. [`brand/inputs/saboteur-base.css`](brand/inputs/saboteur-base.css) — the actual token names available to Tailwind utilities.
 4. The relevant section files under [`sections/`](sections/) — required: `nav/`, `hero/`, `mission/`, `legal-footer/`; optional per [`sites/landing-page/optional-sections.md`](sites/landing-page/optional-sections.md).
+5. [`tech/seo.md`](tech/seo.md) — the head metadata contract and the JSON-LD shape for the variant. Read it before writing any `<head>` content or copy that will be reused across domains.
 
 Then collect the per-product inputs the page needs:
 
@@ -84,6 +85,7 @@ These are not preferences. Violations break the site's compliance posture or its
 6. **Left-aligned by default.** Centering is a deliberate exception.
 7. **No marketing verbs.** No *unleash*, *supercharge*, *delight*, *empower*. No exclamation marks. No emoji in voice copy.
 8. **Brand tokens come from `saboteur-styles`.** Sites consume it as a git dependency. The local mirror at [`brand/inputs/saboteur-base.css`](brand/inputs/saboteur-base.css) is documentation; it is not the source.
+9. **Copy is never shared across domains.** The section templates are structure, tokens, and voice — never sentences. If a Mission or Features paragraph would read correctly on two Saboteur domains with only the product name swapped, it isn't finished. Near-duplicate pages across separate domains are the doorway-page pattern, and the penalty is site-wide. See [`tech/seo.md`](tech/seo.md).
 
 ## External references
 

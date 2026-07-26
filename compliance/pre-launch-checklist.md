@@ -23,7 +23,7 @@ This checklist consolidates the rules from every other doc in this repo. If some
 
 ## 3. Visual tokens
 
-- [ ] No hex literals in the markup. All colors come from `--color-brand-*` tokens or Tailwind utility classes that map to them.
+- [ ] No hex literals in the markup. All colors come from `--color-brand-*` tokens or Tailwind utility classes that map to them. **One carve-out:** `<meta name="theme-color" content="#0A0A0A">` and `public/favicon.svg` — neither can read a CSS token.
 - [ ] No `#FFFFFF`. Lightest color is `--color-brand-white` (`#F5F4F0`).
 - [ ] Red appears only as structural bar, active state, or single CTA underline.
 - [ ] No gradients used decoratively.
@@ -95,14 +95,44 @@ From [`forms.md`](forms.md):
 
 ## 11. SEO & metadata
 
-- [ ] `<title>` follows the pattern *"{Product or page} — {short descriptor}"*.
+Full reference: [`../tech/seo.md`](../tech/seo.md).
+
+**Head tags**
+
+- [ ] `<title>` follows the pattern *"{Product or page} — {short descriptor}"* and is under 60 characters.
 - [ ] `<meta name="description">` is present, 140–160 chars, in the brand voice.
-- [ ] Open Graph tags (`og:title`, `og:description`, `og:image`, `og:url`, `og:type`) are present and accurate.
-- [ ] Twitter card tags (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`) are present.
-- [ ] OG image is self-hosted (no third-party image URL).
-- [ ] Canonical URL is set on every page.
-- [ ] `robots.txt` exists (allow by default; disallow only what shouldn't be indexed).
-- [ ] `sitemap.xml` exists for any site with more than one page.
+- [ ] Open Graph tags (`og:site_name`, `og:title`, `og:description`, `og:url`, `og:type`) are present and accurate.
+- [ ] Twitter card tags (`twitter:card`, `twitter:title`, `twitter:description`) are present.
+- [ ] If an OG image exists: it is self-hosted under `/assets/`, is 1200×630, has `og:image:alt`, and `twitter:card` is `summary_large_image`.
+- [ ] If no OG image exists: `twitter:card` is `summary`, not `summary_large_image`.
+
+**Canonicals and crawling**
+
+- [ ] Canonical is set on every page, is absolute, and **differs per page** — `grep -r 'rel="canonical"' dist/` must not show the same URL for every file.
+- [ ] Canonical points at the production origin, not a `*.pages.dev` hostname.
+- [ ] `robots.txt` exists and allows by default.
+- [ ] The `Sitemap:` line in `robots.txt` resolves — `test -f dist/sitemap-index.xml`.
+- [ ] `public/_headers` sets `X-Robots-Tag: noindex` on both `pages.dev` match patterns; verified post-deploy with `curl -sI https://<project>.pages.dev/ | grep -i robots`.
+- [ ] `noindex` prop is set on any thank-you page and the 404.
+
+**Structured data**
+
+- [ ] Exactly one JSON-LD block per page, passed via the layout's `jsonLd` prop.
+- [ ] Parent page uses `Organization` with accurate `sameAs`; product pages use `SoftwareApplication` with the `publisher` block pointing at `https://saboteur.dev`.
+- [ ] **No markup for anything not visible on the page** — no `AggregateRating`, `Review`, `FAQPage`, or `Offer` with an unstated price. This is the most common cause of a manual action.
+- [ ] Validates clean at [validator.schema.org](https://validator.schema.org) and Google's Rich Results Test.
+
+**Suppression risks**
+
+- [ ] **No copy is shared verbatim with another Saboteur domain.** Mission, Principles, and Features are substantively about *this* product — not a rephrasing with the name swapped. Near-duplicate pages across domains are the doorway-page pattern.
+- [ ] No text set at or near the background color, no `display:none` keyword blocks, no zero-opacity copy.
+- [ ] Legal entity name is written identically everywhere: `Saboteur LLC`.
+
+**Entity signals**
+
+- [ ] The reduced parent mark in the footer is a working link to `saboteur.dev` (product pages).
+- [ ] The parent page's Products preview links out to each live product domain.
+- [ ] Google Search Console property verified and the sitemap submitted (post-deploy).
 
 ## 12. Performance
 
@@ -116,7 +146,8 @@ From [`forms.md`](forms.md):
 - [ ] Deployed to Cloudflare Pages (default) or documented alternative.
 - [ ] Custom domain is wired and HTTPS works.
 - [ ] Redirects are in place (e.g., `www.product.com` → `product.com`).
-- [ ] `_headers` file sets reasonable security headers (CSP, X-Frame-Options, Referrer-Policy).
+- [ ] `public/_headers` is present (ships in the scaffold) and its CSP TODOs are resolved — the Cloudflare Web Analytics origins added if analytics is on, the Worker origin added to `form-action` if the site has a contact form.
+- [ ] CSP does not break the page — check the console for blocked-resource errors on the deployed site, not just locally.
 - [ ] 404 page exists and is on-brand.
 
 ## 14. Final pass

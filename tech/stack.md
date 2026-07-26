@@ -49,6 +49,7 @@ The full picture for a generated landing-page repo:
 | Email transactional | Resend | Used by the form worker. |
 | Domain / DNS | Cloudflare DNS | Each Saboteur product currently has its own domain. |
 | Image optimization | Astro `<Image>` / `<Picture>` | Outputs AVIF + WebP with fallback. |
+| Sitemap | `@astrojs/sitemap` | Emits `/sitemap-index.xml`, which `robots.txt` points at. See [`seo.md`](seo.md). |
 | CI | Cloudflare Pages built-in | Push-to-deploy. No separate GitHub Actions required for typical landing pages. |
 
 ## When to consider deviating
@@ -66,5 +67,5 @@ A landing page should default to the stack above. Reasonable reasons to step awa
 - *(Phase 2)* `hosting-cloudflare.md` — Pages setup, DNS, redirects, environment variables.
 - *(Phase 2)* `forms.md` — starter Cloudflare Worker + Resend integration + privacy-policy snippet.
 - *(Phase 2)* `analytics-choices.md` — Cloudflare Web Analytics setup; alternatives.
-- *(Phase 2)* `seo.md` — title patterns, meta description norms, OG/Twitter cards, JSON-LD, sitemap, robots.
+- [`seo.md`](seo.md) — metadata contract, JSON-LD shapes, crawling and preview-deploy rules, what would get a page suppressed, the domain trade-off.
 - *(Phase 2)* `domains.md` — current per-product convention; what to revisit if consolidating later.

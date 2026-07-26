@@ -84,7 +84,7 @@ Read `src/components/Hero.astro` in the target repo. If it contains the Japanese
 
 ### Step 6 — Run assessment checks
 
-Run all four check groups. Collect every finding into a single report; do not stop at the first failure. Each finding gets a unique `P#` identifier.
+Run all five check groups. Collect every finding into a single report; do not stop at the first failure. Each finding gets a unique `P#` identifier.
 
 #### A. Required sections
 
@@ -176,6 +176,32 @@ For each voice finding:
 - **Location:** `src/components/<Section>.astro` (line number when helpful)
 - **Standard:** `brand/identity.md §Voice`
 - **Suggested repair:** route to `update-saboteur-site` with `update_type=section-copy`
+
+#### E. SEO and discoverability
+
+Load `$SITES/tech/seo.md` before judging these. Most are mechanical; the last one is a judgment call and the most consequential.
+
+| Check | How | Standard |
+|---|---|---|
+| Canonical is per-page, not the site root | `src/layouts/Base.astro` builds it from `Astro.url.pathname`, not `Astro.site` alone. A canonical derived from `Astro.site` alone is a **P1** — it tells search engines every page is a duplicate of the homepage. | `tech/seo.md §The metadata contract` |
+| Sitemap exists if `robots.txt` advertises one | `public/robots.txt` has a `Sitemap:` line **and** `astro.config.mjs` registers `sitemap()`. One without the other is a finding either way. | same |
+| No `TODO` left in metadata | `grep -rn "TODO" public/robots.txt astro.config.mjs src/layouts/Base.astro` | same |
+| `twitter:card` matches reality | `summary_large_image` only when `og:image` is actually set; otherwise `summary` | same |
+| `og:image` is self-hosted | any `og:image` value points at `/assets/...`, never a third-party host | `compliance/cookieless-by-default.md` |
+| Preview deploys are noindexed | `public/_headers` exists with `X-Robots-Tag: noindex` on both `:project.pages.dev` and `:alias.:project.pages.dev` patterns | `tech/seo.md §Preview deploys` |
+| Structured data describes only visible content | `grep -rn "AggregateRating\|FAQPage\|\"Review\"\|\"Offer\"" src/` — any hit is a **P1** unless the corresponding content is literally rendered on the page | `tech/seo.md §Structured data` |
+| Product pages link back to the parent | JSON-LD has a `publisher` pointing at `https://saboteur.dev`, and the footer's reduced parent mark is a link | `tech/seo.md §Entity signals` |
+| Hidden text | no body text set at or near `brand-black` on a `brand-black` surface, no `display:none` or zero-opacity text blocks | `tech/seo.md §What would get a page suppressed` |
+
+**Cross-domain copy duplication.** This one requires reading, not grepping, and it is the highest-severity finding this skill can produce — the doorway-page penalty is site-wide across every Saboteur domain, not scoped to the offending page.
+
+Read the Mission, Features, and Principles body copy. For each paragraph, ask: *would this read correctly on another Saboteur product's site with only the product name changed?* If yes, file a **P1**. Shared structure, tokens, and voice are correct by design; shared sentences are not. If other Saboteur site repos are available locally, grep their components for distinctive phrases from this one to confirm rather than infer.
+
+For each finding in this group:
+- **Category:** SEO
+- **Location:** `<file:line>`
+- **Standard:** the `tech/seo.md` section named above
+- **Suggested repair:** direct edit for the mechanical items (canonical, sitemap, `_headers`, card type); route to `update-saboteur-site` with `update_type=section-copy` for duplicated copy.
 
 ### Step 7 — Output the report
 

@@ -45,9 +45,11 @@ All eleven structural findings are reflected in the section docs as of Phase 2c.
 - [ ] Add a minimal `package.json` to `saboteur-styles` so generated sites can consume tokens as a git dependency rather than vendoring.
 - [ ] Add `/privacy` and `/terms` pages to the live `saboteur.dev`.
 - [ ] Replace the placeholder form action (`https://forms.saboteur.dev/contact`) with a real Cloudflare Worker endpoint per `compliance/forms.md`.
-- [ ] Decide on an OG image (the live site references `/assets/wordmark.png`; the port doesn't include one yet).
+- [ ] Decide on an OG image (the live site references `/assets/wordmark.png`; the port doesn't include one yet). Once it exists, pass `ogImage` / `ogImageAlt` to `<Base>` — the layout emits the rest.
 - [ ] Audit accessibility (keyboard nav, focus rings, color contrast on `brand-mid` text at 13px).
-- [ ] Add `public/_headers` with reasonable security headers (CSP, Referrer-Policy, X-Frame-Options) before any production deploy.
+- [ ] Add the real `sameAs` profiles to the `Organization` JSON-LD in `src/pages/index.astro` (currently GitHub only).
+- [ ] Make the footer's parent mark a link where product pages carry it — an entity signal, see `tech/seo.md`.
+- [x] `public/_headers` with security headers and `noindex` on `*.pages.dev` previews.
 
 ## Notes for future agents reading this
 

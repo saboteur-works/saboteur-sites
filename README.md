@@ -17,7 +17,7 @@ The reference repository for **how to build a Saboteur LLC website or page**. Br
 | [`sites/`](sites/) | Catalog of site types. Phase 1: `landing-page/`. |
 | [`sections/`](sections/) | Reusable HTML section snippets — nav, hero, mission, principles, products-preview, status, contact, legal-footer. |
 | [`compliance/`](compliance/) | Cookieless-by-default charter and the disclosures still required. |
-| [`tech/`](tech/) | Default stack (Astro + Tailwind v4 + Cloudflare Pages) and the choices around it. |
+| [`tech/`](tech/) | Default stack (Astro + Tailwind v4 + Cloudflare Pages), and [`seo.md`](tech/seo.md) — the metadata contract, JSON-LD shapes, and what would get a page suppressed. |
 | [`scaffolding/`](scaffolding/) | Starter files for new site repos (Phase 3). |
 
 ## How a site gets built from this repo
