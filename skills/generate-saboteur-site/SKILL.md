@@ -384,7 +384,8 @@ Next steps
 5. Run compliance/pre-launch-checklist.md before going live
 6. Deploy — push to GitHub, then connect the repo in the Cloudflare
    dashboard: Workers & Pages > Create > Pages > Connect to Git.
-     Build command: npm run ci     Output: dist     NODE_VERSION: 22
+     Build command: npm run ci     Output: dist     Root: /
+   Node version comes from the committed .nvmrc — leave env vars empty.
    A Pages project is Git-connected or Direct Upload PERMANENTLY, so do
    not create it by uploading a dist folder. See tech/hosting-cloudflare.md
 7. After deploy: verify the domain in Google Search Console, submit

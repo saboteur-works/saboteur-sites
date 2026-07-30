@@ -54,8 +54,20 @@ Git integration is set up in the Cloudflare dashboard. There is no wrangler comm
    | Root directory | `/` |
    | Production branch | `main` |
 
-5. Add an environment variable **`NODE_VERSION`** = `22` (or whatever the site's `engines.node` requires). Cloudflare's default Node version lags and is the most common cause of a build that works locally and fails on the first deploy.
+5. Leave environment variables empty. **The Node version comes from `.nvmrc`**, which every Saboteur site commits at its root — see below.
 6. Save and deploy.
+
+### Node version: use `.nvmrc`, not a dashboard variable
+
+Cloudflare Pages resolves the Node version from, in order: a `NODE_VERSION` environment variable, a `.nvmrc` or `.node-version` file, or the build image default.
+
+Saboteur sites commit **`.nvmrc`** containing `22`, and declare `"engines": { "node": ">=22" }` in `package.json`. Prefer this over the dashboard variable:
+
+- It is **version-controlled**. A dashboard variable is invisible state that doesn't survive recreating the project and isn't reviewable in a diff.
+- The dashboard splits environment variables into **Production** and **Preview**. Setting `NODE_VERSION` for production only is a real way to get previews building on a different Node than production.
+- `nvm use` picks it up locally, so local and CI agree by construction.
+
+The v3 build image already defaults to Node 22.16.0, so on a freshly created project this is belt-and-braces rather than load-bearing. It stops being belt-and-braces the moment a project lands on an older build image (v2 defaults to 18.17.1, v1 to 12.18.0) — which is exactly when a build mysteriously fails on syntax that works locally.
 
 ### Why the build command is `npm run ci`, not `npm run build`
 
@@ -131,7 +143,8 @@ Expect a short window between steps 4 and 5 where the domain does not resolve. D
 | Symptom | Cause |
 |---|---|
 | Build fails resolving `saboteur-styles` or `saboteur-sites` | The repo was made private, or the default branch was renamed. Git deps track the default branch. Not caused by the `git+ssh` URLs in the lockfile — see [Prerequisites](#prerequisites). |
-| Build fails on a Node syntax error that works locally | `NODE_VERSION` is unset and Cloudflare's default is older than your local Node. |
+| Build fails on a Node syntax error that works locally | The project landed on an older build image. Confirm `.nvmrc` is committed at the repo root, and that the root directory setting points at it. |
+| Preview builds behave differently from production | A `NODE_VERSION` variable was set on only one of the two environments. Delete it and rely on `.nvmrc`. |
 | `policies:check` fails on a build you didn't change | A shared body in `saboteur-sites` moved. See [When a shared template changes](#when-a-shared-template-changes). |
 | `policies:audit` reports an undeclared host | The build gained a third-party reference. Either it's a real processor and belongs in `policy.config.json`, or it's an outbound link and belongs in `allowedHosts`. |
 | Preview URLs appearing in search results | `_headers` is missing, or has only one of the two `pages.dev` rules. |
