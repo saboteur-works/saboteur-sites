@@ -15,7 +15,7 @@ lastUpdated: "2026-07-30"
 
 This is the privacy policy for **Saboteur** (`saboteur.dev`), operated by **Saboteur LLC**.
 
-We are deliberate about the data we collect. This site is **cookieless** — it sets no cookies, uses no client-side storage, and shows no consent banner. Even so, some personal data is processed (server logs always; contact-form submissions if you write to us). This policy explains what, why, and how.
+We are deliberate about the data we collect. This site is **cookieless** — it sets no cookies, uses no client-side storage, and shows no consent banner. Even so, some personal data is processed — server logs always, and contact-form submissions if you write to us. This policy explains what, why, and how.
 
 If anything here is unclear, or if you want to exercise any of the rights described below, email us at **privacy@saboteur.dev**.
 

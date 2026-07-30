@@ -248,6 +248,65 @@ const LEAK_PATTERNS = [
   [/\{\{\s*TOKEN/i, "a template token"],
 ];
 
+/**
+ * Phrases that must not survive into the output when a feature is switched off.
+ *
+ * This catches the class of bug where prose *outside* a conditional describes a
+ * feature the site doesn't have — a semantic contradiction rather than an
+ * unresolved token, so nothing else here would notice. The original instance:
+ * the privacy intro said "contact-form submissions if you write to us"
+ * unconditionally, directly contradicting the {{#unless contact_form}} block
+ * further down that said the site has no form at all.
+ *
+ * Patterns must be specific enough not to fire on the negated prose that
+ * legitimately appears when the feature is off ("This site has no contact
+ * form…"). Match how the feature is described when it *exists*.
+ */
+const CONTRADICTIONS = {
+  contact_form: [
+    [/contact[-\s]form submissions?/i, "describes contact-form submissions"],
+    [/when you submit the contact form/i, "describes submitting the contact form"],
+    [/your contact form submission/i, "describes a contact form submission"],
+    [/through the contact form/i, "refers to sending a message through the contact form"],
+  ],
+  analytics: [
+    [/web analytics/i, "describes web analytics"],
+    [/analytics service/i, "names an analytics service"],
+  ],
+  embeds: [
+    [/embedded content/i, "describes embedded content"],
+    [/the embed provider/i, "refers to an embed provider"],
+  ],
+  newsletter: [[/subscriber list/i, "describes a subscriber list"]],
+};
+
+/**
+ * A policy that contradicts itself is false in one of its two claims. Fail the
+ * render rather than publish it.
+ */
+function validateConsistency(text, config, label) {
+  const problems = [];
+  for (const [feature, patterns] of Object.entries(CONTRADICTIONS)) {
+    if (config.features?.[feature]) continue; // feature is on — the prose belongs
+    for (const [pattern, description] of patterns) {
+      const found = text.match(pattern);
+      if (found) {
+        const line = text.slice(0, found.index).split("\n").length;
+        problems.push(
+          `${label}:${line}: features.${feature} is false, but the text ${description} ("${found[0]}")`
+        );
+      }
+    }
+  }
+  if (problems.length) {
+    throw new Error(
+      `rendered output contradicts the config:\n  - ${problems.join("\n  - ")}\n\n` +
+        `  Either the feature flag is wrong, or prose describing that feature sits\n` +
+        `  outside its {{#if}} block in the shared template.`
+    );
+  }
+}
+
 function validateConfig(config, path) {
   const problems = [];
   if (!config.tokens || typeof config.tokens !== "object") {
@@ -394,6 +453,7 @@ function main() {
 
     try {
       validateOutput(output, doc.outFile);
+      validateConsistency(output, config, doc.outFile);
     } catch (error) {
       console.error(`error: ${error.message}`);
       process.exit(1);

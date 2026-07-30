@@ -60,6 +60,15 @@ A block tag alone on its line takes its newline with it, so a conditional bullet
 
 **Nothing renders with a placeholder in it.** The renderer refuses output containing `{{`, `[CONDITIONAL]`, `TODO`, `FIXME`, `TBD`, `FILL ME IN`, or lorem ipsum. A policy that fails to build is far better than one that publishes `{{ CONTACT_EMAIL }}`.
 
+**Nothing renders that contradicts its own config.** For each feature flag that is *off*, the renderer checks the output for phrases that only make sense when it is *on* — "contact-form submissions", "web analytics", "embedded content", and so on. A policy that says both "no contact form" and "contact-form submissions if you write to us" is false in one of those claims, and no token check would notice.
+
+This catches two distinct mistakes:
+
+- **Template**: prose describing a feature sits outside its `{{#if}}` block, so it survives into every site regardless of flag. (This is exactly how the intro paragraph shipped broken — see the entry in the log below.)
+- **Config**: the flag is off but a related processor is still declared. A site with `contact_form: false` that still lists an email-delivery processor gets caught by the processor's own `purpose` string.
+
+The patterns are deliberately narrow — they match how a feature is described when it *exists*, so they don't fire on the negated prose that legitimately appears when it doesn't ("This site has no contact form…"). Add a pattern when you add a feature flag.
+
 ### 2. `scripts/audit-policy-processors.mjs` — truth-checking
 
 A privacy policy is a factual claim about a build. This checks the claim against the build, answering both directions of the question in [`privacy-policy/checklist.md`](privacy-policy/checklist.md):
@@ -114,6 +123,18 @@ The config is the **single place** a site's legal facts live. Retention periods,
 | [`privacy-policy/checklist.md`](privacy-policy/checklist.md) | Pre-publish verification, including which items the scripts now cover. |
 | [`gdpr.md`](gdpr.md) | EU/UK reference. |
 | [`us-state-privacy.md`](us-state-privacy.md) | US state reference — the operative one for Saboteur. |
+
+## Defect log
+
+Bugs the tooling has actually shipped, and what now prevents a repeat. Worth reading before editing a shared body.
+
+**2026-07-30 — contact-form clause not gated.** The privacy intro stated unconditionally that "some personal data is processed (server logs always; contact-form submissions if you write to us)". On a site rendered with `contact_form: false` this directly contradicted the `{{#unless contact_form}}` block further down, which said the site had no form at all. Both statements published together.
+
+Root cause: prose describing a feature written outside its conditional. The renderer's placeholder and processor checks both passed, because it was a semantic contradiction rather than an unresolved token or a processor mismatch.
+
+Fixed by splitting the clause into `{{#if}}` / `{{#unless}}` variants, and by adding the consistency check described above — which reproduces as a hard failure against the old text.
+
+**The general lesson:** when adding a sentence to a shared body, ask which flag it depends on. If the answer is "any", it belongs outside a conditional; otherwise it needs one, *and* a contradiction pattern so the next person can't reintroduce the same bug.
 
 ## Jurisdictional posture
 

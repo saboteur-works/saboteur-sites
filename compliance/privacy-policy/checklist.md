@@ -27,7 +27,8 @@ All three exiting 0 is a precondition for publishing, not a substitute for the r
 - [x] 🤖 All `{{ TOKEN }}` placeholders have been replaced — the renderer refuses to emit output containing one.
 - [x] 🤖 No `TODO`, `FIXME`, `TBD`, `FILL ME IN`, or `[CONDITIONAL]` markers remain — same check.
 - [x] 🤖 Conditional blocks resolved per the config's `features` flags rather than by hand.
-- [ ] **Each `features` flag actually matches the site.** The renderer enforces that a flag is *set*; only you can confirm it's set *correctly*. A false flag produces a confidently false policy.
+- [x] 🤖 The policy does not contradict its own config — the renderer checks, for every flag that is off, that no prose describing that feature survived.
+- [ ] **Each `features` flag actually matches the site.** The renderer enforces that a flag is *set*, and that the prose is consistent with it; only you can confirm it's set *correctly*. A flag that is wrong but internally consistent produces a confidently false policy, and no script can catch that.
 - [ ] **Last updated** date is current (within the last week of publication).
 - [ ] **Saboteur LLC** is named explicitly as the data controller.
 - [ ] A working contact email is listed for privacy / data-subject requests. Sending a test email gets through, not bounces.
