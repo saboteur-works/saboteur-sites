@@ -30,7 +30,18 @@ Decide once, per site, at creation.
 
 Git integration is set up in the Cloudflare dashboard. There is no wrangler command for it — `wrangler pages project create` makes a *Direct Upload* project, which is the thing you don't want.
 
-1. **Workers & Pages → Create → Pages → Connect to Git.**
+1. **Workers & Pages → Create → the *Pages* tab → Connect to Git.**
+
+   **The dashboard steers you into the Workers flow.** Cloudflare unified the two products and the Workers "Import a repository" path is the default; the Pages tab is easy to miss. Tell them apart by the fields:
+
+   | You're in… | Fields you see |
+   |---|---|
+   | **Pages** (what you want) | Build command, **Build output directory**, Root directory |
+   | **Workers** (wrong flow) | Build command, **Deploy command**, **Path**, and *no* output directory |
+
+   If you see a **Deploy command** or a **Path** field, back out — you're creating a Worker, not a Pages project. `Path` there is the *root directory*, not the output directory; putting `dist` in it breaks the build, because there's no `package.json` inside `dist`.
+
+   Going the Workers route is a real option, but not a drop-in one: it needs a `wrangler.jsonc` declaring `./dist` as the assets directory, and `public/_headers` rewritten — Workers preview URLs are `<version>-<worker>.<subdomain>.workers.dev`, so the `pages.dev` noindex rules would match nothing and every preview would become an indexable duplicate of production, silently. Per-branch preview aliases are also still "coming soon" on Workers. Don't switch casually.
 2. Authorize the **Cloudflare GitHub App** for the `saboteur-works` organisation. Grant it access to the specific repo rather than all repos. You can confirm or revise this later at GitHub → Settings → Applications.
 3. Select the repository.
 4. Set the build configuration:
