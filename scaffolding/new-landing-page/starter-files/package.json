@@ -8,10 +8,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "policies:render": "saboteur-render-policies --config ./policy.config.json --out ./src/pages",
+    "policies:check": "saboteur-render-policies --config ./policy.config.json --out ./src/pages --check",
+    "policies:audit": "saboteur-audit-processors --config ./policy.config.json --dist ./dist",
+    "policies:upstream": "saboteur-check-upstream",
+    "ci": "npm run policies:check && npm run build && npm run policies:audit"
   },
   "dependencies": {
     "saboteur-styles": "github:saboteur-works/saboteur-styles",
+    "saboteur-sites": "github:saboteur-works/saboteur-sites",
     "@astrojs/sitemap": "^3.2.0",
     "@fontsource/ibm-plex-mono": "^5.1.0",
     "@fontsource/ibm-plex-sans": "^5.1.0",

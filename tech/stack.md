@@ -23,7 +23,8 @@ A different stack is allowed when it serves the project, but it should be a deli
 ### Cloudflare Pages
 
 - **Free tier covers landing-page traffic.** 500 builds/month, unlimited bandwidth, unlimited requests on the static side.
-- **Git-driven deploys.** Push to the production branch → automatic build and deploy. Preview deploys for branches.
+- **Git-driven deploys.** Push to the production branch → automatic build and deploy. Preview deploys for branches. Set up once per site in the dashboard; a project is Git-connected or Direct Upload **permanently**, so never create one by dragging a `dist` folder in. See [`hosting-cloudflare.md`](hosting-cloudflare.md).
+- **The build is the compliance gate.** The build command is `npm run ci`, not `npm run build` — legal pages that have drifted from their templates, or a privacy policy that contradicts the site's own config, fail the deploy. See [`../compliance/policy-tooling.md`](../compliance/policy-tooling.md).
 - **Edge cache by default.** Static assets served from Cloudflare's network with no configuration.
 - **Pairs with the Saboteur form backend.** Cloudflare Workers (forms) and Cloudflare Web Analytics (cookieless analytics) live in the same account, same dashboard.
 
@@ -43,14 +44,14 @@ The full picture for a generated landing-page repo:
 | Framework | Astro | Static output only. |
 | Styling | Tailwind v4 + `saboteur-styles` | See [`../brand/visual-tokens.md`](../brand/visual-tokens.md). |
 | Fonts | `@fontsource/ibm-plex-*` | Self-hosted. Never `fonts.googleapis.com`. See [`../compliance/cookieless-by-default.md`](../compliance/cookieless-by-default.md). |
-| Hosting | Cloudflare Pages | Free tier. Connect repo in dashboard. |
+| Hosting | Cloudflare Pages | Free tier. Git integration, connected once in the dashboard. See [`hosting-cloudflare.md`](hosting-cloudflare.md). |
 | Forms (if any) | Cloudflare Worker → Resend | Both already in use. *(Phase 2: `forms.md` with starter worker.)* |
 | Analytics (if any) | Cloudflare Web Analytics | Cookieless. *(Phase 2: `analytics-choices.md`.)* |
 | Email transactional | Resend | Used by the form worker. |
 | Domain / DNS | Cloudflare DNS | Each Saboteur product currently has its own domain. |
 | Image optimization | Astro `<Image>` / `<Picture>` | Outputs AVIF + WebP with fallback. |
 | Sitemap | `@astrojs/sitemap` | Emits `/sitemap-index.xml`, which `robots.txt` points at. See [`seo.md`](seo.md). |
-| CI | Cloudflare Pages built-in | Push-to-deploy. No separate GitHub Actions required for typical landing pages. |
+| CI | Cloudflare Pages built-in | Push-to-deploy, build command `npm run ci`. Runs the policy gates before and after the Astro build. No separate GitHub Actions required. |
 
 ## When to consider deviating
 
@@ -64,7 +65,7 @@ A landing page should default to the stack above. Reasonable reasons to step awa
 
 - This file — default stack and rationale.
 - *(Phase 2)* `astro-conventions.md` — file layout, naming, when to use `Layout`s vs. components vs. partials.
-- *(Phase 2)* `hosting-cloudflare.md` — Pages setup, DNS, redirects, environment variables.
+- [`hosting-cloudflare.md`](hosting-cloudflare.md) — Git integration setup, build settings, preview deploys, custom-domain cutover from a manually-uploaded project.
 - *(Phase 2)* `forms.md` — starter Cloudflare Worker + Resend integration + privacy-policy snippet.
 - *(Phase 2)* `analytics-choices.md` — Cloudflare Web Analytics setup; alternatives.
 - [`seo.md`](seo.md) — metadata contract, JSON-LD shapes, crawling and preview-deploy rules, what would get a page suppressed, the domain trade-off.

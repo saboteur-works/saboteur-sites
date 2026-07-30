@@ -1,0 +1,24 @@
+{
+  "name": "saboteur-sites",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Saboteur LLC site reference docs, scaffolding, and policy tooling. Installed by site repos as a git dependency so builds can render and verify legal pages.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saboteur-works/saboteur-sites.git"
+  },
+  "bin": {
+    "saboteur-render-policies": "./scripts/render-policies.mjs",
+    "saboteur-audit-processors": "./scripts/audit-policy-processors.mjs",
+    "saboteur-check-upstream": "./scripts/check-policy-upstream.mjs"
+  },
+  "files": [
+    "scripts/",
+    "compliance/"
+  ],
+  "engines": {
+    "node": ">=20"
+  }
+}

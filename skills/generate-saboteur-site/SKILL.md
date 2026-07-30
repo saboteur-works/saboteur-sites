@@ -90,6 +90,7 @@ Read all of these before generating anything:
 8. `$SITES/sections/SHARED-image-rules.md`
 9. `$SITES/tech/seo.md`
 10. `$SITES/compliance/policy-tooling.md`
+11. `$SITES/tech/hosting-cloudflare.md`
 
 ### Step 4 — Collect per-product inputs
 
@@ -348,6 +349,8 @@ Before reporting done, check each item:
 - [ ] `policy.config.json` exists, and every `features` flag matches what was actually generated
 - [ ] `src/pages/privacy.md` exists, carries the `GENERATED` banner, and was not hand-edited
 - [ ] `audit-policy-processors.mjs` exits 0 against the build
+- [ ] `package.json` has the `policies:*` scripts and a `ci` script, and lists `saboteur-sites` as a dependency — the Cloudflare build command depends on both
+- [ ] `public/_headers` has **both** `pages.dev` noindex rules (`:project` and `:alias.:project`). One rule cannot match both shapes, and Git integration gives every branch a preview URL
 - [ ] `astro.config.mjs` has the correct production URL (not the TODO placeholder)
 - [ ] `package.json` name does not contain `PRODUCT`
 - [ ] No external image host referenced (placehold.co, picsum.photos, Unsplash, Cloudinary, via.placeholder.com, etc.) — all `<img src>` values point at `/assets/...`
@@ -379,7 +382,12 @@ Next steps
 4. Add a 1200x630 OG card at public/assets/og-card.png, then pass
    ogImage + ogImageAlt to <Base> (see tech/seo.md)
 5. Run compliance/pre-launch-checklist.md before going live
-6. After deploy: verify the domain in Google Search Console, submit
+6. Deploy — push to GitHub, then connect the repo in the Cloudflare
+   dashboard: Workers & Pages > Create > Pages > Connect to Git.
+     Build command: npm run ci     Output: dist     NODE_VERSION: 22
+   A Pages project is Git-connected or Direct Upload PERMANENTLY, so do
+   not create it by uploading a dist folder. See tech/hosting-cloudflare.md
+7. After deploy: verify the domain in Google Search Console, submit
    /sitemap-index.xml, and confirm the *.pages.dev preview returns
    X-Robots-Tag: noindex
 ```
