@@ -185,6 +185,21 @@ For a **parent** page:
 - Mark: wordmark + Japanese (`サボタージ員` or the provided value).
 - Links: `Mission`, `Products`, `Get in touch`.
 
+**Nav takes a `showSections` prop**, defaulting to `true`:
+
+```astro
+interface Props {
+  /** Render the in-page section links. False on standalone pages. */
+  showSections?: boolean;
+}
+
+const { showSections = true } = Astro.props;
+```
+
+Wrap the entire `<ul>` of links in `{showSections && ( … )}`. The links are in-page anchors, so they only resolve on a page that actually has those sections. `Legal.astro` passes `showSections={false}` for `/privacy` and `/terms` — without it, those pages render Mission and Products controls that look live and do nothing.
+
+Only the section links are conditional. The mark stays on every page; it is the way back.
+
 Reference: `$SITES/sections/nav/variant-minimal.html` for the exact class pattern.
 
 #### Hero.astro

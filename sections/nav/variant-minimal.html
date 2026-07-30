@@ -16,6 +16,13 @@
       Product:   <product wordmark> / <product Japanese, if defined>
     - Link href + label. 2-4 items. Mono uppercase, short.
 
+  The links are in-page anchors, so they only work on a page that actually
+  contains those sections. On a standalone page — /privacy, /terms, 404 — the
+  whole <ul> is omitted and the mark alone carries the way back. Do not ship
+  the section links on a page whose anchors don't exist: they look like
+  controls and do nothing. In Astro this is a `showSections` prop on Nav,
+  defaulting to true and passed false by the legal-page layout.
+
   Tokens used: bg-brand-black, border-brand-rule, border-brand-red,
                text-fg-primary, text-fg-tertiary,
                font-display, font-sans, font-mono.
