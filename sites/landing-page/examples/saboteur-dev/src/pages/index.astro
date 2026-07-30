@@ -29,10 +29,13 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <Nav />
-  <Hero />
-  <Mission />
-  <ProductsPreview />
-  <Status />
-  <Contact />
+  {/* Skip-link target and the page's single main landmark. */}
+  <main id="main">
+    <Hero />
+    <Mission />
+    <ProductsPreview />
+    <Status />
+    <Contact />
+  </main>
   <LegalFooter />
 </Base>

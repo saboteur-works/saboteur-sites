@@ -43,14 +43,21 @@ const jsonLd = {
   description="TODO: one sentence, declarative, in brand voice."
   jsonLd={jsonLd}
 >
-  {/* Required */}
+  {/* Required. Nav sits OUTSIDE <main> — it is its own landmark. */}
   {/* <Nav /> */}
-  {/* <Hero /> */}
-  {/* <Mission /> */}
 
-  {/* Optional — add what fits the page */}
-  {/* <Contact /> */}
+  {/* Every page needs exactly one <main id="main">. It is the skip-link
+      target and one of the three required landmarks (nav / main / footer).
+      See saboteur-sites/compliance/accessibility.md. */}
+  <main id="main">
+    {/* Required */}
+    {/* <Hero /> */}
+    {/* <Mission /> */}
 
-  {/* Required */}
+    {/* Optional — add what fits the page */}
+    {/* <Contact /> */}
+  </main>
+
+  {/* Required. Footer sits OUTSIDE <main> — it is its own landmark. */}
   {/* <LegalFooter /> */}
 </Base>

@@ -312,6 +312,17 @@ Rewrite `src/pages/index.astro`:
 - If `og_image_path` was supplied, pass `ogImage="/assets/<filename>"` and `ogImageAlt="<og_image_alt>"`. The layout already emits the image tags, dimensions, and the `summary_large_image` card — do not add head tags by hand. Copy the file into `public/assets/` (kebab-case the filename if needed).
 - If `og_image_path` was *not* supplied, leave both props off and add a `// TODO: og image — see sections/SHARED-image-rules.md` comment in the frontmatter. The layout degrades `twitter:card` to `summary` on its own.
 - Compose sections in order: Nav → Hero → Mission → (Features) → (Demo) → (ProductsPreview) → (Status) → (Contact) → LegalFooter
+- **Wrap everything between Nav and LegalFooter in `<main id="main">`.** Nav and LegalFooter stay outside it — each is its own landmark. Exactly one `<main>` per page, and the `id` must be `main`: it is the target of the skip link that `Base.astro` renders as the first focusable element on every page. A page with no `<main id="main">` has a skip link that goes nowhere and is missing one of the three required landmarks. See `$SITES/compliance/accessibility.md`.
+
+```astro
+  <Nav />
+  <main id="main">
+    <Hero />
+    <Mission />
+    {/* …remaining sections… */}
+  </main>
+  <LegalFooter />
+```
 
 Remove the scaffold's commented-out placeholder imports.
 
@@ -360,6 +371,8 @@ Before reporting done, check each item:
 - [ ] No `<script>` tags that set cookies or write to `localStorage`
 - [ ] Submit button is `bg-brand-red` — not outlined, not `brand-mid`
 - [ ] Every section label is plain uppercase text (not `01 — SECTION`)
+- [ ] Exactly one `<main id="main">` per page, wrapping everything between Nav and LegalFooter; both of those sit outside it
+- [ ] `Base.astro` renders the skip link as the first element in `<body>`, and its `href="#main"` matches the `<main>` id
 - [ ] LegalFooter has both Privacy and Terms links — **and both resolve to a generated page.** If terms could not be rendered (missing jurisdiction / mailing address), the Terms link is removed rather than left dangling.
 - [ ] `policy.config.json` exists, and every `features` flag matches what was actually generated
 - [ ] `src/pages/privacy.md` exists, carries the `GENERATED` banner, and was not hand-edited
