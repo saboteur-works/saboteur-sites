@@ -89,6 +89,7 @@ Read all of these before generating anything:
 7. `$SITES/sites/landing-page/optional-sections.md`
 8. `$SITES/sections/SHARED-image-rules.md`
 9. `$SITES/tech/seo.md`
+10. `$SITES/compliance/policy-tooling.md`
 
 ### Step 4 — Collect per-product inputs
 
@@ -298,6 +299,42 @@ Rewrite `src/pages/index.astro`:
 
 Remove the scaffold's commented-out placeholder imports.
 
+### Step 8b — Generate /privacy and /terms
+
+The LegalFooter links `/privacy` and `/terms` on every page. Generate them now — shipping a footer whose links 404 is a defect, not a next step.
+
+**Never write policy prose by hand and never copy it out of `compliance/`.** The pages are rendered by a script from shared bodies so that every Saboteur site stays in sync. Full semantics: `$SITES/compliance/policy-tooling.md`.
+
+1. **Write `policy.config.json`** at the site root, based on `$SITES/compliance/policy.config.example.json`. This file is the site's legal facts, so every value must describe what the site *actually* does:
+   - `tokens.site_name`, `site_domain`, `last_updated` (today, ISO) from the inputs already collected.
+   - `tokens.contact_email` / `legal_email` — ask if not already known. Do not invent an address.
+   - `features.contact_form` — true only if a Contact section was generated.
+   - `features.analytics` — true only if an analytics snippet was actually added. Default false.
+   - `features.embeds` — true only if a click-to-load embed was generated.
+   - `processors` — the real ones. A processor called server-side (the form's email provider) gets `"hosts": []`; see the example config's notes.
+   - `allowedHosts` — any domain the page *links* to (the parent mark, a GitHub link). An outbound link is not a data transfer.
+
+2. **Render:**
+   ```bash
+   node $SITES/scripts/render-policies.mjs --config ./policy.config.json --out ./src/pages
+   ```
+
+3. **If the terms fail to render** — the starter config ships Saboteur LLC's real Utah jurisdiction and filed address, so this should not happen. If someone has blanked or placeholdered either value, do **not** invent a replacement. Instead:
+   - Render privacy alone: append `--only privacy`.
+   - Remove the Terms link from `LegalFooter.astro`, leaving Privacy.
+   - Add the two missing facts to the next-steps block in Step 10.
+
+   A missing Terms link is a smaller problem than a link to a 404, and far smaller than published terms naming the wrong court.
+
+4. **Copy `Legal.astro`** into `src/layouts/` from the starter files if Step 5 didn't already. It imports `Nav` and `LegalFooter`, so it only works after Step 7.
+
+5. **Audit** after the first successful build:
+   ```bash
+   npm run build
+   node $SITES/scripts/audit-policy-processors.mjs --config ./policy.config.json --dist ./dist
+   ```
+   If it reports an undeclared host, resolve it — either the host is a real processor that belongs in the policy, or it's a link that belongs in `allowedHosts`. Do not silence it by deleting the check.
+
 ### Step 9 — Verify constraints
 
 Before reporting done, check each item:
@@ -307,7 +344,10 @@ Before reporting done, check each item:
 - [ ] No `<script>` tags that set cookies or write to `localStorage`
 - [ ] Submit button is `bg-brand-red` — not outlined, not `brand-mid`
 - [ ] Every section label is plain uppercase text (not `01 — SECTION`)
-- [ ] LegalFooter has both Privacy and Terms links
+- [ ] LegalFooter has both Privacy and Terms links — **and both resolve to a generated page.** If terms could not be rendered (missing jurisdiction / mailing address), the Terms link is removed rather than left dangling.
+- [ ] `policy.config.json` exists, and every `features` flag matches what was actually generated
+- [ ] `src/pages/privacy.md` exists, carries the `GENERATED` banner, and was not hand-edited
+- [ ] `audit-policy-processors.mjs` exits 0 against the build
 - [ ] `astro.config.mjs` has the correct production URL (not the TODO placeholder)
 - [ ] `package.json` name does not contain `PRODUCT`
 - [ ] No external image host referenced (placehold.co, picsum.photos, Unsplash, Cloudinary, via.placeholder.com, etc.) — all `<img src>` values point at `/assets/...`
@@ -334,7 +374,8 @@ Next steps
 ──────────
 1. npm install && npm run dev — verify locally
 2. Replace form action URL with your CF Worker endpoint
-3. Add /privacy and /terms pages (from compliance/privacy-policy/template.md and terms-of-service/template.md)
+3. Confirm privacy@ and legal@ on this domain actually receive mail —
+   the privacy policy publishes them as the data-subject request channel
 4. Add a 1200x630 OG card at public/assets/og-card.png, then pass
    ogImage + ogImageAlt to <Base> (see tech/seo.md)
 5. Run compliance/pre-launch-checklist.md before going live

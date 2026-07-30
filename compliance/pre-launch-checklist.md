@@ -76,11 +76,26 @@ From [`forms.md`](forms.md):
 
 ## 9. Legal documents
 
+Run the three scripts first — they clear the mechanical items. See [`policy-tooling.md`](policy-tooling.md).
+
+```bash
+node <saboteur-sites>/scripts/render-policies.mjs --config ./policy.config.json --out ./src/pages --check
+npm run build && node <saboteur-sites>/scripts/audit-policy-processors.mjs --config ./policy.config.json --dist ./dist
+node <saboteur-sites>/scripts/check-policy-upstream.mjs
+```
+
+- [ ] All three scripts above exit 0.
 - [ ] Privacy policy is published and linked from the footer.
-- [ ] Terms of service is published and linked from the footer (required if the site accepts user input — forms, signups, downloads).
-- [ ] Privacy policy names every processor (Cloudflare, Resend, analytics tool if any) with their role.
-- [ ] Contact email or other channel for data-subject requests is published in the privacy policy.
+- [ ] Terms of service is published and linked from the footer (required if the site accepts user input — forms, signups, downloads). **If terms could not be rendered for want of a governing jurisdiction and mailing address, the footer link is removed, not left dangling.**
+- [ ] Every footer legal link resolves to a real page — no 404s.
+- [ ] Legal pages carry the `GENERATED` banner and were not hand-edited.
+- [ ] Every `features` flag in `policy.config.json` matches what the site actually does. A wrong flag publishes a false policy.
+- [ ] Privacy policy names every processor with their role, and names no processor the site doesn't use.
+- [ ] Contact email or other channel for data-subject requests is published in the privacy policy, and a test email to it does not bounce.
+- [ ] US state coverage intact: appeals process, 45-day response window, affirmative "we do not sell or share" statement. See [`us-state-privacy.md`](us-state-privacy.md).
+- [ ] `tokens.last_updated` reflects the most recent material change.
 - [ ] Year in the footer copyright line is current.
+- [ ] Full [`privacy-policy/checklist.md`](privacy-policy/checklist.md) has been run.
 
 ## 10. Accessibility (WCAG 2.2 AA baseline)
 

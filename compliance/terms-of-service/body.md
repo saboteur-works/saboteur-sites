@@ -1,0 +1,90 @@
+# Terms of service
+
+**Last updated:** {{ LAST_UPDATED }}
+
+These terms govern your use of **{{ SITE_NAME }}** (`{{ SITE_DOMAIN }}`), operated by **Saboteur LLC** ("Saboteur," "we," "us," "our"). By accessing or using this site, you agree to these terms. If you do not agree, please do not use the site.
+
+For how we handle personal data, see our [Privacy Policy](/privacy).
+
+## Use of the site
+
+You may use this site to read information about Saboteur and our products{{#if contact_form}}, and to send us a message through the contact form{{/if}}.
+
+You agree not to:
+
+- Use the site in a way that violates applicable law.
+- Attempt to access systems or data that are not made publicly available through the site.
+- Interfere with the site's operation — for example, by sending automated requests at a rate intended to disrupt service.
+- Use any automated system to harvest content from the site for republication or commercial use, beyond reasonable indexing by search engines and similar services.
+{{#if contact_form}}
+- Impersonate another person when contacting us through the site.
+{{/if}}
+
+We may suspend or block access from any IP or actor that breaches these terms.
+
+## Intellectual property
+
+All content on this site — including text, design, code, logos, marks, and other materials — is owned by Saboteur LLC or used under license, and is protected by applicable copyright, trademark, and other intellectual-property laws.
+
+You may:
+
+- View, copy, and print pages of the site for **personal, non-commercial reference**.
+- Share short quoted excerpts with attribution to Saboteur LLC and a link back to the source page.
+
+You may not:
+
+- Reproduce, republish, or redistribute substantial portions of the site without prior written permission.
+- Use Saboteur LLC's marks (including *Saboteur*, *SAB/labs*, *SAB/works*, product wordmarks, the Japanese characters used as part of the marks, and the red structural-bar device) in a way that suggests endorsement, partnership, or origin from Saboteur LLC.
+
+{{#if open_source_content}}
+Some content on this site is made available under an open-source license. Where that's the case, the license accompanying the content controls. These terms do not override an open-source license that applies to specific material.
+{{/if}}
+
+{{#if contact_form}}
+## Content you submit
+
+If you submit content to the site — for example, by sending a message through the contact form — you grant Saboteur LLC the right to read, store, and use the content **for the purpose of responding to you and operating the site**.
+
+You retain ownership of what you submit. We do not publish your submissions. We do not share them with third parties for marketing.
+
+You agree that anything you submit:
+
+- Is yours to submit, or you have the rights to submit it.
+- Does not violate applicable law.
+- Does not contain viruses, malware, or content intended to harm.
+{{/if}}
+
+## Disclaimers
+
+The site is provided **"as is"** and **"as available."** Saboteur LLC makes no warranty that the site will be uninterrupted, error-free, or suitable for a particular purpose. Statements about products on this site are accurate as of the date posted; product availability, features, and pricing (if any) may change.
+
+To the maximum extent permitted by law, Saboteur LLC disclaims all warranties — express, implied, statutory, or otherwise — including warranties of merchantability, fitness for a particular purpose, and non-infringement.
+
+## Limitation of liability
+
+To the maximum extent permitted by law, Saboteur LLC, its members, officers, employees, and contractors will not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of the site, even if Saboteur LLC has been advised of the possibility of such damages.
+
+Saboteur LLC's total liability arising out of or relating to these terms or the site will not exceed **{{ LIABILITY_CAP }}**.
+
+This limitation does not apply to liability that cannot be limited under applicable law — for example, liability for gross negligence, willful misconduct, or in jurisdictions that do not permit the exclusion of certain warranties or liabilities.
+
+## Indemnification
+
+You agree to indemnify and hold Saboteur LLC harmless from any claim, loss, or expense (including reasonable attorney fees) arising out of your breach of these terms or your misuse of the site.
+
+## Governing law and disputes
+
+These terms are governed by the laws of **{{ GOVERNING_JURISDICTION }}**, without regard to its conflict-of-laws principles. Any dispute arising out of or relating to these terms or the site will be brought in the courts located in **{{ GOVERNING_JURISDICTION }}**, and you consent to the personal jurisdiction of those courts.
+
+If you have a mandatory consumer right under the law of the place you live that conflicts with this section, your local consumer protections apply to the extent required by law.
+
+## Changes to these terms
+
+We may update these terms as the site changes. The **Last updated** date at the top reflects the most recent change. Continued use of the site after a change takes effect is your acceptance of the updated terms. Material changes will be flagged at the top of the page for at least 30 days.
+
+## Contact
+
+Questions about these terms? Email **{{ LEGAL_EMAIL }}** or write to:
+
+**Saboteur LLC**<br>
+{{ MAILING_ADDRESS }}

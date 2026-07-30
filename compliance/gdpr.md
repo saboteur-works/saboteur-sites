@@ -1,5 +1,14 @@
 # GDPR — what still applies to a cookieless Saboteur site
 
+> **Posture note (July 2026).** Saboteur LLC has decided not to handle EU customer
+> data for now, so the GDPR *machinery* — collecting DPAs, holding SCC copies,
+> running a formal DSAR workflow — is **deferred**. The GDPR *disclosures* stay in
+> the published privacy policy: the text is already written, and GDPR's
+> territorial reach follows who can load the page rather than who Saboteur decides
+> to take as a customer. Active compliance investment goes to
+> [`us-state-privacy.md`](us-state-privacy.md), which is where Saboteur operates.
+> This file remains accurate and is what to re-read if that decision reverses.
+
 The cookieless posture (see [`cookieless-by-default.md`](cookieless-by-default.md)) removes the requirement for a consent banner. **It does not remove GDPR.** This file is the reference for what GDPR Article 13 + related obligations still require, why, and how each Saboteur landing page satisfies them.
 
 ## What GDPR applies to

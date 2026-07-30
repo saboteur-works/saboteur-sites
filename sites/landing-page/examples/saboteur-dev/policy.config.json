@@ -1,0 +1,53 @@
+{
+  "layout": "../layouts/Legal.astro",
+
+  "tokens": {
+    "last_updated": "2026-07-30",
+    "site_name": "Saboteur",
+    "site_domain": "saboteur.dev",
+    "contact_email": "privacy@saboteur.dev",
+    "legal_email": "legal@saboteur.dev",
+    "hosting_provider": "Cloudflare",
+    "analytics_provider": "Cloudflare Web Analytics",
+    "email_provider": "Resend",
+    "log_retention_days": "90",
+    "form_retention_months": "12",
+    "liability_cap": "US$100",
+    "governing_jurisdiction": "the State of Utah, United States",
+    "mailing_address": "7533 S Center View Ct Ste N<br>West Jordan, UT 84084<br>United States",
+    "transfer_statement": "Cloudflare and Resend are based in the United States. Where data reaches them from the EU or UK, the transfer is governed by EU Standard Contractual Clauses (SCCs) under each processor's Data Processing Agreement. This is the standard safeguard for transfers to the US after the Schrems II ruling."
+  },
+
+  "features": {
+    "analytics": false,
+    "contact_form": true,
+    "embeds": false,
+    "newsletter": false,
+    "open_source_content": false
+  },
+
+  "processors": [
+    {
+      "name": "Cloudflare, Inc.",
+      "purpose": "Hosting (Cloudflare Pages) and edge logs.",
+      "location": "United States",
+      "hosts": [],
+      "note": "Contacted as the host and as the Worker runtime, never as a browser request to a Cloudflare domain. No hosts to scan for; leaving `hosts` empty tells the auditor not to expect one."
+    },
+    {
+      "name": "Resend, Inc.",
+      "purpose": "Delivers contact form submissions to our inbox via email.",
+      "location": "United States",
+      "hosts": [],
+      "note": "Called server-side by the contact Worker, so it never appears in the built output."
+    }
+  ],
+
+  "_allowedHosts_note": "Hosts a visitor only reaches by clicking a link. An outbound link is not a data transfer, so these need no disclosure. Anything the browser fetches automatically belongs in `processors` instead.",
+  "allowedHosts": ["github.com", "offbeat-fm.com"],
+
+  "pages": {
+    "privacy": {},
+    "terms": {}
+  }
+}

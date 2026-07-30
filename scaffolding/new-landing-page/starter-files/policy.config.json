@@ -1,0 +1,52 @@
+{
+  "layout": "../layouts/Legal.astro",
+
+  "tokens": {
+    "last_updated": "TODO — YYYY-MM-DD",
+    "site_name": "TODO — product name",
+    "site_domain": "TODO — primary domain",
+    "contact_email": "TODO — privacy@<domain>",
+    "legal_email": "TODO — legal@<domain>",
+    "hosting_provider": "Cloudflare",
+    "analytics_provider": "Cloudflare Web Analytics",
+    "email_provider": "Resend",
+    "log_retention_days": "90",
+    "form_retention_months": "12",
+    "liability_cap": "US$100",
+    "governing_jurisdiction": "the State of Utah, United States",
+    "mailing_address": "7533 S Center View Ct Ste N<br>West Jordan, UT 84084<br>United States",
+    "transfer_statement": "Our processors are based in the United States. Where data reaches them from outside the US, the transfer is governed by EU Standard Contractual Clauses (SCCs) under each processor's Data Processing Agreement."
+  },
+
+  "features": {
+    "analytics": true,
+    "contact_form": true,
+    "embeds": false,
+    "newsletter": false,
+    "open_source_content": false
+  },
+
+  "processors": [
+    {
+      "name": "Cloudflare, Inc.",
+      "purpose": "Hosting (Cloudflare Pages), edge logs, web analytics (cookieless).",
+      "location": "United States",
+      "hosts": ["cloudflareinsights.com", "static.cloudflareinsights.com"],
+      "packages": []
+    },
+    {
+      "name": "Resend, Inc.",
+      "purpose": "Delivers contact form submissions to our inbox via email.",
+      "location": "United States",
+      "hosts": ["api.resend.com"],
+      "packages": []
+    }
+  ],
+
+  "allowedHosts": [],
+
+  "pages": {
+    "privacy": {},
+    "terms": {}
+  }
+}

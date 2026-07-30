@@ -1,0 +1,151 @@
+---
+// Legal.astro — layout for the generated /privacy and /terms pages.
+//
+// Those pages are markdown written by saboteur-sites/scripts/render-policies.mjs
+// and are marked GENERATED. Do not hand-edit them; change the site's
+// policy.config.json or the shared body in saboteur-sites/compliance/ and
+// re-render. This layout is the only part of a legal page you style.
+//
+// Typography note: legal copy is meaningful text, so it runs at fg-secondary
+// (8.3:1, AA Normal+) at 15px — deliberately larger than the 13px section body.
+// compliance/privacy-policy/checklist.md forbids tiny-print escape hatches; the
+// legal text must be at least as readable as the marketing copy above it.
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import LegalFooter from "../components/LegalFooter.astro";
+
+const { frontmatter } = Astro.props;
+---
+<Base title={frontmatter.title} description={frontmatter.description}>
+  <Nav />
+
+  <main id="main" class="px-6 py-14">
+    <article class="legal mx-auto max-w-[68ch]">
+      <slot />
+    </article>
+  </main>
+
+  <LegalFooter />
+</Base>
+
+<style>
+  /* Markdown output is not scoped to this component, so these need :global. */
+  .legal :global(h1) {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-fg-primary);
+    font-size: clamp(28px, 6vw, 40px);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .legal :global(h2) {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-fg-primary);
+    font-size: clamp(19px, 4vw, 23px);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-top: 44px;
+    margin-bottom: 14px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-brand-rule);
+  }
+
+  .legal :global(h3) {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    color: var(--color-fg-primary);
+    font-size: 15px;
+    line-height: 1.4;
+    margin-top: 28px;
+    margin-bottom: 10px;
+  }
+
+  .legal :global(p),
+  .legal :global(li) {
+    font-family: var(--font-sans);
+    color: var(--color-fg-secondary);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .legal :global(p) {
+    margin-bottom: 16px;
+  }
+
+  .legal :global(strong) {
+    color: var(--color-fg-primary);
+    font-weight: 700;
+  }
+
+  .legal :global(ul) {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+  }
+
+  .legal :global(li) {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+  }
+
+  /* Decorative marker — the list semantics still come from <ul>/<li>. */
+  .legal :global(li)::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 12px;
+    width: 6px;
+    height: 1px;
+    background: var(--color-brand-red);
+  }
+
+  .legal :global(a) {
+    color: var(--color-fg-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--color-brand-red);
+    text-underline-offset: 3px;
+    transition: color 150ms;
+  }
+
+  .legal :global(a:hover) {
+    color: var(--color-brand-red);
+  }
+
+  .legal :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+
+  .legal :global(th) {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--color-fg-tertiary);
+    text-align: left;
+    padding: 10px 12px 10px 0;
+    border-bottom: 1px solid var(--color-brand-dim);
+  }
+
+  .legal :global(td) {
+    font-family: var(--font-sans);
+    color: var(--color-fg-secondary);
+    line-height: 1.6;
+    padding: 12px 12px 12px 0;
+    border-bottom: 1px solid var(--color-brand-rule);
+    vertical-align: top;
+  }
+
+  /* The processors table is 3 narrow columns; let cells wrap rather than
+     forcing a horizontal scrollbar at the 320px reflow target. */
+  .legal :global(td),
+  .legal :global(th) {
+    overflow-wrap: anywhere;
+  }
+</style>

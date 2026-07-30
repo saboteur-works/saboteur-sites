@@ -1,0 +1,45 @@
+{
+  "sources": {
+    "legalmattic-privacy": {
+      "label": "Automattic — Privacy Policy",
+      "repo": "Automattic/legalmattic",
+      "branch": "master",
+      "path": "Privacy-Policy.md",
+      "why": "Actively maintained, US-first with global coverage. Best signal for privacy language.",
+      "commit": "8e483c4262ce8ab8f12e907afddd5a5b550ce5d6",
+      "date": "2025-12-12",
+      "url": "https://github.com/Automattic/legalmattic/blob/master/Privacy-Policy.md"
+    },
+    "legalmattic-terms": {
+      "label": "Automattic — WordPress.com Terms of Service",
+      "repo": "Automattic/legalmattic",
+      "branch": "master",
+      "path": "Terms of Service/WordPress.com/EN-Terms-of-Service.md",
+      "why": "Terms language from a team that gets sued. Much broader than ours; read for structure.",
+      "commit": "56f9d0b056de3ef1ada49a174d5549621bb3e817",
+      "date": "2026-04-13",
+      "url": "https://github.com/Automattic/legalmattic/blob/master/Terms%20of%20Service/WordPress.com/EN-Terms-of-Service.md"
+    },
+    "basecamp-privacy": {
+      "label": "37signals — Privacy Policy",
+      "repo": "basecamp/policies",
+      "branch": "master",
+      "path": "privacy/index.md",
+      "why": "Plain-language privacy writing. Repo is archived (frozen 2023-12-26) — a change here would be surprising; the live version is at 37signals.com/policies.",
+      "commit": "d0a5e21aa5af9740da3428b8589acbdbfeb6fc43",
+      "date": "2023-07-27",
+      "url": "https://github.com/basecamp/policies/blob/master/privacy/index.md"
+    },
+    "basecamp-terms": {
+      "label": "37signals — Terms of Service",
+      "repo": "basecamp/policies",
+      "branch": "master",
+      "path": "terms/index.md",
+      "why": "Short, readable terms for a small company. Repo is archived; see 37signals.com/policies for the maintained version.",
+      "commit": "9141097a43aa8fa255d6e7e5968e187c098ebc3f",
+      "date": "2023-01-10",
+      "url": "https://github.com/basecamp/policies/blob/master/terms/index.md"
+    }
+  },
+  "updated": "2026-07-30"
+}
