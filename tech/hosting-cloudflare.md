@@ -22,6 +22,8 @@ Decide once, per site, at creation.
 
 - The site is a **GitHub repo under `saboteur-works` with at least one commit pushed**. Cloudflare cannot connect to an empty repo.
 - The repo's dependencies are all public or registry-hosted. Saboteur sites depend on `saboteur-styles` and `saboteur-sites` as **public** GitHub git dependencies, which the Cloudflare build runner fetches unauthenticated. If either repo is ever made private, every build breaks and the fix is a deploy token, not a retry.
+
+  You will notice `package-lock.json` records these as `git+ssh://git@github.com/...`, which looks like it must fail on a runner with no SSH key. It doesn't — npm falls back to HTTPS for public repos. Verified with `GIT_SSH_COMMAND=/bin/false npm ci`, which installs both dependencies and passes the full `ci` chain. Specifying the dependency as an explicit `git+https://` URL changes nothing, because npm normalizes GitHub URLs back to SSH in the lockfile either way. Don't spend an afternoon on it.
 - `public/_headers` exists. Under Git integration every branch push gets a preview URL, and without the `noindex` rules in that file each one is an indexable duplicate of production.
 
 ## Connecting a repo (dashboard, one time per site)
@@ -117,7 +119,7 @@ Expect a short window between steps 4 and 5 where the domain does not resolve. D
 
 | Symptom | Cause |
 |---|---|
-| Build fails resolving `saboteur-styles` or `saboteur-sites` | The repo was made private, or the default branch was renamed. Git deps track the default branch. |
+| Build fails resolving `saboteur-styles` or `saboteur-sites` | The repo was made private, or the default branch was renamed. Git deps track the default branch. Not caused by the `git+ssh` URLs in the lockfile — see [Prerequisites](#prerequisites). |
 | Build fails on a Node syntax error that works locally | `NODE_VERSION` is unset and Cloudflare's default is older than your local Node. |
 | `policies:check` fails on a build you didn't change | A shared body in `saboteur-sites` moved. See [When a shared template changes](#when-a-shared-template-changes). |
 | `policies:audit` reports an undeclared host | The build gained a third-party reference. Either it's a real processor and belongs in `policy.config.json`, or it's an outbound link and belongs in `allowedHosts`. |
