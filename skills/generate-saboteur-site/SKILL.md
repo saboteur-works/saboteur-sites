@@ -214,6 +214,8 @@ CTA: outlined button (if cta_label provided)
 
 Wordmark size: `clamp(36px, 9vw, 72px)`. Vertical bar: 4px red.
 
+**The mark container is an `<h1>`, not a `<div>`** — it is the page's single top-level heading. Tailwind's preflight resets heading size, weight, and margin, so the `h1` carries the same explicit classes and renders identically. Emitting a `div` here leaves the page with no `h1` and a heading outline that starts at the Mission `h2`.
+
 **Parent variant:**
 ```
 wordmark
@@ -371,6 +373,7 @@ Before reporting done, check each item:
 - [ ] No `<script>` tags that set cookies or write to `localStorage`
 - [ ] Submit button is `bg-brand-red` — not outlined, not `brand-mid`
 - [ ] Every section label is plain uppercase text (not `01 — SECTION`)
+- [ ] Hero's mark container is an `<h1>`; exactly one `<h1>` per page and headings descend without skipping a level
 - [ ] Exactly one `<main id="main">` per page, wrapping everything between Nav and LegalFooter; both of those sit outside it
 - [ ] `Base.astro` renders the skip link as the first element in `<body>`, and its `href="#main"` matches the `<main>` id
 - [ ] LegalFooter has both Privacy and Terms links — **and both resolve to a generated page.** If terms could not be rendered (missing jurisdiction / mailing address), the Terms link is removed rather than left dangling.

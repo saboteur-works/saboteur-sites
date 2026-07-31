@@ -42,13 +42,14 @@ See [`copy-patterns.md`](copy-patterns.md) for headline / stance / CTA copy guid
 ## Rules
 
 1. **One mark per hero.** Never stack parent + sub-brand + product marks.
-2. **Body is one paragraph, three clauses.** Positive opener · italicized-but-not-italic stance · positive closer. Don't break the stance into a separate paragraph — the inline structure is the voice.
-3. **The stance clause uses `<em class="not-italic">`** — semantically emphasized, visually lifted via color (white), not italic style.
-4. **Left-aligned. Always.** The hero is the test case for the left-align default.
-5. **No background imagery.** No hero gradient, no product photography behind the mark, no animated particles. Background is `brand-black`.
-6. **No marketing verbs.** See *Don't* in [`../../brand/identity.md`](../../brand/identity.md).
-7. **At most one CTA, and on product variants only.** If you can't decide between two CTAs, the hero isn't ready.
-8. **Hairline bottom rule** (`border-b border-brand-rule`) — separates the hero from the first content section. Always present.
+2. **The mark element is the page's `<h1>`.** Not a `<div>`. A landing page whose hero mark is a `div` has no `h1` at all — its heading outline starts at the Mission `h2`, which fails [`../../compliance/accessibility.md`](../../compliance/accessibility.md) and weakens the page for search. Tailwind's preflight resets heading `font-size` and `font-weight` to `inherit` and margins to `0`, so the `h1` carries the same explicit classes and renders identically. There is no visual cost to getting this right.
+3. **Body is one paragraph, three clauses.** Positive opener · italicized-but-not-italic stance · positive closer. Don't break the stance into a separate paragraph — the inline structure is the voice.
+4. **The stance clause uses `<em class="not-italic">`** — semantically emphasized, visually lifted via color (white), not italic style.
+5. **Left-aligned. Always.** The hero is the test case for the left-align default.
+6. **No background imagery.** No hero gradient, no product photography behind the mark, no animated particles. Background is `brand-black`.
+7. **No marketing verbs.** See *Don't* in [`../../brand/identity.md`](../../brand/identity.md).
+8. **At most one CTA, and on product variants only.** If you can't decide between two CTAs, the hero isn't ready.
+9. **Hairline bottom rule** (`border-b border-brand-rule`) — separates the hero from the first content section. Always present.
 
 ## Sizing reference (matches live saboteur.dev)
 

@@ -25,7 +25,12 @@
 <section class="bg-brand-black border-b border-brand-rule px-6 pt-[72px] pb-[64px]">
 
   <!-- Mark — three tiers with red structural bar -->
-  <div class="inline-flex flex-col gap-[5px] border-l-[4px] border-brand-red pl-5 mb-10">
+  <!-- Mark doubles as the page's single <h1>. Tailwind's preflight resets
+       heading size and weight, so the element carries the same explicit
+       classes and renders identically to the <div> it replaces. A landing
+       page with no h1 fails compliance/accessibility.md and starts its
+       heading outline at h2. -->
+  <h1 class="inline-flex flex-col gap-[5px] border-l-[4px] border-brand-red pl-5 mb-10">
     <span class="font-display font-bold text-fg-primary tracking-wordmark leading-none text-[clamp(48px,12vw,88px)]">
       SABOTEUR
     </span>
@@ -35,7 +40,7 @@
     <span class="font-mono text-fg-tertiary tracking-[0.18em] text-[10px] border-t-[0.5px] border-brand-dim pt-2 mt-1">
       CREATOR-FIRST SOFTWARE — saboteur.dev
     </span>
-  </div>
+  </h1>
 
   <!-- Body — one paragraph, three clauses. Stance is in brand-white via <em>. -->
   <p class="font-sans font-light text-fg-secondary text-[clamp(15px,3.5vw,18px)] leading-[1.7] tracking-[0.01em] max-w-3xl">
