@@ -65,6 +65,18 @@ const changelog = defineCollection({
     /** One line naming what this release is about. Optional but preferred. */
     summary: z.string().max(160).optional(),
 
+    /**
+     * Changes nobody outside the project can observe — dependency bumps, build
+     * plumbing, refactors. Hidden behind the "full picture" toggle on
+     * /changelog rather than dropped, so the page can be honest about a
+     * release without burying what actually changed for a reader.
+     *
+     * The markdown BODY is the user-visible list and is always shown. Anything
+     * here is secondary by definition. If an item belongs in both, it is
+     * user-visible — put it in the body.
+     */
+    internal: z.array(z.string()).optional(),
+
     draft: z.boolean().default(false),
   }),
 });

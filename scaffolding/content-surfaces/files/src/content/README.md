@@ -119,6 +119,73 @@ It collects the material, writes the file with valid frontmatter in the right vo
 
 ---
 
-## Changelog entries
+---
 
-Release notes work differently — they all render onto a single `/changelog` page rather than getting a URL each. Conventions are in `src/content/changelog/_TEMPLATE.md`.
+## Write a changelog entry
+
+Release notes work differently from posts in one important way: **they all render onto a single `/changelog` page** rather than getting a URL each. You still write one file per release — that just keeps releases from colliding in git.
+
+### 1. Copy the template, named for the version
+
+```bash
+cp src/content/changelog/_TEMPLATE.md src/content/changelog/0-4-0.md
+```
+
+### 2. Fill it in
+
+```yaml
+---
+version: 0.4.0
+date: 2026-07-31
+summary: Blog and changelog surfaces.
+internal:
+  - Bumped Astro to 5.2.
+  - Consolidated the prose CSS into one layer.
+draft: true
+---
+
+- Added `/blog`, backed by a content collection.
+- Added `/changelog`, rendered onto one page.
+```
+
+**The body is what changed for a reader. The `internal` list is everything else.**
+
+That split is the whole design. The page shows the body by default and hides the internal list behind a *"show the full picture"* toggle, so the changelog is complete without burying what people actually care about.
+
+Deciding where a line goes — *could a user notice this without being told?*
+
+- Yes → the body.
+- No → `internal`.
+- Both → the body. When in doubt it's user-visible.
+
+`internal` is optional. Plenty of releases won't have one, and the toggle only appears if at least one entry does.
+
+### 3. Preview and publish
+
+Same as posts: `npm run dev` shows drafts, `draft: false` publishes, commit and push.
+
+### The version is permanent
+
+`version` becomes the entry's link: `0.4.0` → `/changelog#v0-4-0`.
+
+So **pick a scheme and stay with it.** Switching from `0.4.0` to `2026.07` later breaks every changelog link anyone has shared. Semver if the product has real releases; dates if it ships continuously and a version number would be theatre.
+
+### Writing the entries
+
+- Say what changed, not how you feel about it. *Search now matches on tags.* — not *Improved search!*
+- Past tense for fixes, present for new behaviour. *Fixed a crash when…* / *Exports now include…*
+- No headings inside an entry. The version is the heading; a `##` in the body breaks the page outline.
+- No marketing verbs, no exclamation marks. A changelog is a record.
+
+---
+
+## Which surface does this site have?
+
+Not every Saboteur site has both, and that's deliberate:
+
+| Site | Blog | Changelog |
+|---|---|---|
+| `saboteur.dev` | yes | no — a landing page's changelog is a log of copy edits |
+| `getwrite.app` | yes | yes |
+
+If a surface isn't wired up here, the files for it simply aren't in this repo. Adding one is `saboteur-sites/scaffolding/content-surfaces/README.md`.

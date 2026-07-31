@@ -17,11 +17,25 @@ date: 2026-01-01
 # rendered beside the date. Skip it rather than pad it.
 # summary: TODO
 
+# Optional. Changes nobody outside the project can observe — dependency bumps,
+# build plumbing, refactors. Hidden behind the "show the full picture" toggle
+# rather than dropped, so the page can be complete without burying what
+# actually changed for a reader.
+#
+# The rule for deciding: could a user notice this without being told? If yes it
+# belongs in the body below, not here. When it's genuinely both, it's
+# user-visible — put it in the body.
+# internal:
+#   - Bumped Astro to 5.2.
+#   - Consolidated the prose CSS into one layer.
+
 # Renders at `npm run dev`, dropped from `npm run build`. Flip to false to ship.
 draft: true
 ---
 
-The body is markdown, rendered under the version heading.
+The body is **what changed for a reader**, in markdown, rendered under the
+version heading and always visible. Anything they can't observe goes in the
+`internal:` list above instead.
 
 **No headings in an entry body.** The `##` level is the entry itself — a
 heading here would skip a level and break the page's outline. Lists and

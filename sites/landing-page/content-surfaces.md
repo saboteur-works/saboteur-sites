@@ -113,6 +113,28 @@ Unchanged, and not relaxed for length. First person singular, declarative, no ma
 
 `/blog` is unpaginated. Past roughly twenty posts, paginate with Astro's `paginate()` — and give every page a **self-referential canonical**: `/blog/2` canonicalises to `/blog/2`, never back to `/blog`. Collapsing paginated canonicals to page 1 tells search engines every post past the tenth doesn't exist.
 
+### What counts as a release note
+
+The body of an entry is **what changed for a reader**. The `internal` frontmatter list is everything else — dependency bumps, build plumbing, refactors.
+
+The deciding question is *could a user notice this without being told?* If yes, body. If it's genuinely both, it's user-visible; put it in the body. Internal churn is not dropped, because a changelog with gaps invites the question of what else is missing — it's just not what the page leads with.
+
+`/changelog` renders the body of every entry and hides the internal lists behind a **"show the full picture" toggle**: a real `<input type="checkbox">` plus CSS sibling selectors. No JavaScript, no storage, no persisted preference. The page opens on what changed for a reader, which is the honest default; the toggle is there for whoever wants the rest.
+
+Three things about it are load-bearing:
+
+- **The input, the label, and `.entries` must remain siblings.** The CSS reaches from the checkbox across to the entries with `~`. Wrapping any of them in a div breaks the toggle silently — it still renders, it just stops working.
+- **The toggle only renders when something is behind it** (`hasInternal`). A control that reveals nothing is worse than no control.
+- **This is progressive disclosure, not hidden text.** The internal items are in the markup, indexable, and identical for a reader and a crawler; a visible control reveals them. That is the line between disclosure and the cloaking rule in [`../../tech/seo.md`](../../tech/seo.md) §2 — the violation is text a *user* can never reach, not text behind a control they can operate.
+
+### Version identifiers
+
+The schema takes a free string, deliberately: `0.4.0`, `2026.07`, and `Build 214` are all legitimate depending on the product.
+
+**Pick one scheme per product and keep it.** The anchor is derived from the version — `0.4.0` → `/changelog#v0-4-0` — so a scheme change orphans every anchor anyone has already linked. That makes the choice effectively permanent from the first published entry, and it's worth a moment's thought before the first release rather than after the twentieth.
+
+Semver for anything with real releases. Date-based for something shipped continuously where a version number would be theatre.
+
 ### Duplication
 
 The doorway-page invariant applies to posts as it does to sections: no post is published on two Saboteur domains. If a topic genuinely serves two products, it goes on one and the other links to it.

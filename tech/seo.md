@@ -187,6 +187,8 @@ The shared layer is structure, tokens, and voice. It is never sentences.
 
 The palette is near-black on near-black by design. Any text set close to `brand-black` on `brand-black`, any `display: none` block "for keywords", any 0-opacity copy — all of it reads as cloaking to an automated check, regardless of intent. The accessibility contrast rules in [`../compliance/accessibility.md`](../compliance/accessibility.md) already forbid this; it has an SEO consequence too.
 
+**Progressive disclosure is not this.** The `/changelog` toggle hides internal release notes behind a checkbox, and that is fine: the text is in the markup, it says the same thing to a reader as to a crawler, and a visible control reveals it. The line is whether a *user* can reach the content. Text behind a control they can operate is disclosure; text they can never reach is cloaking. Don't use the first as cover for the second — a `display: none` block with no control attached is the violation no matter what it's named.
+
 ### 3. Fabricated structured data
 
 Covered above. The single rule: markup describes only visible content.

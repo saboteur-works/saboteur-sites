@@ -42,8 +42,14 @@ const fmt = (d: Date) =>
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 
 // Dots are legal in a fragment but awkward to read and to copy out of a URL.
+// The anchor is derived from the version, so a version scheme is effectively
+// permanent — changing it orphans every previously-linked anchor.
 const anchor = (version: string) =>
   `v${version.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+
+// Only render the toggle if something is actually behind it. A control that
+// reveals nothing is worse than no control.
+const hasInternal = released.some((e) => e.internal?.length);
 ---
 <Base
   title={`Changelog — ${SITE_NAME}`}
@@ -64,41 +70,125 @@ const anchor = (version: string) =>
         TODO
       </p>
 
+      {/* The toggle. A real <input type="checkbox">, so it is keyboard
+          reachable and its state is announced by a screen reader; CSS in the
+          block at the bottom of this file does the revealing. No JavaScript,
+          no storage, no preference to persist.
+
+          The page opens showing what changed for a reader. That is the honest
+          default: the internal list is secondary by definition, and a reader
+          who wants it can say so. */}
+      {/* The input, the label and .entries must stay SIBLINGS — the CSS at the
+          bottom reaches from the checkbox to the entries with `~`. Wrapping
+          any of them in a div silently breaks the toggle. */}
+      {hasInternal && (
+        <>
+          <input type="checkbox" id="show-internal" class="sr-only" />
+          <label
+            for="show-internal"
+            class="toggle inline-block mb-2 cursor-pointer border border-brand-dim px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary hover:text-fg-primary hover:border-fg-tertiary transition-colors duration-150"
+          >
+            <span data-when="off">Show the full picture</span>
+            <span data-when="on">Show only what changed for you</span>
+          </label>
+        </>
+      )}
+
       {released.length === 0 ? (
         <p class="font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary">
           Nothing released yet.
         </p>
       ) : (
-        released.map((entry) => (
-          <section>
-            {/* The <h2> is the entry heading. Entry bodies must therefore
-                contain no headings of their own — lists and paragraphs only,
-                or the page's heading outline skips a level. */}
-            <h2
-              id={anchor(entry.version)}
-              class="font-display font-bold text-fg-primary text-[clamp(19px,4vw,23px)] tracking-[-0.02em] leading-[1.2] mt-11 mb-2 pt-5 border-t border-brand-rule scroll-mt-[68px]"
-            >
-              <a
-                href={`#${anchor(entry.version)}`}
-                class="no-underline text-fg-primary hover:text-brand-red transition-colors duration-150"
+        <div class="entries">
+          {released.map((entry) => (
+            <section>
+              {/* The <h2> is the entry heading. Entry bodies must therefore
+                  contain no headings of their own — lists and paragraphs only,
+                  or the page's heading outline skips a level. */}
+              <h2
+                id={anchor(entry.version)}
+                class="font-display font-bold text-fg-primary text-[clamp(19px,4vw,23px)] tracking-[-0.02em] leading-[1.2] mt-11 mb-2 pt-5 border-t border-brand-rule scroll-mt-[68px]"
               >
-                {entry.version}
-              </a>
-            </h2>
+                <a
+                  href={`#${anchor(entry.version)}`}
+                  class="no-underline text-fg-primary hover:text-brand-red transition-colors duration-150"
+                >
+                  {entry.version}
+                </a>
+              </h2>
 
-            <p class="font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary mb-4">
-              <time datetime={iso(entry.date)}>{fmt(entry.date)}</time>
-              {entry.summary && ` · ${entry.summary}`}
-            </p>
+              <p class="font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary mb-4">
+                <time datetime={iso(entry.date)}>{fmt(entry.date)}</time>
+                {entry.summary && ` · ${entry.summary}`}
+              </p>
 
-            <div class="prose">
-              <entry.Content />
-            </div>
-          </section>
-        ))
+              {/* User-visible changes. Always shown. */}
+              <div class="prose">
+                <entry.Content />
+              </div>
+
+              {/* Everything else, revealed by the toggle. Rendered into the
+                  markup either way — this is progressive disclosure, not
+                  hidden text: the reader has a control that shows it, and it
+                  says the same thing to them as it does to a crawler. */}
+              {(entry.internal?.length ?? 0) > 0 && (
+                <div class="internal">
+                  <p class="font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary mt-4 mb-2">
+                    Internal
+                  </p>
+                  <ul class="prose">
+                    {entry.internal.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </section>
+          ))}
+        </div>
       )}
     </div>
   </main>
 
   <LegalFooter />
 </Base>
+
+<style>
+  /* The zero-JavaScript disclosure. The checkbox holds the state, these rules
+     read it. Everything is a sibling of #show-internal, which is why the
+     markup order above is load-bearing: input, then label, then .entries. */
+
+  .internal {
+    display: none;
+  }
+
+  #show-internal:checked ~ .entries .internal {
+    display: block;
+  }
+
+  /* Label text swaps with the state, so the control always names what it will
+     do next rather than what it did. */
+  [data-when="on"] {
+    display: none;
+  }
+
+  #show-internal:checked ~ .toggle [data-when="on"] {
+    display: inline;
+  }
+
+  #show-internal:checked ~ .toggle [data-when="off"] {
+    display: none;
+  }
+
+  #show-internal:checked ~ .toggle {
+    color: var(--color-fg-primary);
+    border-color: var(--color-fg-tertiary);
+  }
+
+  /* The checkbox is sr-only, so its own focus ring is invisible. Without this
+     a keyboard user tabs onto a control with no indication they are on it. */
+  #show-internal:focus-visible ~ .toggle {
+    outline: 2px solid var(--color-brand-red);
+    outline-offset: 2px;
+  }
+</style>
