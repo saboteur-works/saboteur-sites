@@ -20,7 +20,7 @@ Saboteur LLC               (parent — neutral root)
 │   └── (future products)
 └── SAB/works  製作所       creator & consumer products
     ├── OffBeat-FM         independent music discovery — offbeat-fm.com
-    └── GetWrite           local-first writing studio — getwrite.io
+    └── GetWrite           local-first writing studio — getwrite.app
 ```
 
 Any landing page sits at exactly one tier. The mark in the hero, the avatar in nav, and the footer all depend on the tier:
@@ -57,7 +57,7 @@ Reference phrases from the live site (saboteur.dev) and the brand system:
 - *No lock-in. No committees. No feature designed by a growth team.*
 - *I read everything. I reply to most of it.*
 - *INDEPENDENT MUSIC DISCOVERY — offbeat-fm.com*
-- *LOCAL-FIRST WRITING STUDIO — getwrite.io*
+- *LOCAL-FIRST WRITING STUDIO — getwrite.app*
 
 ### Do
 

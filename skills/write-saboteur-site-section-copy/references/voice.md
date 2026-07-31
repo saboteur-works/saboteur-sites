@@ -17,7 +17,7 @@ Reference phrases from the live site (saboteur.dev) and the brand system:
 - _No lock-in. No committees. No feature designed by a growth team._
 - _I read everything. I reply to most of it._
 - _INDEPENDENT MUSIC DISCOVERY — offbeat-fm.com_
-- _LOCAL-FIRST WRITING STUDIO — getwrite.io_
+- _LOCAL-FIRST WRITING STUDIO — getwrite.app_
 
 ### Do
 

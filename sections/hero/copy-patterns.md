@@ -14,7 +14,7 @@ The descriptor is two to four words in all caps, set in mono with `tracking-labe
 
 - `CREATOR-FIRST SOFTWARE — saboteur.dev`
 - `INDEPENDENT MUSIC DISCOVERY — offbeat-fm.com`
-- `LOCAL-FIRST WRITING STUDIO — getwrite.io`
+- `LOCAL-FIRST WRITING STUDIO — getwrite.app`
 
 ### Do
 
@@ -25,7 +25,7 @@ The descriptor is two to four words in all caps, set in mono with `tracking-labe
 ### Don't
 
 - Don't use brand-only words that don't describe anything. *"NEXT-GENERATION TOOLING"* says nothing.
-- Don't include a tagline-like phrase. *"FOR WRITERS WHO CARE — getwrite.io"* mixes register; that copy belongs in the tagline.
+- Don't include a tagline-like phrase. *"FOR WRITERS WHO CARE — getwrite.app"* mixes register; that copy belongs in the tagline.
 
 ## Body (sans 300 light, one paragraph, three clauses)
 
