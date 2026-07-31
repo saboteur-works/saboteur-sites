@@ -143,6 +143,22 @@ Full reference: [`../tech/seo.md`](../tech/seo.md).
 - [ ] No text set at or near the background color, no `display:none` keyword blocks, no zero-opacity copy.
 - [ ] Legal entity name is written identically everywhere: `Saboteur LLC`.
 
+**Content surfaces (only if the site has `/blog` or `/changelog`)**
+
+Full rules: [`../sites/landing-page/content-surfaces.md`](../sites/landing-page/content-surfaces.md).
+
+- [ ] **No draft appears anywhere in `dist/`** — not as a page, a sitemap entry, or a feed item. Run the draft check in [`../tech/seo.md`](../tech/seo.md) §Verification against a **clean** build (`rm -rf dist` first — a stale directory is how a retracted post stays live).
+- [ ] Every post page has `og:type="article"`; the blog index and changelog do not.
+- [ ] Each post's `BlogPosting` `headline` and `datePublished` match the rendered title and date, and `author` is the Organization — no invented person on a page with no byline.
+- [ ] `/changelog` is one page. If there is a URL per release, stop and read the scaled-content rule before launching.
+- [ ] Changelog entry bodies contain no headings; post bodies start at `##`. One `h1` per page — the post title on a post.
+- [ ] Nav route links (`/blog`, `/changelog`) render on standalone pages; section anchors do not. Four links maximum.
+- [ ] `/rss.xml` resolves, its `<link>` values point at the production origin (not `pages.dev`), and `public/rss/styles.xsl` exists — the feed references it.
+- [ ] `Base.astro` has the `<link rel="alternate" type="application/rss+xml">` tag.
+- [ ] Every collection in `content.config.ts` has a page rendering it, and every nav route link resolves.
+- [ ] Images in post bodies are self-hosted under `/assets/` with real `alt`; no third-party embed without the click-to-load wrapper.
+- [ ] No post is published on more than one Saboteur domain.
+
 **Entity signals**
 
 - [ ] The reduced parent mark in the footer is a working link to `saboteur.dev` (product pages).

@@ -1,0 +1,100 @@
+---
+// /changelog — every release on ONE page, entries as anchored <h2> sections.
+//
+// Deliberately not one page per entry. Release notes run 30–80 words; a URL
+// each would put dozens of near-identical thin pages on the domain, which is
+// the scaled-content pattern in saboteur-sites/tech/seo.md §6. One page also
+// means one thing to link and one thing to read top-to-bottom.
+//
+// Entries are authored one file per release so releases don't collide in git.
+import { getCollection, render } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import LegalFooter from "../components/LegalFooter.astro";
+
+// TODO: the site's name as a person says it. Must match Base.astro's SITE_NAME.
+const SITE_NAME = "TODO";
+
+const entries = (
+  await getCollection("changelog", ({ data }) => !data.draft)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// render() is async, so the bodies are resolved before the template runs.
+const released = await Promise.all(
+  entries.map(async (entry) => ({
+    ...entry.data,
+    Content: (await render(entry)).Content,
+  })),
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+
+// Dots are legal in a fragment but awkward to read and to copy out of a URL.
+const anchor = (version: string) =>
+  `v${version.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+---
+<Base
+  title={`Changelog — ${SITE_NAME}`}
+  description="TODO: 140–160 characters, in voice. What ships here and how often."
+>
+  <Nav showSections={false} />
+
+  <main id="main" class="px-6 py-14">
+    <div class="mx-auto max-w-[68ch]">
+      <h1
+        class="font-display font-bold text-fg-primary text-[clamp(28px,6vw,40px)] tracking-[-0.03em] leading-[1.1] mb-5"
+      >
+        Changelog
+      </h1>
+
+      {/* TODO: one sentence. What counts as a release, what doesn't. */}
+      <p class="font-sans text-[15px] leading-[1.75] text-fg-secondary mb-6">
+        TODO
+      </p>
+
+      {released.length === 0 ? (
+        <p class="font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary">
+          Nothing released yet.
+        </p>
+      ) : (
+        released.map((entry) => (
+          <section>
+            {/* The <h2> is the entry heading. Entry bodies must therefore
+                contain no headings of their own — lists and paragraphs only,
+                or the page's heading outline skips a level. */}
+            <h2
+              id={anchor(entry.version)}
+              class="font-display font-bold text-fg-primary text-[clamp(19px,4vw,23px)] tracking-[-0.02em] leading-[1.2] mt-11 mb-2 pt-5 border-t border-brand-rule scroll-mt-[68px]"
+            >
+              <a
+                href={`#${anchor(entry.version)}`}
+                class="no-underline text-fg-primary hover:text-brand-red transition-colors duration-150"
+              >
+                {entry.version}
+              </a>
+            </h2>
+
+            <p class="font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary mb-4">
+              <time datetime={iso(entry.date)}>{fmt(entry.date)}</time>
+              {entry.summary && ` · ${entry.summary}`}
+            </p>
+
+            <div class="prose">
+              <entry.Content />
+            </div>
+          </section>
+        ))
+      )}
+    </div>
+  </main>
+
+  <LegalFooter />
+</Base>

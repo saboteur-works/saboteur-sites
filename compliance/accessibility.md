@@ -44,8 +44,12 @@ These are non-negotiable. Each is a thing AA expects and each is easy to get wro
 
 ### Page structure
 
-- **Single `<h1>` per page.** The hero's tagline is typically the `h1`. Subsequent sections use `h2`, then `h3` inside if needed.
+- **Single `<h1>` per page.** On a landing page, the hero's mark container is the `h1`. Subsequent sections use `h2`, then `h3` inside if needed.
+  - On a **post** (`/blog/<slug>`), the `h1` is the **post title** — a post has no hero. Same rule, different element: exactly one `h1`, and it names what the page is about.
+  - On `/blog`, `/changelog`, `/privacy`, and `/terms`, the `h1` is the page's own heading (`Blog`, `Changelog`, the policy title). None of these pages has a hero either.
 - **Headings nest correctly.** Don't skip levels (`h1` → `h3`).
+  - Post bodies start their sections at `##`, because `#` is spent on the title the layout renders.
+  - Changelog **entry bodies contain no headings at all**. The `##` level belongs to the version heading the page renders around each entry; a heading inside an entry lands at `###` under nothing, or skips a level outright.
 - **Landmark regions.** Wrap nav in `<nav>`, the page body in `<main>`, the footer in `<footer>`. Each landmark should appear once per page.
 - **`<html lang="en">`** set on every page (or the appropriate locale). Screen readers use it to pick the right pronunciation engine.
 

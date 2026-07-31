@@ -11,8 +11,11 @@ The Saboteur design language is typography-driven. Most surfaces stay text-only 
 | Demo section | Product page only, when a screenshot materially helps a visitor understand the product surface. Skip on pre-launch products with no real UI. | Static raster (PNG / WebP). | Full-width, `max-width: 100%`, hairline border `border-brand-dim`. See [`../sites/landing-page/optional-sections.md`](../sites/landing-page/optional-sections.md) §Demo. |
 | OG / social card | Every page that wants a respectable social embed. | Static raster (PNG / JPG / WebP), 1200×630. | Set via `<meta property="og:image">`. Not visible on the page itself. |
 | Favicon | Every page. | SVG preferred (`favicon.svg`); 32×32 PNG fallback only if a build target needs it. | `<link rel="icon">` in the head. |
+| Post body | `/blog` posts only, when the image carries information the prose would need a paragraph to convey — a diagram, a screenshot of the thing being discussed. Not to break up text. | Static raster (PNG / WebP) or hand-authored SVG. | Inline in the markdown body, styled by the shared `.prose` layer: `max-width: 100%`, hairline `border-brand-dim`. See [`../sites/landing-page/content-surfaces.md`](../sites/landing-page/content-surfaces.md). |
 
 That is the complete list. No other surface on any current section accepts an image.
+
+The post body is the only *authored* surface on the list — the other three are set once per site and then left alone. It is therefore the only place where the rules below get applied repeatedly by a human in a hurry, which is why they are worth re-reading before publishing: self-hosted under `/assets/`, real `alt`, no third-party host, no animated GIF, and no embed without the click-to-load wrapper. A YouTube iframe dropped into a post is precisely the leak the cookieless posture exists to prevent.
 
 ## Forbidden surfaces
 

@@ -38,8 +38,13 @@ Everything below serves job 1 by default. Job 2 is a deliberate project, covered
 | Privacy | `Privacy — OffBeat-FM` |
 | Terms | `Terms — OffBeat-FM` |
 | 404 | `Not found — OffBeat-FM` |
+| Blog index | `Blog — OffBeat-FM` |
+| Post | `{Post title} — OffBeat-FM` |
+| Changelog | `Changelog — OffBeat-FM` |
 
 Legal and utility pages put the page name first because the product name is already established by the time someone is on them.
+
+A post title is the one title not written to a pattern — it is the post's own headline, capped at 70 characters by the collection schema so the full title plus the site name clears 60 in most cases. If a post's headline can't survive that, the headline is too long for a search result too.
 
 ---
 
@@ -86,6 +91,34 @@ const jsonLd = {
 
 The nested `publisher` is the other half of the entity link. Every product page carries it.
 
+### Post variant — `BlogPosting`
+
+Emitted by `Post.astro` on every `/blog/<slug>` page. Only on posts: the blog index gets `Blog`, and `/changelog` gets none at all — schema.org has no type that honestly describes a release-notes page, and inventing one is worse than omitting it.
+
+```js
+const publisher = {
+  "@type": "Organization",
+  name: "Saboteur LLC",
+  url: "https://saboteur.dev",
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description,                       // the same sentence as the meta description
+  datePublished: "2026-07-31",       // frontmatter pubDate, ISO day
+  dateModified: "2026-08-04",        // only when updatedDate is set
+  author: publisher,                 // see below
+  publisher,
+  mainEntityOfPage: canonical,
+};
+```
+
+`author` is the **Organization**, not a person. Saboteur is one person and the site copy says *I*, but a post renders no byline — and structured data may only describe what a visitor can see. Naming a person in `author` while showing no author on the page is exactly the kind of unverifiable claim that gets markup ignored at best.
+
+`headline` must match the rendered `<h1>` and `datePublished` the rendered date. They come from the same frontmatter fields that render the page, so they cannot drift — keep it that way rather than passing literals.
+
 ### The rule that keeps this safe
 
 **Structured data may only describe what a visitor can see on the page.** That single rule is what separates legitimate markup from the most common cause of a manual action.
@@ -126,6 +159,16 @@ Never remove either without replacing it.
 
 `Base.astro` takes a `noindex` prop. Use it on form thank-you pages and the 404. Not on anything else — a landing page with fewer than a dozen URLs has nothing worth hiding.
 
+Note what `noindex` is *not* for: an unfinished post. A draft is excluded from the build entirely, so it has no URL to index. `noindex` on a live URL is a request; no URL is a fact.
+
+### Content surfaces
+
+A site with `/blog` or `/changelog` inherits three more rules. Full semantics in [`../sites/landing-page/content-surfaces.md`](../sites/landing-page/content-surfaces.md).
+
+1. **Drafts never reach `dist/`.** Filtered at every `getCollection` call, so no page, no sitemap entry, no feed item.
+2. **Paginated list canonicals are self-referential.** `/blog/2` canonicalises to `/blog/2`. Pointing every page back at `/blog` tells search engines that everything past the first page doesn't exist — the most common way a blog loses its own archive.
+3. **The changelog is one page, not one page per release.** See §6 below; this is the single decision that keeps a release-notes surface from becoming scaled content.
+
 ---
 
 ## What would get a page suppressed
@@ -159,6 +202,8 @@ No paid links, no reciprocal-link arrangements, no directory submissions. Produc
 ### 6. Scaled content generation
 
 Publishing volumes of low-value generated pages to catch long-tail queries. Not currently on the table, and the content-surface guidance below is deliberately narrow to keep it that way.
+
+The realistic way this arrives on a Saboteur site is not deliberate: it is a changelog with one URL per release. Forty release notes of sixty words each, all structurally identical, on a domain with eight real pages, reads exactly like the pattern this rule exists to catch. Which is why `/changelog` is one page with anchored entries — see [`../sites/landing-page/content-surfaces.md`](../sites/landing-page/content-surfaces.md). Tag and category archive pages are the same trap by a different route, and are not generated for the same reason.
 
 ---
 
@@ -194,14 +239,14 @@ For a portfolio this size, subfolders would rank better, sooner. Separate domain
 
 If and when this is wanted, the mechanism is a content surface, not landing-page changes.
 
-Astro content collections are already in the stack. The minimum viable version:
+Both surfaces are built and documented: [`../sites/landing-page/content-surfaces.md`](../sites/landing-page/content-surfaces.md) for the rules, [`../scaffolding/content-surfaces/`](../scaffolding/content-surfaces/) for the files. They are opt-in per site.
 
-- `/changelog` — real release notes, one entry per shipped change. Low effort, genuinely useful, and gives search engines a reason to crawl regularly.
-- `/writing` — occasional posts about problems actually solved building the products. Ten good posts beat a hundred thin ones, and thin ones are an active liability under the scaled-content rules above.
+- `/changelog` — real release notes, one entry per shipped change. Low effort, genuinely useful, and gives search engines a reason to crawl regularly. **One page**, entries as anchored sections.
+- `/blog` — occasional posts about problems actually solved building the products. One page per post. Ten good posts beat a hundred thin ones, and thin ones are an active liability under the scaled-content rules above.
 
-Both use the same `Base.astro` with `ogType="article"`, and both get picked up by the sitemap automatically. Neither changes the landing page.
+Posts render through `Post.astro` with `ogType="article"` and a `BlogPosting` block; both surfaces get picked up by the sitemap automatically. Neither changes the landing page — that separation is the point. The content surface exists so the hero never has to become one.
 
-Voice rules apply unchanged. A post that reads like content marketing has failed twice over.
+Voice rules apply unchanged and are not relaxed for length. A post that reads like content marketing has failed twice over: once against the brand, and once against the search-quality guidance that motivated writing it.
 
 ---
 
@@ -220,6 +265,13 @@ test -f dist/sitemap-index.xml && echo ok
 
 # No third-party image or font host anywhere in the output.
 grep -rE 'og:image[^>]*(placehold|unsplash|cloudinary)|fonts\.(googleapis|gstatic)' dist/ || echo clean
+
+# Content surfaces only — posts are articles, index pages are not.
+grep -o 'og:type" content="[^"]*"' dist/blog/*/index.html
+
+# Content surfaces only — no draft slug appears anywhere in the output.
+grep -rl 'draft: true' src/content/ | xargs -n1 basename | sed 's/\.md$//' |
+  while read s; do grep -rql "$s" dist/ && echo "LEAKED: $s"; done; echo "draft check done"
 ```
 
 Then, post-deploy: verify the property in Google Search Console, submit the sitemap, and check that the preview `*.pages.dev` URL returns `X-Robots-Tag: noindex` (`curl -sI https://<project>.pages.dev/ | grep -i robots`).

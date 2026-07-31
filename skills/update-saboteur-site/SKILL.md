@@ -3,12 +3,13 @@ name: update-saboteur-site
 description: >
   Direct an update to an existing Saboteur LLC landing page. Use this skill
   when the user wants to modify a Saboteur site — rewrite copy for a section,
-  add a new section, delete a section, or rearrange section order. Validates
-  that the target repository is a Saboteur site before any modification, then
-  routes to the appropriate sub-skill (write-saboteur-site-section-copy) or
-  performs the page-element edit directly. Invoke as /update-saboteur-site,
-  optionally passing a local repository path and update type
-  (section-copy or page-elements) as arguments.
+  add a new section, delete a section, rearrange section order, or add or
+  remove a blog or changelog surface. Validates that the target repository is a
+  Saboteur site before any modification, then routes to the appropriate
+  sub-skill (write-saboteur-site-section-copy, write-saboteur-post) or performs
+  the edit directly. Invoke as /update-saboteur-site, optionally passing a
+  local repository path and update type (section-copy, page-elements, or
+  content-surface) as arguments.
 argument_hint: repository, update_type
 ---
 
@@ -23,7 +24,7 @@ Director skill for updates to an existing Saboteur LLC landing page. Validates t
 ```
 
 - `repository` — local filesystem path to the Saboteur site repo to update (e.g. `~/Repositories/saboteur-works/offbeat-fm-site`). Required.
-- `update_type` — one of `section-copy` or `page-elements`. Required.
+- `update_type` — one of `section-copy`, `page-elements`, or `content-surface`. Required.
 
 Missing arguments are collected interactively. This iteration supports local repositories only.
 
@@ -72,6 +73,9 @@ If `update_type` was not supplied, ask the user which kind of update they want:
 
 - `section-copy` — Rewrite the copy for an existing section (Hero, Mission, Features, etc.).
 - `page-elements` — Add a new section, delete an existing section, or rearrange section order.
+- `content-surface` — Add or remove a `/blog` or `/changelog` surface.
+
+If the user wants to **write a post or a changelog entry** rather than wire up the surface, that is `write-saboteur-post`. Route them there and stop — this skill changes the site's structure, not its content.
 
 Then branch to the matching sub-step.
 
@@ -166,6 +170,33 @@ Then branch.
 
 ---
 
+### Step 5c — Content-surface updates
+
+Used when `update_type` is `content-surface`.
+
+Read `$SITES/sites/landing-page/content-surfaces.md` before touching anything — the shapes are load-bearing, not stylistic.
+
+**Adding a surface:**
+
+1. Confirm which surface(s): `blog`, `changelog`, or both.
+2. Follow `$SITES/scaffolding/content-surfaces/README.md`. Copy only the files for the requested surfaces; delete the unused collection from `src/content.config.ts`.
+3. Resolve every `TODO`, including the one-line intro copy on each page — that is real copy in brand voice, and it must not ship as `TODO`. If it needs the user's input, ask rather than invent.
+4. Add the nav route link **outside** the `{showSections && ( … )}` block. If the nav is already at four links, stop and ask which link to drop; do not silently exceed the cap.
+5. Do not write any post or changelog entry. Leave the `_TEMPLATE.md` files.
+6. `npm run build` and confirm the new routes exist.
+
+**Removing a surface** — destructive, and it breaks live URLs. Confirm explicitly, then remove all four of: the pages, the collection from `content.config.ts`, the content directory, and the nav link. A leftover collection with no page is a defect the assessor will flag.
+
+Then **add redirects for every URL that was live**, in `public/_redirects`:
+
+```
+/blog/some-post  /blog  301
+```
+
+If the whole blog is going away, redirect posts to `/`, not to a `/blog` that no longer exists. Before deleting, list the URLs that are about to stop resolving and show them to the user — a published URL that starts 404ing is a broken promise to everyone who linked it, and it is the user's call to make, not yours.
+
+---
+
 ### Step 6 — Verify constraints
 
 Before reporting done, re-read the files you touched and check that the Saboteur hard constraints still hold:
@@ -201,4 +232,5 @@ These exist to keep the director from doing anything destructive or off-brand.
 2. **No edits without confirmation.** Every action requires explicit user confirmation before it is taken — sub-skill invocation arguments, file creation, file deletion, and section reordering all require an explicit yes. This applies even when the user gave a one-line request like "update the hero copy" — confirm the arguments first.
 3. **Local repositories only.** This iteration does not support remote repositories. If the path is a URL or refers to a remote, stop and tell the user.
 4. **Preserve brand hard constraints.** All hard constraints from `generate-saboteur-site` continue to apply on every update — never strip required sections, never introduce pure white, never add cookies or external font loads, never use marketing verbs in copy.
-5. **Stay in scope.** This skill only handles `section-copy` and `page-elements` updates. If the user asks for something else (restyle, new page, brand token changes, dependency upgrades), tell them this iteration does not cover it and stop.
+5. **Stay in scope.** This skill only handles `section-copy`, `page-elements`, and `content-surface` updates. If the user asks for something else (restyle, brand token changes, dependency upgrades), tell them this iteration does not cover it and stop. Writing a post or changelog entry is `write-saboteur-post`, not this skill.
+6. **Never delete a live URL without saying so first.** Removing a content surface breaks every inbound link to it. List the URLs that will stop resolving, get an explicit yes, and write the redirects in the same change — not as a follow-up.

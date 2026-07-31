@@ -1,0 +1,35 @@
+---
+// /blog/<slug> — one rendered post per non-draft entry.
+//
+// The slug is the markdown filename. Renaming a published file changes its URL
+// and breaks every inbound link to it; treat a published filename as permanent.
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Post from "../../layouts/Post.astro";
+
+export async function getStaticPaths() {
+  // Same draft filter as the index. A draft has no page, so it has no URL,
+  // so it cannot be found by anyone with the link.
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+type Props = { post: CollectionEntry<"blog"> };
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<Post
+  title={post.data.title}
+  description={post.data.description}
+  pubDate={post.data.pubDate}
+  updatedDate={post.data.updatedDate}
+  ogImage={post.data.ogImage}
+  ogImageAlt={post.data.ogImageAlt}
+>
+  <Content />
+</Post>

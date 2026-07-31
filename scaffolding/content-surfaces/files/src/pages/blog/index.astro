@@ -1,0 +1,110 @@
+---
+// /blog — the post index.
+//
+// Unpaginated by design. Past ~20 posts, paginate with Astro's paginate() and
+// give every page a SELF-REFERENTIAL canonical (/blog/2 canonicals to /blog/2,
+// never back to /blog). See saboteur-sites/sites/landing-page/content-surfaces.md.
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Nav from "../../components/Nav.astro";
+import LegalFooter from "../../components/LegalFooter.astro";
+
+// TODO: the site's name as a person says it. Must match Base.astro's SITE_NAME.
+const SITE_NAME = "TODO";
+
+// Drafts never reach the build. This filter is the only thing standing between
+// an unfinished post and a live URL — do not remove it to "preview" something;
+// `npm run dev` renders drafts locally without it.
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+
+// Describes the page as it renders: a blog index published by the entity.
+// No blogPost array — the posts are listed once, in the markup.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: `${SITE_NAME} — Blog`,
+  // TODO: same sentence as the description prop below.
+  description: "TODO",
+  url: new URL("/blog", Astro.site).toString(),
+  publisher: {
+    "@type": "Organization",
+    name: "Saboteur LLC",
+    url: "https://saboteur.dev",
+  },
+};
+---
+<Base
+  title={`Blog — ${SITE_NAME}`}
+  description="TODO: 140–160 characters, in voice. What this blog is about, stated plainly."
+  jsonLd={jsonLd}
+>
+  <Nav showSections={false} />
+
+  <main id="main" class="px-6 py-14">
+    <div class="mx-auto max-w-[68ch]">
+      <h1
+        class="font-display font-bold text-fg-primary text-[clamp(28px,6vw,40px)] tracking-[-0.03em] leading-[1.1] mb-5"
+      >
+        Blog
+      </h1>
+
+      {/* TODO: one sentence on what gets written here and what doesn't.
+          Declarative, in voice. Delete the placeholder — do not ship it. */}
+      <p class="font-sans text-[15px] leading-[1.75] text-fg-secondary mb-12">
+        TODO
+      </p>
+
+      {posts.length === 0 ? (
+        <p class="font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary">
+          Nothing published yet.
+        </p>
+      ) : (
+        <ul class="list-none p-0 m-0">
+          {posts.map((post) => (
+            <li class="border-t border-brand-rule py-[18px] last:border-b">
+              <a href={`/blog/${post.id}`} class="group block no-underline">
+                <time
+                  datetime={iso(post.data.pubDate)}
+                  class="font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary block mb-2"
+                >
+                  {fmt(post.data.pubDate)}
+                </time>
+                <h2
+                  class="font-display font-bold text-fg-primary text-[19px] tracking-[-0.02em] leading-[1.25] mb-2 group-hover:text-brand-red transition-colors duration-150"
+                >
+                  {post.data.title}
+                </h2>
+                <p class="font-sans text-[13px] leading-[1.7] text-fg-secondary">
+                  {post.data.description}
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <p class="mt-12">
+        <a
+          href="/rss.xml"
+          class="font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary hover:text-fg-primary transition-colors duration-150 no-underline"
+        >
+          RSS →
+        </a>
+      </p>
+    </div>
+  </main>
+
+  <LegalFooter />
+</Base>

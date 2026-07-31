@@ -28,6 +28,19 @@ Additional variants (with a prominent outlined CTA button, with breadcrumbs, etc
 - **Mark (left).** Reduced mark — wordmark + Japanese inline. Both tiers use `fg-primary` — the mark is a single identity unit. 3px red bar to the left.
 - **Links (right).** Mono uppercase, 10px, `text-fg-tertiary`, `hover:text-fg-primary`. Letter-spacing `0.14em`. 20px gap between links.
 
+## Two kinds of link
+
+The nav mixes two things that look identical and behave differently:
+
+| Kind | Example | Where it works |
+|---|---|---|
+| **Section anchor** | `#mission`, `#contact` | The landing page only — the anchor has to exist |
+| **Site route** | `/blog`, `/changelog` | Every page |
+
+`Nav.astro` takes `showSections`, defaulting to true. It means **"render the anchor links"**, not "render any links". A standalone page — `/privacy`, `/terms`, a post, the 404 — passes `showSections={false}`, which drops the anchors and keeps the routes. Shipping `#mission` on `/privacy` puts a control on the page that looks live and does nothing; dropping `/blog` there strands the reader with only the mark to get back.
+
+Sites with no content surfaces have no route links, and `showSections={false}` leaves the mark alone — which is the original behaviour, unchanged.
+
 ## Rules
 
 1. **No dropdowns.** A landing-page nav with a dropdown has outgrown the format.
@@ -36,6 +49,7 @@ Additional variants (with a prominent outlined CTA button, with breadcrumbs, etc
 4. **Mark is always a link to `/`.** Even on a single-page landing site.
 5. **At most one button.** A small outlined mono button (10px, `fg-primary` text, `brand-dim` border, `padding: 6px 12px`) is permitted at the right end of the links when the page has one obvious next action. Use sparingly — most Saboteur landing pages skip it.
 6. **Mobile.** The minimal variant assumes few enough links to fit on a phone without a hamburger. Below ~600px width, swap to a hamburger that opens a vertical menu styled identically (mono uppercase, hairline rules between items).
+7. **Four links maximum.** Anchors and routes counted together. This is what keeps rule 6 true — five mono links at 0.14em tracking overflow a 375px viewport, and the fix is fewer links, not a hamburger. A nav that wants a fifth link is a page that has outgrown the landing-page format.
 
 ## Copy patterns
 
@@ -44,5 +58,9 @@ Link labels are short, uppercase mono, no industry jargon. Live examples:
 - `MISSION`
 - `PRODUCTS`
 - `GET IN TOUCH`
+- `BLOG`
+- `CHANGELOG`
 
-Avoid: `SOLUTIONS`, `RESOURCES`, `PLATFORM`, `WHY US`, `FEATURES`.
+Avoid: `SOLUTIONS`, `RESOURCES`, `PLATFORM`, `WHY US`, `FEATURES`. Also avoid `WRITING`, `NOTES`, `JOURNAL` for the blog — the route is `/blog` and the label should match it. A reader guessing a URL guesses `/blog`.
+
+**Four links is the ceiling** (rule 7 below). A parent page with both surfaces is already there: `MISSION · BLOG · CHANGELOG · GET IN TOUCH`. If a fifth is wanted, drop `MISSION` — the hero sits directly above it, and no one has ever needed a link to scroll one screen.

@@ -8,7 +8,7 @@ This directory describes **what a Saboteur landing page is**, not how to build i
 
 | Variant | What it promotes | Examples |
 |---|---|---|
-| **Product landing page** | One product. Owns its domain. Parent mark appears only in the footer. | `offbeat-fm.com`, `getwrite.io` |
+| **Product landing page** | One product. Owns its domain. Parent mark appears only in the footer. | `offbeat-fm.com`, `getwrite.app` |
 | **Parent / sub-brand landing page** | Saboteur LLC or one of `SAB/labs` / `SAB/works`. Previews multiple products. | `saboteur.dev` (current live page) |
 
 The two variants share most of their anatomy. They differ in **which mark sits in the hero**, **whether a Products section exists**, and **how the footer signs**. The defaults below describe the product landing page; differences for the parent variant are called out inline.
@@ -52,9 +52,16 @@ When generating a Saboteur landing page, resolve these in order:
 - Contact: form (name, email, topic, message).
 - Footer: *Saboteur LLC · saboteur.dev*.
 
+## Optional content surfaces
+
+A landing page can take `/blog`, `/changelog`, or both, without becoming a different kind of site. They are separate routes with their own layouts — they add no section to the landing page and change nothing above. See [`content-surfaces.md`](content-surfaces.md).
+
+Add one when there is something to publish. `saboteur.dev` takes a blog and no changelog; a product with releases to report may want both.
+
 ## What lives in this directory
 
 - This file — variants, anatomy, decision flow.
+- [`content-surfaces.md`](content-surfaces.md) — the optional `/blog` and `/changelog` surfaces.
 - *(Phase 2)* `required-sections.md` — full reference for nav, hero, mission, legal footer.
 - *(Phase 2)* `optional-sections.md` — when and how to include features, demo, products, status, contact.
 - *(Phase 2)* `examples/saboteur-dev/` — the live parent page absorbed as a worked example.

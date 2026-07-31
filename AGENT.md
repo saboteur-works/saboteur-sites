@@ -69,6 +69,17 @@ The live `saboteur.dev` is the reference for this variant.
 
 Load [`brand/identity.md`](brand/identity.md), [`brand/visual-tokens.md`](brand/visual-tokens.md), and the rendered brand system at [`brand/inputs/saboteur-brand-system-v06.html`](brand/inputs/saboteur-brand-system-v06.html). Token changes belong in the canonical [`saboteur-styles`](https://github.com/saboteur-works/saboteur-styles) repo first; this repo's mirror gets re-synced after.
 
+### "Add a blog or changelog to a site"
+
+Load [`sites/landing-page/content-surfaces.md`](sites/landing-page/content-surfaces.md) first — it carries the rules and the reasoning. Then [`scaffolding/content-surfaces/README.md`](scaffolding/content-surfaces/README.md) for the mechanics, and [`tech/seo.md`](tech/seo.md) for the `BlogPosting` shape and the draft/pagination rules.
+
+Two things to get right before writing anything:
+
+- **The changelog is one page**, entries as anchored `<h2>` sections — not one URL per release. This is a search-quality decision, not a layout preference.
+- **Drafts never reach the build.** No `noindex`, no unlisted URL — no page at all.
+
+To write a post rather than wire up the surface, use the `write-saboteur-post` skill; long-form voice is not the same document as section-copy voice.
+
 ### "Add a new site type"
 
 Read [`sites/README.md`](sites/README.md) for the composition model. A new site type goes in `sites/<type>/` with the same shape as `landing-page/` (anatomy, decision flow, references to required and optional sections). It does **not** redefine brand, sections, or compliance — it composes from them.

@@ -78,6 +78,7 @@ Read these reference files before running checks:
 5. `$SITES/compliance/cookieless-by-default.md` — the four hard cookieless rules
 5b. `$SITES/compliance/policy-tooling.md` — how `/privacy` and `/terms` are generated and verified
 6. The relevant section READMEs under `$SITES/sections/` (load lazily — only for sections present in the target repo)
+7. `$SITES/sites/landing-page/content-surfaces.md` — **only if** the repo has `src/pages/blog/` or `src/pages/changelog.astro`
 
 ### Step 5 — Detect variant
 
@@ -85,7 +86,7 @@ Read `src/components/Hero.astro` in the target repo. If it contains the Japanese
 
 ### Step 6 — Run assessment checks
 
-Run all six check groups. Collect every finding into a single report; do not stop at the first failure. Each finding gets a unique `P#` identifier.
+Run all seven check groups (group G only if the site has a content surface). Collect every finding into a single report; do not stop at the first failure. Each finding gets a unique `P#` identifier.
 
 #### A. Required sections
 
@@ -212,7 +213,7 @@ The footer links `/privacy` and `/terms` from every page, so these are part of t
 |---|---|---|
 | Every footer legal link resolves | For each `href="/privacy"` / `href="/terms"` in `LegalFooter.astro`, a matching `src/pages/privacy.md` (or `.astro`) exists. A link to a 404 is a **P1** — it is the single most common defect in a generated Saboteur site. | `compliance/policy-tooling.md` |
 | `policy.config.json` exists at the repo root | Without it the pages cannot be re-rendered and will silently rot. | same |
-| Exactly one `<h1>` per page | The Hero mark container is `<h1>`, not `<div>`. `grep -c "<h1" src/components/Hero.astro`. Zero `h1` on a landing page fails the heading-structure rule and starts the outline at `h2`. Preflight resets heading styling, so this is a zero-visual-change fix. **P1.** | `compliance/accessibility.md`, `sections/hero/README.md` |
+| Exactly one `<h1>` per page | The Hero mark container is `<h1>`, not `<div>`. `grep -c "<h1" src/components/Hero.astro`. Zero `h1` on a landing page fails the heading-structure rule and starts the outline at `h2`. Preflight resets heading styling, so this is a zero-visual-change fix. **P1.** **Scope: the landing page only.** A post, `/blog`, `/changelog`, `/privacy`, and `/terms` have no Hero — their `h1` is the page's own heading, and filing this finding against them is a false positive. See group G. | `compliance/accessibility.md`, `sections/hero/README.md` |
 | Exactly one `<main id="main">` per page | `grep -c "<main" src/pages/*.astro src/layouts/Legal.astro`. Nav and LegalFooter must sit outside it. A page with no `<main>` is missing a required landmark and the skip link lands nowhere. **P1.** | `compliance/accessibility.md` |
 | Skip link present and first | `Base.astro` renders `<a href="#main">` as the first element inside `<body>`, `sr-only` until focused. Required as the first focusable element on every page. **P1.** | same |
 | Legal pages carry no dead in-page anchors | `Legal.astro` renders `<Nav showSections={false} />`. An `href="#mission"` on `/privacy` is a control that looks live and does nothing — there is no such section on that page. **P2.** | `sections/nav/variant-minimal.html` |
@@ -232,6 +233,41 @@ For each finding in this group:
 - **Standard:** the compliance doc named above
 - **Suggested repair:** fix `policy.config.json` (or the shared body in `$SITES/compliance/`) and re-render — **never** by editing the generated page. If terms are missing because the jurisdiction and mailing address are unknown, the repair is to remove the dangling Terms link and report the two missing facts to the user; do not invent them.
 
+#### G. Content surfaces
+
+**Run this group only if the repo has `src/pages/blog/` or `src/pages/changelog.astro`.** A site without them is not missing anything — surfaces are opt-in, and their absence is never a finding.
+
+Load `$SITES/sites/landing-page/content-surfaces.md` before judging.
+
+| Check | How | Standard |
+|---|---|---|
+| No draft in the build | `rm -rf dist && npm run build`, then for each file in `src/content/*/` with `draft: true`, grep `dist/` for its slug. Any hit is a **P1** — an unfinished or retracted post is publicly readable. A stale `dist/` is the usual cause, which is why the rebuild must be clean. | `content-surfaces.md` §Drafts |
+| Surface is whole, not half | Each collection in `src/content.config.ts` has a page rendering it, and each nav route link resolves to a real route. A collection with no page, or a `/blog` link with no `src/pages/blog/`, is a **P1**. | same §There is no surfaces config |
+| Changelog is one page | `ls src/pages/changelog*` — a `changelog/[...slug].astro` or a page per entry is a **P1**. This is the scaled-content pattern and the penalty is site-wide. | `tech/seo.md` §6 |
+| Posts are articles | Every `dist/blog/*/index.html` has `og:type="article"`; the blog index and changelog do **not**. | `tech/seo.md` §The metadata contract |
+| `BlogPosting` matches the page | `headline` equals the rendered `<h1>`, `datePublished` equals the rendered date, and `author` is the Organization — **not** an invented person on a page that renders no byline. | `tech/seo.md` §Structured data |
+| One `h1` per surface page | On a post the `h1` is the post title, **not** the Hero mark — do not file the landing-page Hero-`h1` finding against a post page. `for f in $(find dist -name '*.html'); do echo "$(grep -c '<h1' $f) $f"; done \| grep -v '^1 '` | `compliance/accessibility.md` §Headings |
+| Heading nesting in content | Post bodies start at `##`; changelog entry bodies contain **no** headings. | same |
+| Nav on standalone pages | Route links render on `/privacy`, `/terms`, and posts; section anchors do not. Four links maximum, anchors and routes counted together. | `sections/nav/README.md` |
+| Feed integrity | `/rss.xml` exists, its `<link>` values point at the production origin (never `pages.dev`), it contains no draft, and the stylesheet it references (`public/rss/styles.xsl`) exists. A feed pointing at a missing stylesheet is the same defect as a `robots.txt` advertising a 404 sitemap. | `content-surfaces.md` §Files |
+| Feed is discoverable | `Base.astro` emits `<link rel="alternate" type="application/rss+xml">`. **P2** — the feed works, but nothing announces it. | same |
+| Images in post bodies | Self-hosted under `/assets/`, real `alt`, no third-party embed without the click-to-load wrapper. Post bodies are the one authored surface where images are allowed. | `sections/SHARED-image-rules.md` |
+| No placeholder copy shipped | `grep -rn "TODO" src/pages/blog/ src/pages/changelog.astro src/pages/rss.xml.js src/layouts/Post.astro` — a `TODO` rendered to a visitor is a **P1**. | `content-surfaces.md` §Files |
+| Paginated canonicals | If `/blog` is paginated, each page canonicalises to **itself**. A canonical collapsing every page to `/blog` is a **P1**. | `tech/seo.md` §Content surfaces |
+
+**Voice on long-form content.** Read the body of each published post. The checks in group D apply unchanged, plus two that only appear at length, per `$SITES/skills/write-saboteur-post/references/long-form-voice.md`:
+
+- **Advice register** — `you should`, `best practice`, `pro tip`. A post reports what happened; it does not instruct.
+- **Padding** — a summarising final paragraph, an *In this post I'll cover* opener, or a section that restates the one above it. Thin-by-dilution is still thin.
+
+Then the doorway check at post scale: would this paragraph read correctly on another company's engineering blog with the name swapped? If yes, **P1**, same as duplicated section copy.
+
+For each finding in this group:
+- **Category:** Content surface
+- **Location:** `<file:line>` or the built page
+- **Standard:** the doc named above
+- **Suggested repair:** direct edit for the mechanical items (feed link, `og:type`, nav placement, canonicals); `write-saboteur-post` for anything that rewrites body copy. A draft found in `dist/` is repaired by a clean rebuild — and by asking the user whether that post was ever meant to be public.
+
 ### Step 7 — Output the report
 
 Print the report in this exact format. Use the unique `P#` identifiers so the user can reference findings by number when choosing what to repair.
@@ -250,6 +286,7 @@ Date: <today's date, YYYY-MM-DD>
 - Required text: <N> checked, <M> missing/wrong
 - Invariants: <N> checked, <M> violated
 - Voice: <N> sections reviewed, <M> flagged
+- Content surfaces: <none | blog | changelog | blog + changelog> — <N> checked, <M> flagged
 
 <if zero problems across all four:>
 ✓ No problems found. The site is consistent with current Saboteur standards.
@@ -259,7 +296,7 @@ Date: <today's date, YYYY-MM-DD>
 
 ### [P1] <one-line title>
 
-- Category: <Required section | Required text | Invariant | Voice drift>
+- Category: <Required section | Required text | Invariant | Voice drift | SEO | Legal | Content surface>
 - Location: <file or file:line>
 - What's wrong: <one sentence>
 - Standard: <reference doc and section>
@@ -295,6 +332,7 @@ For each finding selected:
    |---|---|
    | `update-saboteur-site` (section-copy) | Invoke `update-saboteur-site` with arguments `repository=<path> update_type=section-copy`. Pass the section name and the finding's "What's wrong" as the change context. The director skill will collect the rest and confirm before invoking the writer. |
    | `update-saboteur-site` (page-elements) | Invoke `update-saboteur-site` with arguments `repository=<path> update_type=page-elements`. Pass the section to add or modify. |
+   | `write-saboteur-post` | Invoke `write-saboteur-post` with `repository=<path>`. Use for findings that require rewriting a post's body — voice drift, advice register, padding, or a paragraph that fails the doorway check. Pass the finding's "What's wrong" as the rewrite context. |
    | Direct edit | Read the file at the finding's location. Use the Edit tool to apply the smallest possible fix (e.g., `#FFFFFF` → `brand-white`, marketing verb → declarative phrasing, outdated year → current year). Confirm the edit with the user before writing. |
 
 3. **After each repair**, mark it complete in your running list. If multiple repairs were selected, continue to the next one without re-asking.

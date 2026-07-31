@@ -16,12 +16,24 @@
       Product:   <product wordmark> / <product Japanese, if defined>
     - Link href + label. 2-4 items. Mono uppercase, short.
 
-  The links are in-page anchors, so they only work on a page that actually
-  contains those sections. On a standalone page — /privacy, /terms, 404 — the
-  whole <ul> is omitted and the mark alone carries the way back. Do not ship
-  the section links on a page whose anchors don't exist: they look like
-  controls and do nothing. In Astro this is a `showSections` prop on Nav,
-  defaulting to true and passed false by the legal-page layout.
+  Two kinds of link live here and they behave differently:
+
+    - Section anchors (#mission, #contact) work only on the landing page,
+      because that is the only page containing those sections.
+    - Site routes (/blog, /changelog) work on every page.
+
+  On a standalone page — /privacy, /terms, a post, 404 — the ANCHORS are
+  omitted and the routes stay. Do not ship a section link on a page whose
+  anchor doesn't exist: it looks like a control and does nothing. Do not drop
+  the route links there either: they are the only way out of that page besides
+  the mark.
+
+  In Astro this is a `showSections` prop on Nav, defaulting to true and passed
+  false by Legal.astro and Post.astro. It gates the anchor <li>s only — the
+  route <li>s sit outside the conditional. A site with no content surfaces has
+  no route links, so showSections={false} leaves just the mark, as before.
+
+  Four links maximum, anchors and routes counted together.
 
   Tokens used: bg-brand-black, border-brand-rule, border-brand-red,
                text-fg-primary, text-fg-tertiary,
@@ -39,6 +51,8 @@
   </a>
 
   <ul class="ml-auto flex items-center gap-5">
+
+    <!-- ANCHORS — landing page only. In Astro, wrap these in {showSections && ( … )}. -->
     <li>
       <a href="#mission" class="font-mono text-[10px] tracking-[0.14em] text-fg-tertiary hover:text-fg-primary uppercase transition-colors duration-150">
         Mission
@@ -49,6 +63,17 @@
         Products
       </a>
     </li>
+
+    <!-- ROUTES — every page, never inside the showSections conditional.
+         Include only the surfaces the site actually has; omit both entirely on
+         a site with no /blog and no /changelog. -->
+    <li>
+      <a href="/blog" class="font-mono text-[10px] tracking-[0.14em] text-fg-tertiary hover:text-fg-primary uppercase transition-colors duration-150">
+        Blog
+      </a>
+    </li>
+
+    <!-- ANCHOR again — the trailing contact link stays with the anchors. -->
     <li>
       <a href="#contact" class="font-mono text-[10px] tracking-[0.14em] text-fg-tertiary hover:text-fg-primary uppercase transition-colors duration-150">
         Get in touch

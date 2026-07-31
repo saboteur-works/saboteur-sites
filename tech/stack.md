@@ -12,7 +12,7 @@ A different stack is allowed when it serves the project, but it should be a deli
 - **Zero JS by default.** Components are server-rendered at build time. Pages ship as static HTML unless a specific component opts into hydration.
 - **Islands when needed.** A single interactive piece (contact form, modal, lightbox) can hydrate without converting the rest of the site. Use vanilla JS by default; reach for a framework only when the interaction genuinely warrants it.
 - **Cloudflare Pages native.** Zero-config deploy via the Pages dashboard. No adapter needed for static output.
-- **Content collections.** Markdown content with type-checked frontmatter — useful when a landing page grows a small blog or changelog.
+- **Content collections.** Markdown content with type-checked frontmatter. This is what backs the optional `/blog` and `/changelog` surfaces — see [`../sites/landing-page/content-surfaces.md`](../sites/landing-page/content-surfaces.md). The zod schema is doing real work there: it hard-caps the meta description at 160 characters and refuses a post that sets an OG image with no alt text, so the metadata contract is enforced at build time rather than at review time.
 
 ### Tailwind v4
 
@@ -51,6 +51,7 @@ The full picture for a generated landing-page repo:
 | Domain / DNS | Cloudflare DNS | Each Saboteur product currently has its own domain. |
 | Image optimization | Astro `<Image>` / `<Picture>` | Outputs AVIF + WebP with fallback. |
 | Sitemap | `@astrojs/sitemap` | Emits `/sitemap-index.xml`, which `robots.txt` points at. See [`seo.md`](seo.md). |
+| Feed (if any) | `@astrojs/rss` | Blog only. Static `/rss.xml`, description-only items, no full-text render. See [`../sites/landing-page/content-surfaces.md`](../sites/landing-page/content-surfaces.md). |
 | CI | Cloudflare Pages built-in | Push-to-deploy, build command `npm run ci`. Runs the policy gates before and after the Astro build. No separate GitHub Actions required. |
 
 ## When to consider deviating

@@ -133,6 +133,7 @@ If any of the following are still missing after parsing `$ARGUMENTS`, ask for th
 
 | Input | Description | Example |
 |---|---|---|
+| `surfaces` | Content surfaces to add: `blog`, `changelog`, both, or none. Default: **none**. Ask only if the user hasn't said; a landing page is complete without them. | `blog` |
 | `og_image_path` | Path to a 1200×630 OG card image. If omitted, the head emits a `<!-- TODO og:image -->` comment instead of an `og:image` meta. | `./assets/og-card.png` |
 | `og_image_alt` | What the card shows. Required when `og_image_path` is supplied. | `The OffBeat-FM wordmark on black.` |
 | `site_name` | Site name as a person says it, for `og:site_name`. Defaults to `product_name`. | `OffBeat-FM` |
@@ -364,6 +365,24 @@ The LegalFooter links `/privacy` and `/terms` on every page. Generate them now �
    ```
    If it reports an undeclared host, resolve it — either the host is a real processor that belongs in the policy, or it's a link that belongs in `allowedHosts`. Do not silence it by deleting the check.
 
+### Step 8c — Content surfaces (only if `surfaces` is not none)
+
+Skip this step entirely when `surfaces` is none — the default. Do not add a blog "for later": an empty blog is worse than no blog, and the surface can be added any time by following the guide.
+
+Read `$SITES/sites/landing-page/content-surfaces.md` before writing anything, then follow `$SITES/scaffolding/content-surfaces/README.md`:
+
+1. Copy only the files for the requested surfaces from `$SITES/scaffolding/content-surfaces/files/`.
+2. If only one surface was requested, **delete the other collection** from `src/content.config.ts` and from the `collections` export.
+3. `npm i @astrojs/rss` if blog.
+4. Resolve every `TODO`: `SITE_NAME` in `Post.astro`, the blog index, the changelog page, and `rss.xml.js`. The intro lines on `/blog` and `/changelog` are real copy in brand voice — one sentence on what gets published there and what doesn't. **Never ship the `TODO` placeholder to a visitor.**
+5. Add the feed link to `Base.astro`'s head (blog only):
+   ```html
+   <link rel="alternate" type="application/rss+xml" title="Blog" href="/rss.xml" />
+   ```
+6. Add nav route links in `Nav.astro`, **outside** the `{showSections && ( … )}` block so they render on standalone pages. Keep the total at four links — drop `Mission` before exceeding it.
+
+Do not write any post or changelog entry. Generation produces the surface, not its content; content is `write-saboteur-post`. Leave the `_TEMPLATE.md` files in place.
+
 ### Step 9 — Verify constraints
 
 Before reporting done, check each item:
@@ -395,6 +414,8 @@ Before reporting done, check each item:
 - [ ] `astro.config.mjs` still registers `sitemap()` — if it were removed, the `Sitemap:` line in `robots.txt` would point at a 404
 - [ ] Exactly one `jsonLd` object, matching the variant's shape, with no `AggregateRating` / `Review` / `FAQPage` / `Offer`
 - [ ] On a product page, the JSON-LD `publisher` points at `https://saboteur.dev` and the footer's parent mark is a working link to it
+- [ ] If content surfaces were generated: every collection in `content.config.ts` has a page rendering it; every nav route link resolves; no `TODO` remains in `Post.astro`, the blog index, the changelog page, or `rss.xml.js`; `public/rss/styles.xsl` exists if `rss.xml.js` references it; `Base.astro` has the `rel="alternate"` feed link
+- [ ] If content surfaces were generated: `npm run build` produces `/blog` and/or `/changelog`, and `dist/` contains no draft — verify against a clean build (`rm -rf dist` first)
 - [ ] **Mission, Features, and Principles copy is specific to this product** — no sentence that would read correctly on another Saboteur domain with only the name swapped. This is the doorway-page invariant in `$SITES/tech/seo.md`; violating it risks a site-wide penalty across every Saboteur domain.
 
 Fix any violations before reporting.

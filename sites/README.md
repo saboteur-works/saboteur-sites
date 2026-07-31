@@ -6,11 +6,14 @@ Catalog of **site types** Saboteur produces. Each subdirectory describes one typ
 
 - [`landing-page/`](landing-page/) — single-page site introducing one thing. Primary use case for this repo.
 
+Landing pages can take optional **content surfaces** — `/blog` and `/changelog` — without becoming a different site type. Same domain, same nav, same footer, same entity. See [`landing-page/content-surfaces.md`](landing-page/content-surfaces.md).
+
 Future types (added when there's a concrete need, not before):
 
 - `marketing-site/` — multi-page site for a product with more surface than fits on one page.
 - `docs-site/` — reference documentation for a product.
-- `changelog-site/` — release notes and decision logs.
+
+~~`changelog-site/`~~ — no longer planned. A changelog is a surface on the product's own landing page, not a site of its own: it belongs on the product's domain, under the product's nav, sharing the product's `Organization` markup. Splitting it out would fork the anatomy and dilute the entity for no gain.
 
 ## How a site composes
 

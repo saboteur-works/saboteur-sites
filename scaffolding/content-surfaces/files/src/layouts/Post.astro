@@ -1,0 +1,117 @@
+---
+// Post.astro — layout for a single /blog post.
+//
+// Body typography comes from the shared `.prose` layer in global.css, the same
+// rules Legal.astro uses. Do not add a local <style> block for prose here.
+//
+// Heading structure: on a post, the <h1> is the POST TITLE, not the Hero mark.
+// The landing page's "the mark is the h1" rule is scoped to the landing page —
+// a post page has no Hero. Exactly one h1 either way.
+// See saboteur-sites/compliance/accessibility.md §Headings.
+import Base from "./Base.astro";
+import Nav from "../components/Nav.astro";
+import LegalFooter from "../components/LegalFooter.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  ogImage?: string;
+  ogImageAlt?: string;
+}
+
+// TODO: the site's name as a person says it, e.g. "OffBeat-FM". Must match
+// SITE_NAME in Base.astro.
+const SITE_NAME = "TODO";
+
+const { title, description, pubDate, updatedDate, ogImage, ogImageAlt } =
+  Astro.props;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC", // Frontmatter dates are plain ISO days. Parse and print
+  });                // them in one zone or a post shifts a day for some readers.
+
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+
+// BlogPosting describes only what the page renders: the title, the dates, and
+// the standfirst. No author byline is rendered, so `author` is the entity that
+// publishes the page — not an invented person.
+// See saboteur-sites/tech/seo.md §Structured data.
+const publisher = {
+  "@type": "Organization",
+  name: "Saboteur LLC",
+  url: "https://saboteur.dev",
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description,
+  datePublished: iso(pubDate),
+  ...(updatedDate && { dateModified: iso(updatedDate) }),
+  author: publisher,
+  publisher,
+  mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).toString(),
+};
+---
+<Base
+  title={`${title} — ${SITE_NAME}`}
+  description={description}
+  ogType="article"
+  ogImage={ogImage}
+  ogImageAlt={ogImageAlt}
+  jsonLd={jsonLd}
+>
+  {/* Standalone page: no in-page anchors to offer. */}
+  <Nav showSections={false} />
+
+  <main id="main" class="px-6 py-14">
+    <article class="mx-auto max-w-[68ch]">
+      <header class="mb-9">
+        <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary mb-4">
+          <a href="/blog" class="hover:text-fg-primary transition-colors duration-150">
+            Blog
+          </a>
+        </div>
+
+        <h1
+          class="font-display font-bold text-fg-primary text-[clamp(28px,6vw,40px)] tracking-[-0.03em] leading-[1.1] mb-5"
+        >
+          {title}
+        </h1>
+
+        <p class="font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary">
+          <time datetime={iso(pubDate)}>{fmt(pubDate)}</time>
+          {updatedDate && (
+            <>
+              {" · Updated "}
+              <time datetime={iso(updatedDate)}>{fmt(updatedDate)}</time>
+            </>
+          )}
+        </p>
+      </header>
+
+      {/* The rendered markdown body. */}
+      <div class="prose">
+        <slot />
+      </div>
+
+      <footer class="mt-14 pt-6 border-t border-brand-rule">
+        <a
+          href="/blog"
+          class="font-mono text-[10px] tracking-[0.14em] uppercase text-fg-tertiary hover:text-fg-primary transition-colors duration-150"
+        >
+          ← All posts
+        </a>
+      </footer>
+    </article>
+  </main>
+
+  <LegalFooter />
+</Base>
