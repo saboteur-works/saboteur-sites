@@ -415,6 +415,12 @@ Next steps
 5. Run compliance/pre-launch-checklist.md before going live
 6. Deploy — push to GitHub, then connect the repo in the Cloudflare
    dashboard: Workers & Pages > Create > Pages > Connect to Git.
+   FIRST confirm the Cloudflare GitHub App can see this repo:
+     gh api /orgs/saboteur-works/installations --jq \
+       '.installations[]|select(.app_slug=="cloudflare-workers-and-pages")|.repository_selection'
+   If that prints "selected" rather than "all", add the repo at
+   github.com/organizations/saboteur-works/settings/installations
+   before connecting, or the project will connect and then break.
      Build command: npm run ci     Output: dist     Root: /
    Node version comes from the committed .nvmrc — leave env vars empty.
    A Pages project is Git-connected or Direct Upload PERMANENTLY, so do

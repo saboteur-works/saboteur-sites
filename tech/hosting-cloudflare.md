@@ -42,7 +42,11 @@ Git integration is set up in the Cloudflare dashboard. There is no wrangler comm
    If you see a **Deploy command** or a **Path** field, back out — you're creating a Worker, not a Pages project. `Path` there is the *root directory*, not the output directory; putting `dist` in it breaks the build, because there's no `package.json` inside `dist`.
 
    Going the Workers route is a real option, but not a drop-in one: it needs a `wrangler.jsonc` declaring `./dist` as the assets directory, and `public/_headers` rewritten — Workers preview URLs are `<version>-<worker>.<subdomain>.workers.dev`, so the `pages.dev` noindex rules would match nothing and every preview would become an indexable duplicate of production, silently. Per-branch preview aliases are also still "coming soon" on Workers. Don't switch casually.
-2. Authorize the **Cloudflare GitHub App** for the `saboteur-works` organisation. Grant it access to the specific repo rather than all repos. You can confirm or revise this later at GitHub → Settings → Applications.
+2. Authorize the **Cloudflare GitHub App** for the `saboteur-works` organisation.
+
+   **Grant it *All repositories*.** The tempting choice is "Only select repositories" for least privilege, but every repo in `saboteur-works` is a public site repo the app will eventually need, and per-repo grants fail in a specific, confusing way: a new site's Pages project silently loses its connection because nobody remembers to add the repo to the app's allowlist. Least privilege buys nothing here — the repos are already public — and costs a broken deploy per site.
+
+   If you keep "Only select repositories" anyway, **adding the repo to the allowlist is a required step before creating the Pages project**, not an afterthought. See [Reconnecting a repo that lost access](#reconnecting-a-repo-that-lost-access).
 3. Select the repository.
 4. Set the build configuration:
 
@@ -113,6 +117,35 @@ If that returns nothing, stop and fix `_headers` before pushing anything else. T
 
 To turn previews off instead, set the preview branch to *None (Disable automatic branch deployments)* in the project's branch control settings.
 
+## Reconnecting a repo that lost access
+
+Symptom: a Pages project that was building fine shows the Git repository as disconnected, or builds stop triggering on push. Cause: the Cloudflare GitHub App is installed on the org with **Only select repositories**, and this repo isn't in the list — either it never was, or someone edited the selection.
+
+Check it without leaving the terminal:
+
+```bash
+gh api /orgs/saboteur-works/installations \
+  --jq '.installations[] | select(.app_slug=="cloudflare-workers-and-pages") | .repository_selection'
+```
+
+`all` means access isn't your problem. `selected` means the allowlist is, and it's the likely cause.
+
+**Fix in this order.** Reconnecting in Cloudflare before granting access in GitHub just fails again — Cloudflare can only offer repos the app can see.
+
+1. **GitHub — grant access.** The repo is org-owned, so this lives in the *organisation's* settings, not your personal ones:
+
+   `https://github.com/organizations/saboteur-works/settings/installations`
+
+   → **Cloudflare Workers and Pages** → **Configure** → **Repository access** → select **All repositories** (recommended, see above) or add the repo under *Only select repositories* → **Save**.
+
+   Reaching it from personal settings works too: [github.com/settings/installations](https://github.com/settings/installations) → **Switch settings context** → the organisation.
+
+2. **Cloudflare — re-link.** Pages project → **Settings** → **Builds** → **Manage** under *Git Repository*. Reconnect, reinstalling the integration if offered.
+
+3. **Trigger a build.** Push a commit, or use **Retry deployment** on the most recent one. Confirm the build actually runs — a reconnected project that never rebuilds is still serving the old bundle.
+
+If step 2 offers no repos at all, step 1 didn't save. Re-open the app configuration and confirm the repo is listed before trying again.
+
 ## Custom domains
 
 Add the production domain under **the Pages project → Custom domains**. Cloudflare creates the DNS record automatically when the zone is in the same account, which it is for every Saboteur domain.
@@ -149,3 +182,4 @@ Expect a short window between steps 4 and 5 where the domain does not resolve. D
 | `policies:audit` reports an undeclared host | The build gained a third-party reference. Either it's a real processor and belongs in `policy.config.json`, or it's an outbound link and belongs in `allowedHosts`. |
 | Preview URLs appearing in search results | `_headers` is missing, or has only one of the two `pages.dev` rules. |
 | Custom domain won't attach | It's still attached to the old Pages project. Remove it there first. |
+| Repo shows as disconnected, or pushes stop triggering builds | The Cloudflare GitHub App is installed with *Only select repositories* and this repo isn't listed. See [Reconnecting a repo that lost access](#reconnecting-a-repo-that-lost-access). |
