@@ -40,7 +40,7 @@ Open `src/pages/index.astro` and set `title` and `description` in the `<Base>` p
 - **Product page:** Nav · Hero · Mission · (Features) · (Status) · (Contact) · LegalFooter
 - **Parent page:** Nav · Hero · Mission (with tenets) · ProductsPreview · Status · Contact · LegalFooter
 
-Section component stubs are not included — copy from [`../../../../sections/`](../../../../sections/) and translate to `.astro` as needed, or generate from the section READMEs directly.
+Section component stubs are not included — copy from [`../../sections/`](../../sections/) and translate to `.astro` as needed, or generate from the section READMEs directly.
 
 ### 5. Install and run locally
 
@@ -67,4 +67,4 @@ In the Pages project → **Custom domains → Set up a custom domain**. Point it
 
 ### 8. Pre-launch
 
-Run through [`../../../../compliance/pre-launch-checklist.md`](../../../../compliance/pre-launch-checklist.md) before making the site public.
+Run through [`../../compliance/pre-launch-checklist.md`](../../compliance/pre-launch-checklist.md) before making the site public.
