@@ -127,6 +127,28 @@ Three things about it are load-bearing:
 - **The toggle only renders when something is behind it** (`hasInternal`). A control that reveals nothing is worse than no control.
 - **This is progressive disclosure, not hidden text.** The internal items are in the markup, indexable, and identical for a reader and a crawler; a visible control reveals them. That is the line between disclosure and the cloaking rule in [`../../tech/seo.md`](../../tech/seo.md) §2 — the violation is text a *user* can never reach, not text behind a control they can operate.
 
+### Importing a generated CHANGELOG.md
+
+A product that already generates a changelog from conventional commits (release-please and similar) has a record worth reusing — but not worth publishing. That output is written in commit-message voice for developers: *"task-3: lift query core; add native-query-backend transport"*. GetWrite's is 64 releases and 495 items, nearly all of it work a user cannot observe.
+
+So it imports into the **`internal` list only**:
+
+```bash
+npx saboteur-import-changelog --changelog ../getwrite/CHANGELOG.md
+npx saboteur-import-changelog --changelog ./CHANGELOG.md --limit 5 --dry-run
+```
+
+The generated record becomes the full picture behind the toggle; the user-visible body stays hand-written. That is the same split the surface already had — the importer just fills one side of it automatically.
+
+Properties that make it safe to run on every release:
+
+- **Non-destructive to prose.** On an existing entry it replaces the `internal` block and leaves the body, `summary`, and `draft` untouched. Idempotent: a second run reports "Unchanged".
+- **New entries land as `draft: true`** with an empty body, so a release cannot reach the site until someone writes what changed for a reader.
+- **No network call.** Point it at a local checkout, or fetch the file first with `gh api`. A build that fetches from GitHub fails when GitHub does, and imported content should be committed and reviewable rather than materialising at deploy time.
+- **Commit SHA links are stripped.** Keeping ~500 `github.com` URLs would mean declaring `github.com` in `allowedHosts` to satisfy the processor audit, in exchange for links nobody follows from a changelog.
+
+`--limit` and `--since` exist because backfilling a long history means hand-writing a body for every release. Import the releases you intend to publish, not the whole archive.
+
 ### Version identifiers
 
 The schema takes a free string, deliberately: `0.4.0`, `2026.07`, and `Build 214` are all legitimate depending on the product.

@@ -170,6 +170,26 @@ Same as posts: `npm run dev` shows drafts, `draft: false` publishes, commit and 
 
 So **pick a scheme and stay with it.** Switching from `0.4.0` to `2026.07` later breaks every changelog link anyone has shared. Semver if the product has real releases; dates if it ships continuously and a version number would be theatre.
 
+### If the product generates its own CHANGELOG.md
+
+Some products (GetWrite) already generate a changelog from their commits. Don't retype it, and don't publish it as-is — it's written for developers, in commit-message voice.
+
+Import it into the `internal` list instead:
+
+```bash
+# from a local checkout of the product repo
+npx saboteur-import-changelog --changelog ../getwrite/CHANGELOG.md
+
+# or fetch it first
+gh api repos/saboteur-works/getwrite/contents/CHANGELOG.md --jq .content \
+  | base64 -d > /tmp/CHANGELOG.md
+npx saboteur-import-changelog --changelog /tmp/CHANGELOG.md --limit 1
+```
+
+That creates (or refreshes) the entry with `internal` filled in from the generated file. You then write the user-visible body and flip `draft: false`.
+
+**It never overwrites your prose.** Re-running after each release refreshes only the `internal` list — your body, summary, and draft flag stay exactly as you left them. Use `--dry-run` to see what would change, and `--limit`/`--since` so you aren't handed 64 historical releases to write bodies for.
+
 ### Writing the entries
 
 - Say what changed, not how you feel about it. *Search now matches on tags.* — not *Improved search!*

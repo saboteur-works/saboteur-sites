@@ -20,7 +20,7 @@ The reference repository for **how to build a Saboteur LLC website or page**. Br
 | [`tech/`](tech/) | Default stack (Astro + Tailwind v4 + Cloudflare Pages), [`hosting-cloudflare.md`](tech/hosting-cloudflare.md), and [`seo.md`](tech/seo.md) — the metadata contract, JSON-LD shapes, and what would get a page suppressed. |
 | [`scaffolding/`](scaffolding/) | Starter files for a new site repo, plus the optional [content-surfaces add-on](scaffolding/content-surfaces/). |
 | [`skills/`](skills/) | The Claude Code skills that read this repo and do the work. See below. |
-| [`scripts/`](scripts/) | Policy rendering and auditing (`render-policies.mjs`, `audit-policy-processors.mjs`, `check-policy-upstream.mjs`) and the style sync. |
+| [`scripts/`](scripts/) | Policy rendering and auditing, the draft-leak check, the generated-changelog importer, and the style sync. |
 
 ## How a site gets built from this repo
 
