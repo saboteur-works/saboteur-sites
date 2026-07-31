@@ -22,8 +22,9 @@ pubDate: 2026-01-01
 # not a revision.
 # updatedDate: 2026-01-01
 
-# true until it is finished. Drafts get no page, no URL, no feed item, and
-# `npm run ci` fails if one reaches the build output.
+# true until it is finished. A draft renders at `npm run dev` so you can read
+# it while writing, and is dropped from `npm run build` — no page, no URL, no
+# feed item. Flip to false when you want it live.
 draft: true
 
 # Optional. Self-hosted 1200x630 card under public/assets/. Never a third-party

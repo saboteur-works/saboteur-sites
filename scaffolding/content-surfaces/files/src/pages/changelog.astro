@@ -15,8 +15,12 @@ import LegalFooter from "../components/LegalFooter.astro";
 // TODO: the site's name as a person says it. Must match Base.astro's SITE_NAME.
 const SITE_NAME = "TODO";
 
+// Drafts render in dev, never in a build. Same mechanism as /blog.
 const entries = (
-  await getCollection("changelog", ({ data }) => !data.draft)
+  await getCollection(
+    "changelog",
+    ({ data }) => !import.meta.env.PROD || !data.draft,
+  )
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 // render() is async, so the bodies are resolved before the template runs.

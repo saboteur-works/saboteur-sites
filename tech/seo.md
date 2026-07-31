@@ -165,7 +165,7 @@ Note what `noindex` is *not* for: an unfinished post. A draft is excluded from t
 
 A site with `/blog` or `/changelog` inherits three more rules. Full semantics in [`../sites/landing-page/content-surfaces.md`](../sites/landing-page/content-surfaces.md).
 
-1. **Drafts never reach `dist/`.** Filtered at every `getCollection` call, so no page, no sitemap entry, no feed item.
+1. **Drafts never reach `dist/`.** Filtered at every `getCollection` call in production, so no page, no sitemap entry, no feed item. They still render under `astro dev`, which is how a post gets read while it's being written. Enforced by `saboteur-check-drafts` in the site's `ci` script.
 2. **Paginated list canonicals are self-referential.** `/blog/2` canonicalises to `/blog/2`. Pointing every page back at `/blog` tells search engines that everything past the first page doesn't exist — the most common way a blog loses its own archive.
 3. **The changelog is one page, not one page per release.** See §6 below; this is the single decision that keeps a release-notes surface from becoming scaled content.
 
@@ -270,8 +270,7 @@ grep -rE 'og:image[^>]*(placehold|unsplash|cloudinary)|fonts\.(googleapis|gstati
 grep -o 'og:type" content="[^"]*"' dist/blog/*/index.html
 
 # Content surfaces only — no draft slug appears anywhere in the output.
-grep -rl 'draft: true' src/content/ | xargs -n1 basename | sed 's/\.md$//' |
-  while read s; do grep -rql "$s" dist/ && echo "LEAKED: $s"; done; echo "draft check done"
+npx saboteur-check-drafts --content ./src/content --dist ./dist
 ```
 
 Then, post-deploy: verify the property in Google Search Console, submit the sitemap, and check that the preview `*.pages.dev` URL returns `X-Robots-Tag: noindex` (`curl -sI https://<project>.pages.dev/ | grep -i robots`).

@@ -147,7 +147,8 @@ Full reference: [`../tech/seo.md`](../tech/seo.md).
 
 Full rules: [`../sites/landing-page/content-surfaces.md`](../sites/landing-page/content-surfaces.md).
 
-- [ ] **No draft appears anywhere in `dist/`** — not as a page, a sitemap entry, or a feed item. Run the draft check in [`../tech/seo.md`](../tech/seo.md) §Verification against a **clean** build (`rm -rf dist` first — a stale directory is how a retracted post stays live).
+- [ ] **No draft appears anywhere in `dist/`** — not as a page, a sitemap entry, or a feed item. `rm -rf dist && npm run build && npx saboteur-check-drafts` (the clean rebuild matters — a stale directory is how a retracted post stays live).
+- [ ] `saboteur-check-drafts` is wired into the site's `ci` script, so the above is enforced on every deploy rather than remembered.
 - [ ] Every post page has `og:type="article"`; the blog index and changelog do not.
 - [ ] Each post's `BlogPosting` `headline` and `datePublished` match the rendered title and date, and `author` is the Organization — no invented person on a page with no byline.
 - [ ] `/changelog` is one page. If there is a URL per release, stop and read the scaled-content rule before launching.

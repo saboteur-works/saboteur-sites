@@ -241,7 +241,8 @@ Load `$SITES/sites/landing-page/content-surfaces.md` before judging.
 
 | Check | How | Standard |
 |---|---|---|
-| No draft in the build | `rm -rf dist && npm run build`, then for each file in `src/content/*/` with `draft: true`, grep `dist/` for its slug. Any hit is a **P1** — an unfinished or retracted post is publicly readable. A stale `dist/` is the usual cause, which is why the rebuild must be clean. | `content-surfaces.md` §Drafts |
+| No draft in the build | `rm -rf dist && npm run build && npx saboteur-check-drafts`. Non-zero exit is a **P1** — an unfinished or retracted post is publicly readable. A stale `dist/` is the usual cause, which is why the rebuild must be clean. | `content-surfaces.md` §Drafts |
+| Draft check is wired into CI | `saboteur-check-drafts` appears in the site's `ci` script. Without it the guarantee is remembered rather than enforced. **P2.** | same |
 | Surface is whole, not half | Each collection in `src/content.config.ts` has a page rendering it, and each nav route link resolves to a real route. A collection with no page, or a `/blog` link with no `src/pages/blog/`, is a **P1**. | same §There is no surfaces config |
 | Changelog is one page | `ls src/pages/changelog*` — a `changelog/[...slug].astro` or a page per entry is a **P1**. This is the scaled-content pattern and the penalty is site-wide. | `tech/seo.md` §6 |
 | Posts are articles | Every `dist/blog/*/index.html` has `og:type="article"`; the blog index and changelog do **not**. | `tech/seo.md` §The metadata contract |

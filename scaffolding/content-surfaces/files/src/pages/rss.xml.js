@@ -14,10 +14,14 @@ import { getCollection } from "astro:content";
 
 export async function GET(context) {
   // Same draft filter as every other surface. A draft in the feed is published,
-  // and a feed item cannot be unpublished once a reader has fetched it.
-  const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-  );
+  // and a feed item cannot be unpublished once a reader has fetched it — the
+  // feed is the one surface where a mistake is genuinely irreversible.
+  const posts = (
+    await getCollection(
+      "blog",
+      ({ data }) => !import.meta.env.PROD || !data.draft,
+    )
+  ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
   return rss({
     // TODO: site name as a person says it, e.g. "OffBeat-FM".

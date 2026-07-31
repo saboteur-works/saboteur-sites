@@ -50,8 +50,11 @@ src/pages/changelog.astro         Every release, one page.
 src/pages/rss.xml.js              Blog feed. Needs @astrojs/rss.
 src/content/blog/_TEMPLATE.md     Frontmatter reference. Never builds.
 src/content/changelog/_TEMPLATE.md
+src/content/README.md             Authoring guide for whoever writes the posts.
 public/rss/styles.xsl             Makes the feed readable in a browser.
 ```
+
+This document is the *design* reference — why the surfaces are shaped the way they are, and the invariants a generated site has to satisfy. `src/content/README.md` is the *authoring* guide, written for whoever sits down to write a post and shipped into the site repo so it's next to the files they edit. Keep them in their lanes: rules and reasoning here, the writing workflow there.
 
 Two edits outside those files:
 
@@ -67,7 +70,20 @@ Underscore-prefixed files are excluded by the glob loader (`pattern: "**/[^_]*.m
 
 ### Drafts never reach the build
 
-`draft: true` in frontmatter. Every `getCollection` call filters on it, so a draft has no page, no URL, no sitemap entry, and no feed item — it cannot be found by someone who guesses the slug. `npm run dev` renders drafts locally; that is how you preview one. Never remove the filter to preview something.
+`draft: true` in frontmatter. Every `getCollection` call filters on `!import.meta.env.PROD || !data.draft`, which means:
+
+- **`npm run dev` renders drafts.** That is how you read a post while writing it.
+- **`npm run build` drops them.** No page, no URL, no sitemap entry, no feed item — a draft cannot be found by someone who guesses the slug.
+
+Never simplify the filter to `!data.draft`. That hides drafts from the author too, and the next person who wants a preview deletes the filter outright — which is how an unfinished post ships.
+
+Wire the check into the site's `ci` script so the guarantee is enforced rather than trusted:
+
+```json
+"ci": "npm run policies:check && npm run build && npm run policies:audit && saboteur-check-drafts"
+```
+
+It exits non-zero if a draft slug appears anywhere in `dist/`. The case it actually catches is a **stale `dist/`** — a post built while published, then retracted by setting `draft: true`. The filter is irrelevant there; the old page is already on disk and, once deployed, already public. Rebuild clean.
 
 ### A published filename is permanent
 
@@ -115,7 +131,7 @@ The nav caps at four links. A parent page with both surfaces is at the ceiling �
 npm run build
 
 # Drafts must not exist in the output, under any name.
-grep -ril "$(grep -rl 'draft: true' src/content/ | xargs -n1 basename | sed 's/\.md//' | paste -sd'|' -)" dist/ || echo "no drafts shipped"
+npx saboteur-check-drafts --content ./src/content --dist ./dist
 
 # Canonicals differ per page and point at production.
 grep -rho 'rel="canonical" href="[^"]*"' dist/ | sort -u

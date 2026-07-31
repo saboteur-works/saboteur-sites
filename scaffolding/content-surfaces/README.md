@@ -24,8 +24,11 @@ src/pages/blog/index.astro
 src/pages/blog/[...slug].astro
 src/pages/rss.xml.js
 src/content/blog/_TEMPLATE.md
+src/content/README.md          <- the authoring guide. Copy it.
 public/rss/styles.xsl
 ```
+
+`src/content/README.md` is the human-facing "how to write and publish a post" guide, and it lives in the directory where posts are actually written. It sits above both collection directories, so the glob loader never tries to parse it as an entry. Copy it whichever surface you're adding.
 
 **Changelog:**
 ```
@@ -81,13 +84,23 @@ In `src/components/Nav.astro`, add the surface routes **outside** the `{showSect
 
 Section anchors stay inside the conditional. Four links is the cap — see [`../../sections/nav/README.md`](../../sections/nav/README.md).
 
-### 6. Write something, then build
+### 6. Wire the draft check into CI
 
-Copy `_TEMPLATE.md` to a real filename, fill the frontmatter, set `draft: false` when it's ready.
+In `package.json`, append `saboteur-check-drafts` to the `ci` script:
+
+```json
+"ci": "npm run policies:check && npm run build && npm run policies:audit && saboteur-check-drafts"
+```
+
+`saboteur-sites` is already a dependency, so the binary is on the path. It fails the build if a draft slug appears in `dist/` — which is how a retracted post stays live off a stale build directory.
+
+### 7. Write something, then build
+
+Copy `_TEMPLATE.md` to a real filename, fill the frontmatter, write the post. It stays `draft: true` until you flip it.
 
 ```bash
-npm run dev     # renders drafts
-npm run build   # does not
+npm run dev     # renders drafts — this is how you read a post while writing it
+npm run build   # drops them
 ```
 
 Then run the verification block in [`../../sites/landing-page/content-surfaces.md`](../../sites/landing-page/content-surfaces.md) §Verification.

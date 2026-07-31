@@ -8,9 +8,13 @@ import type { CollectionEntry } from "astro:content";
 import Post from "../../layouts/Post.astro";
 
 export async function getStaticPaths() {
-  // Same draft filter as the index. A draft has no page, so it has no URL,
-  // so it cannot be found by anyone with the link.
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  // Same draft filter as the index: visible in dev, absent from a build. In
+  // production a draft has no page, so it has no URL, so it cannot be found by
+  // anyone who guesses the slug.
+  const posts = await getCollection(
+    "blog",
+    ({ data }) => !import.meta.env.PROD || !data.draft,
+  );
 
   return posts.map((post) => ({
     params: { slug: post.id },

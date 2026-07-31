@@ -12,7 +12,8 @@
   "bin": {
     "saboteur-render-policies": "./scripts/render-policies.mjs",
     "saboteur-audit-processors": "./scripts/audit-policy-processors.mjs",
-    "saboteur-check-upstream": "./scripts/check-policy-upstream.mjs"
+    "saboteur-check-upstream": "./scripts/check-policy-upstream.mjs",
+    "saboteur-check-drafts": "./scripts/check-drafts.mjs"
   },
   "files": [
     "scripts/",

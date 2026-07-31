@@ -12,12 +12,16 @@ import LegalFooter from "../../components/LegalFooter.astro";
 // TODO: the site's name as a person says it. Must match Base.astro's SITE_NAME.
 const SITE_NAME = "TODO";
 
-// Drafts never reach the build. This filter is the only thing standing between
-// an unfinished post and a live URL — do not remove it to "preview" something;
-// `npm run dev` renders drafts locally without it.
-const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+// Drafts render in `astro dev` so you can read a post while writing it, and are
+// dropped from `astro build` so they cannot reach a live URL. import.meta.env
+// .PROD is false in dev and true in a build, which is the whole mechanism.
+//
+// Do not simplify this to `!data.draft` — that hides drafts from you too, and
+// the next person to want a preview will delete the filter entirely, which is
+// how an unfinished post ships.
+const posts = (
+  await getCollection("blog", ({ data }) => !import.meta.env.PROD || !data.draft)
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const fmt = (d: Date) =>
   d.toLocaleDateString("en-US", {

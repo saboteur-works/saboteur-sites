@@ -17,6 +17,7 @@ date: 2026-01-01
 # rendered beside the date. Skip it rather than pad it.
 # summary: TODO
 
+# Renders at `npm run dev`, dropped from `npm run build`. Flip to false to ship.
 draft: true
 ---
 

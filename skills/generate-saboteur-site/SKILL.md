@@ -380,6 +380,11 @@ Read `$SITES/sites/landing-page/content-surfaces.md` before writing anything, th
    <link rel="alternate" type="application/rss+xml" title="Blog" href="/rss.xml" />
    ```
 6. Add nav route links in `Nav.astro`, **outside** the `{showSections && ( … )}` block so they render on standalone pages. Keep the total at four links — drop `Mission` before exceeding it.
+7. Append the draft check to the `ci` script in `package.json`:
+   ```json
+   "ci": "npm run policies:check && npm run build && npm run policies:audit && saboteur-check-drafts"
+   ```
+   Without it, a retracted post can stay live off a stale `dist/` and nothing fails.
 
 Do not write any post or changelog entry. Generation produces the surface, not its content; content is `write-saboteur-post`. Leave the `_TEMPLATE.md` files in place.
 

@@ -32,8 +32,10 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
 
     /**
-     * Drafts never reach dist/. Every getCollection call filters on this, and
-     * `npm run ci` fails if a draft slug appears in the build output.
+     * Drafts render in `astro dev` and are dropped from `astro build`. Wire
+     * `saboteur-check-drafts` into the site's ci script and the build fails if
+     * one reaches dist/ anyway — which happens when dist/ is stale rather than
+     * when the filter is wrong.
      */
     draft: z.boolean().default(false),
 
