@@ -8,7 +8,7 @@ For how we handle personal data, see our [Privacy Policy](/privacy).
 
 ## Use of the site
 
-You may use this site to read information about Saboteur and our products{{#if contact_form}}, and to send us a message through the contact form{{/if}}.
+You may use this site to read information about Saboteur and our products{{#if contact_form}}, and to send us a message through the contact form{{/if}}{{#if payments}}, and to make a voluntary contribution{{/if}}.
 
 You agree not to:
 
@@ -54,6 +54,16 @@ You agree that anything you submit:
 - Does not contain viruses, malware, or content intended to harm.
 {{/if}}
 
+{{#if payments}}
+## Contributions
+
+You can make a voluntary contribution to support Saboteur's work. A contribution is a gift, not a purchase: it does not buy a product or service, unlock any feature, or entitle you to different treatment.
+
+Contributions are processed by **{{ PAYMENT_PROVIDER }}** and are subject to {{ PAYMENT_PROVIDER }}'s terms. They are non-refundable, except where the law requires otherwise.
+
+Saboteur LLC is a business, not a nonprofit. Contributions are not tax-deductible.
+
+{{/if}}
 ## Disclaimers
 
 The site is provided **"as is"** and **"as available."** Saboteur LLC makes no warranty that the site will be uninterrupted, error-free, or suitable for a particular purpose. Statements about products on this site are accurate as of the date posted; product availability, features, and pricing (if any) may change.

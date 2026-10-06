@@ -9,7 +9,7 @@ Terms are required wherever the site accepts user input (contact form, newslette
 > renders the [privacy policy](../privacy-policy/template.md). See
 > [`../policy-tooling.md`](../policy-tooling.md).
 
-**Have Saboteur LLC's legal contact review the rendered page before publishing.** This is a starting point, not finished legal text. It is shorter and simpler than a SaaS ToS because Saboteur landing pages do not host user accounts, redistribute user content, or transact money. If a site grows to do any of those, the terms need to grow with it.
+**Have Saboteur LLC's legal contact review the rendered page before publishing.** This is a starting point, not finished legal text. It is shorter and simpler than a SaaS ToS because Saboteur landing pages do not host user accounts, redistribute user content, or sell anything. If a site grows to do any of those, the terms need to grow with it. The one exception is `features.payments`, which adds a Contributions section for voluntary, non-refundable gifts through a hosted payment page; it does not cover selling a product, which needs purchase terms and its own refund policy.
 
 ## Jurisdiction and address
 

@@ -22,6 +22,7 @@
     "analytics": true,
     "contact_form": true,
     "embeds": false,
+    "payments": false,
     "newsletter": false,
     "open_source_content": false
   },

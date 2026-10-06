@@ -47,8 +47,31 @@ Contact form submissions are delivered to a Saboteur LLC inbox via **{{ EMAIL_PR
 Some pages include embedded content from a third party. That content does **not** load until you click the placeholder that stands in for it. Clicking is the action that loads it; until then, no request reaches the third party and no data about you is sent. Once you click, the embed provider receives your IP address and can set its own cookies under its own policy, not ours. The provider is named in the processors table below.
 {{/if}}
 
+{{#if payments}}
+### Contributions
+
+This site links to a payment page hosted by **{{ PAYMENT_PROVIDER }}**, where you can make a voluntary contribution. You enter your payment details on {{ PAYMENT_PROVIDER }}'s page, not on ours. We never receive your full card number or security code.
+
+After a contribution, we can see the following in our {{ PAYMENT_PROVIDER }} account:
+
+- The cardholder name you entered.
+- Your email address.
+- Your billing postal (ZIP) code.
+- The card brand, the last four digits of the card, and the country the card was issued in.
+- The amount, the date, and a transaction ID.
+
+We use this to keep the financial and tax records a business is required to keep, to match contributions against payouts, and to handle disputes and refunds. We do not use it for marketing, and we do not add you to a mailing list.
+
+{{ PAYMENT_PROVIDER }} also collects and uses data about you under its own privacy policy: {{ PAYMENT_PROVIDER_PRIVACY_URL }}.
+{{/if}}
+
 {{#unless contact_form}}
+{{#unless payments}}
 This site has no contact form, no newsletter signup, and no other input field. Beyond the server logs described above, we collect nothing you type.
+{{/unless}}
+{{#if payments}}
+This site itself has no contact form, no newsletter signup, and no other input field. Beyond the server logs described above, nothing you type on this site reaches us. What you enter on {{ PAYMENT_PROVIDER }}'s payment page is covered under *Contributions* above.
+{{/if}}
 {{/unless}}
 
 ## Lawful basis for processing
@@ -61,6 +84,9 @@ Under the EU/UK General Data Protection Regulation (GDPR), we process personal d
 {{/if}}
 {{#if embeds}}
 - **Consent** (Art. 6(1)(a)) — loading an embed. Clicking the placeholder is the consent; not clicking withholds it.
+{{/if}}
+{{#if payments}}
+- **Legal obligation** (Art. 6(1)(c)) — keeping the financial and tax records a business is required to keep. For the related work of matching contributions against payouts and handling disputes and refunds, the basis is legitimate interest (Art. 6(1)(f)) as above.
 {{/if}}
 
 We do not rely on consent for any default processing on this site.
@@ -75,6 +101,10 @@ We use the following processors. Each processes data on Saboteur LLC's behalf un
 | {{ this.name }} | {{ this.purpose }} | {{ this.location }} |
 {{/each}}
 
+{{#if payments}}
+{{ PAYMENT_PROVIDER }} is not in the table above: it handles your payment under its own privacy policy, not on our behalf under a Data Processing Agreement. We receive the contribution details listed under *Contributions* from it.
+
+{{/if}}
 We do not share personal data with third parties for advertising or marketing.
 
 ## We do not sell your personal data
@@ -99,6 +129,9 @@ If you would like a copy of the Standard Contractual Clauses or Data Processing 
 {{/if}}
 {{#if analytics}}
 - **Web analytics:** aggregate only; no individual records retained.
+{{/if}}
+{{#if payments}}
+- **Contribution records:** {{ PAYMENT_RECORD_RETENTION }}, kept for tax and accounting purposes. {{ PAYMENT_PROVIDER }} keeps its own copy under its own policy.
 {{/if}}
 
 If you ask us to delete data sooner, we will.
@@ -155,6 +188,10 @@ There is none. We do not make automated decisions about you that produce legal o
 ## Cookies and tracking
 
 This site uses **no cookies** and **no client-side tracking**. This is a deliberate posture; we audit it before every release. If we ever change this — for example, by adopting an analytics tool that requires consent — we will update this policy and add a consent banner before the change goes live.
+
+{{#if payments}}
+This applies to this site. The {{ PAYMENT_PROVIDER }} payment page is on {{ PAYMENT_PROVIDER }}'s own domain and may set its own cookies and collect its own technical data; that is governed by {{ PAYMENT_PROVIDER }}'s policy, not this one.
+{{/if}}
 
 ## Changes to this policy
 

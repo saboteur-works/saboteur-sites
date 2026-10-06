@@ -41,6 +41,9 @@ Per [`../gdpr.md`](../gdpr.md), every Saboteur site processes personal data (ser
 | `email_provider` | Named only when `features.contact_form` is true. | `Resend` |
 | `log_retention_days` | Must match the host's configured retention. Verify, don't assume. | `90` |
 | `form_retention_months` | How long form submissions stay in the inbox. | `12` |
+| `payment_provider` | Named only when `features.payments` is true. | `Stripe` |
+| `payment_provider_privacy_url` | The provider's own privacy policy, linked from the Contributions section. Only when `features.payments` is true. | `https://stripe.com/privacy` |
+| `payment_record_retention` | How long contribution records are kept for tax and accounting. Set it with whoever does the books; do not guess. Only when `features.payments` is true. | `7 years` |
 | `transfer_statement` | One paragraph on cross-border transfers and the safeguard relied on. Varies by processor set. | see the example config |
 
 `legal_email`, `liability_cap`, `governing_jurisdiction` and `mailing_address` are used by the [terms](../terms-of-service/template.md), which renders from the same config.
@@ -54,6 +57,7 @@ Each flag switches a block of the policy on or off. **A flag set wrong makes the
 | `analytics` | The site loads an analytics script. Adds the web-analytics disclosure and a retention line. |
 | `contact_form` | The site has a form that collects personal data. Adds the collection disclosure, the Art. 6(1)(b) basis, and a retention line. When false, the policy states affirmatively that nothing you type is collected. |
 | `embeds` | The site uses the click-to-load embed pattern from [`../third-party-embeds.md`](../third-party-embeds.md). Adds the embed disclosure and the consent basis. |
+| `payments` | The site links to a hosted payment page (a Stripe payment link, say) and the business receives donor data back from it. Adds the Contributions disclosure (which must list what the provider's dashboard actually shows, so check a test payment), the Art. 6(1)(c) and (f) bases, a retention line, and a cookie caveat for the provider's domain. The terms add a matching Contributions section. Not for an embedded checkout script, which loads in the browser and belongs under `processors`. |
 | `newsletter` | Reserved. A newsletter needs consent records, an unsubscribe path, and CAN-SPAM obligations — see [`../us-state-privacy.md`](../us-state-privacy.md) before setting this. |
 
 ## Processors

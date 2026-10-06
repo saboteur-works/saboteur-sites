@@ -278,6 +278,12 @@ const CONTRADICTIONS = {
     [/the embed provider/i, "refers to an embed provider"],
   ],
   newsletter: [[/subscriber list/i, "describes a subscriber list"]],
+  payments: [
+    [/voluntary contributions?/i, "describes a voluntary contribution"],
+    [/cardholder name/i, "describes the cardholder name"],
+    [/payment page/i, "refers to a payment page"],
+    [/contribution records?/i, "describes contribution records"],
+  ],
 };
 
 /**
