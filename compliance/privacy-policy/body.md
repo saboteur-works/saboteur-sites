@@ -102,7 +102,7 @@ We use the following processors. Each processes data on Saboteur LLC's behalf un
 {{/each}}
 
 {{#if payments}}
-{{ PAYMENT_PROVIDER }} is not in the table above: it handles your payment under its own privacy policy, not on our behalf under a Data Processing Agreement. We receive the contribution details listed under *Contributions* from it.
+{{ PAYMENT_PROVIDER }} processes your payment on our behalf and is listed in the table above. It also acts as an independent controller for some of the data it receives when you pay, for example to detect and prevent fraud and to meet its own legal obligations, under its own privacy policy. We receive the contribution details listed under *Contributions* from it.
 
 {{/if}}
 We do not share personal data with third parties for advertising or marketing.
